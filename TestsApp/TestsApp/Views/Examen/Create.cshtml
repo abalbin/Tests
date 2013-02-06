@@ -31,18 +31,18 @@
                 <fieldset>
                     <legend>Examen</legend>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.NombreExamen)
+                        @Html.LabelFor(model => model.Nombre)
                     </div>
                     <div class="input full-width">
-                        @Html.TextBoxFor(model => model.NombreExamen, new { @placeholder = "Nombre" })
-                        @Html.ValidationMessageFor(model => model.NombreExamen)
+                        @Html.TextBoxFor(model => model.Nombre, new { @placeholder = "Nombre" })
+                        @Html.ValidationMessageFor(model => model.Nombre)
                     </div>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.TítuloExamen)
+                        @Html.LabelFor(model => model.Titulo)
                     </div>
                     <div class="input full-width">
-                        @Html.TextBoxFor(model => model.TítuloExamen, new { @placeholder = "Título" })
-                        @Html.ValidationMessageFor(model => model.TítuloExamen)
+                        @Html.TextBoxFor(model => model.Titulo, new { @placeholder = "Título" })
+                        @Html.ValidationMessageFor(model => model.Titulo)
                     </div>
                     <div class="editor-label">
                         @Html.LabelFor(model => model.FechaCreacion)

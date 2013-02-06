@@ -19,11 +19,11 @@ namespace TestsApp.Models
             this.Respuesta = new HashSet<Respuesta>();
         }
     
-        public int IdPregunta { get; set; }
-        public string TextoPregunta { get; set; }
+        public int Id { get; set; }
+        public string Texto { get; set; }
         public Nullable<int> IdExamen { get; set; }
     
-        public virtual ICollection<Respuesta> Respuesta { get; set; }
         public virtual Examen Examen { get; set; }
+        public virtual ICollection<Respuesta> Respuesta { get; set; }
     }
 }

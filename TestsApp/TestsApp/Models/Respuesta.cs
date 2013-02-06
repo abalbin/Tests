@@ -14,8 +14,8 @@ namespace TestsApp.Models
     
     public partial class Respuesta
     {
-        public int IdRespuesta { get; set; }
-        public string TextoRespuesta { get; set; }
+        public int Id { get; set; }
+        public string Texto { get; set; }
         public Nullable<int> Orden { get; set; }
         public Nullable<int> IdPregunta { get; set; }
         public Nullable<int> EsCorrecta { get; set; }
