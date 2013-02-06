@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    <style>
+        section#main
+        {
+            margin-left: 0px;
+        }
+
+        ul.top-notifications
+        {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a id="topbar-brand-out" class="brand" href="../dashboard.html">Exámenes App
+  </a>
+        
+    </div>
+    <section id="main">
+        @RenderBody()
+    </section>
+
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

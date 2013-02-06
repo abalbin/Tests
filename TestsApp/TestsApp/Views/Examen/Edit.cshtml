@@ -1,0 +1,83 @@
+﻿@model TestsApp.Models.Examen
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Examen</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdExamen)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IdExamen)
+            @Html.ValidationMessageFor(model => model.IdExamen)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NombreExamen)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NombreExamen)
+            @Html.ValidationMessageFor(model => model.NombreExamen)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TítuloExamen)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TítuloExamen)
+            @Html.ValidationMessageFor(model => model.TítuloExamen)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FechaCreacion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FechaCreacion)
+            @Html.ValidationMessageFor(model => model.FechaCreacion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FechaEjecucion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FechaEjecucion)
+            @Html.ValidationMessageFor(model => model.FechaEjecucion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TiempoMaximo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TiempoMaximo)
+            @Html.ValidationMessageFor(model => model.TiempoMaximo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdEstado, "Estado")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdEstado", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdEstado)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

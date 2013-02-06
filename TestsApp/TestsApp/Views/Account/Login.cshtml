@@ -1,0 +1,41 @@
+﻿@model TestsApp.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="login-container center">
+                
+                <div class="title text-transparent">Ingresar</div>
+                <hr class="main">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <ul class="fields-list">
+                        <li>
+                            <i class="icon-user" style="float: left;"></i>
+                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Usuario", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </li>
+                        <li>
+                            <i class="icon-key"></i>
+                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Contraseña", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </li>
+                    </ul>
+
+                    <div class="actions">
+                        <a href="../Home/Index" class="btn btn-large medium-blue login-btn">Ingresar </a>
+                    </div>
+
+                    <hr class="main">                    
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

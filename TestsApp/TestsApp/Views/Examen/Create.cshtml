@@ -1,0 +1,103 @@
+﻿@model TestsApp.Models.Examen
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="box-header">
+    <i class="icon-th-list"></i>Crear Examen
+          <div class="pull-right">
+              <div class="btn-group">
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="icon-cog"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-left">
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                  </ul>
+              </div>
+          </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="padded">
+                <fieldset>
+                    <legend>Examen</legend>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.NombreExamen)
+                    </div>
+                    <div class="input full-width">
+                        @Html.TextBoxFor(model => model.NombreExamen, new { @placeholder = "Nombre" })
+                        @Html.ValidationMessageFor(model => model.NombreExamen)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TítuloExamen)
+                    </div>
+                    <div class="input full-width">
+                        @Html.TextBoxFor(model => model.TítuloExamen, new { @placeholder = "Título" })
+                        @Html.ValidationMessageFor(model => model.TítuloExamen)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.FechaCreacion)
+                    </div>
+                    <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                        @Html.TextBoxFor(model => model.FechaCreacion, new { @placeholder = "Fecha de Creación" })
+                        <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.FechaEjecucion)
+                    </div>
+                    <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                        @Html.TextBoxFor(model => model.FechaEjecucion, new { @placeholder = "Fecha de Ejecución" })
+                        <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TiempoMaximo)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.TiempoMaximo, new Dictionary<string, object>
+                                                                        {
+                                                                            { "placeholder", "Tiempo de examen" }, 
+                                                                            { "class", "masked" },
+                                                                            { "data-meiomask", "fixed.time" },
+                                                                        })
+                        @Html.ValidationMessageFor(model => model.TiempoMaximo)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IdEstado, "Estado")
+                    </div>
+                    <div class="input full-width">
+                        @Html.DropDownList("IdEstado", null, string.Empty, new Dictionary<string, object>
+                                                                        {
+                                                                            { "data-placeholder", "Elija un estado" }, 
+                                                                            { "class", "chzn-select" }
+                                                                        })
+                        @Html.ValidationMessageFor(model => model.IdEstado)
+                    </div>
+
+                    <div class="vpadded">
+                        <input type="submit" class="btn btn-small" value="Create" />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
