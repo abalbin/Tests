@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e42091d4241c4ac29f957df4ffc7d37d" Name="Diagram1">
+      <Diagram DiagramId="d9cf6b5af2014e02bde9d425368bd839" Name="Diagram1">
+        <EntityTypeShape EntityType="TestsAppBDModel.Estado" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Examen" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TestsAppBDModel.Pregunta" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TestsAppBDModel.Respuesta" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TestsAppBDModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="TestsAppBDModel.FK_Examen_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_Examen" ManuallyRouted="false" />
         <AssociationConnector Association="TestsAppBDModel.FK_Respuesta_Pregunta" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Estado" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Examen" Width="1.5" PointX="3" PointY="1" />
-        <AssociationConnector Association="TestsAppBDModel.FK_Examen_Estado" />
-        <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_Examen" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
