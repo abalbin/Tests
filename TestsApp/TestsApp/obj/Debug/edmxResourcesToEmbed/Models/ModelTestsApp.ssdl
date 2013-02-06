@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestsAppBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestsAppBDModelStoreContainer">
+    <EntitySet Name="Estado" EntityType="TestsAppBDModel.Store.Estado" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Examen" EntityType="TestsAppBDModel.Store.Examen" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pregunta" EntityType="TestsAppBDModel.Store.Pregunta" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="TestsAppBDModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Examen_Estado" Association="TestsAppBDModel.Store.FK_Examen_Estado">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="Examen" EntitySet="Examen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pregunta_Examen" Association="TestsAppBDModel.Store.FK_Pregunta_Examen">
+      <End Role="Examen" EntitySet="Examen" />
+      <End Role="Pregunta" EntitySet="Pregunta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuesta_Pregunta" Association="TestsAppBDModel.Store.FK_Respuesta_Pregunta">
+      <End Role="Pregunta" EntitySet="Pregunta" />
+      <End Role="Respuesta" EntitySet="Respuesta" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Examen">
+    <Key>
+      <PropertyRef Name="IdExamen" />
+    </Key>
+    <Property Name="IdExamen" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NombreExamen" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="TítuloExamen" Type="varchar" Nullable="false" MaxLength="400" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaEjecucion" Type="datetime" Nullable="false" />
+    <Property Name="TiempoMaximo" Type="time" Nullable="false" />
+    <Property Name="IdEstado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pregunta">
+    <Key>
+      <PropertyRef Name="IdPregunta" />
+    </Key>
+    <Property Name="IdPregunta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TextoPregunta" Type="varchar" MaxLength="400" />
+    <Property Name="IdExamen" Type="int" />
+  </EntityType>
+  <EntityType Name="Respuesta">
+    <Key>
+      <PropertyRef Name="IdRespuesta" />
+    </Key>
+    <Property Name="IdRespuesta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TextoRespuesta" Type="varchar" MaxLength="400" />
+    <Property Name="Orden" Type="int" />
+    <Property Name="IdPregunta" Type="int" />
+    <Property Name="EsCorrecta" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Examen_Estado">
+    <End Role="Estado" Type="TestsAppBDModel.Store.Estado" Multiplicity="1" />
+    <End Role="Examen" Type="TestsAppBDModel.Store.Examen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Examen">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pregunta_Examen">
+    <End Role="Examen" Type="TestsAppBDModel.Store.Examen" Multiplicity="0..1" />
+    <End Role="Pregunta" Type="TestsAppBDModel.Store.Pregunta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examen">
+        <PropertyRef Name="IdExamen" />
+      </Principal>
+      <Dependent Role="Pregunta">
+        <PropertyRef Name="IdExamen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuesta_Pregunta">
+    <End Role="Pregunta" Type="TestsAppBDModel.Store.Pregunta" Multiplicity="0..1" />
+    <End Role="Respuesta" Type="TestsAppBDModel.Store.Respuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pregunta">
+        <PropertyRef Name="IdPregunta" />
+      </Principal>
+      <Dependent Role="Respuesta">
+        <PropertyRef Name="IdPregunta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
