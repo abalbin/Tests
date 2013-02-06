@@ -40,7 +40,7 @@ namespace TestsApp.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdEstado = new SelectList(db.Estado, "IdEstado", "Nombre");
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             return View();
         }
 
