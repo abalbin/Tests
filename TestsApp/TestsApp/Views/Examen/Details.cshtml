@@ -1,0 +1,64 @@
+﻿@model TestsApp.Models.Examen
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Examen</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdExamen)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdExamen)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreExamen)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreExamen)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TítuloExamen)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TítuloExamen)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FechaCreacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FechaCreacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FechaEjecucion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FechaEjecucion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TiempoMaximo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TiempoMaximo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Estado.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estado.Nombre)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

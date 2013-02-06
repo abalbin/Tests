@@ -1,0 +1,330 @@
+@font-face {
+  font-family: 'OpenWeb Icons';
+  src: url("../font/openwebicons.eot");
+  src: url("../font/openwebicons.eot?#iefix") format("embedded-opentype"), url("../font/openwebicons.woff") format("woff"), url("../font/openwebicons.ttf") format("truetype"), url("../font/openwebicons.svg#OpenWebIconsRegular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/* line 62, openweb/openwebicons-bootstrap.css.scss */
+[class^="icon-apml"]:before, [class*=" icon-apml"]:before,
+[class^="icon-open-share"]:before, [class^="icon-open-share-simple"]:before,
+[class*=" icon-open-share"]:before, [class*=" icon-open-share-simple"]:before,
+[class^="icon-share"]:before, [class*=" icon-share"]:before,
+[class^="icon-share-simple"]:before, [class*=" icon-share-simple"]:before,
+[class^="icon-feed"]:before, [class*=" icon-feed"]:before,
+[class^="icon-ostatus"]:before, [class*=" icon-ostatus"]:before,
+[class^="icon-opml"]:before, [class*=" icon-opml"]:before,
+[class^="icon-activity"]:before, [class*=" icon-activity"]:before,
+[class^="icon-microformats"]:before, [class*=" icon-microformats"]:before,
+[class^="icon-geo"]:before, [class*=" icon-geo"]:before,
+[class^="icon-opensearch"]:before, [class*=" icon-opensearch"]:before,
+[class^="icon-oauth"]:before, [class*=" icon-oauth"]:before,
+[class^="icon-openid"]:before, [class*=" icon-openid"]:before,
+[class^="icon-rdf"]:before, [class*=" icon-rdf"]:before,
+[class^="icon-dataportability"]:before, [class^=" icon-dataportability"]:before,
+[class^="icon-federated"]:before, [class^=" icon-federated"]:before,
+[class^="icon-web-intents"]:before, [class^=" icon-web-intents"]:before,
+[class^="icon-xmpp"]:before, [class^=" icon-xmpp"]:before,
+[class^="icon-html5"]:before, [class^=" icon-html5"]:before,
+[class^="icon-html5-colored"]:before, [class^=" icon-html5-colored"]:before,
+[class^="icon-css3"]:before, [class^=" icon-css3"]:before,
+[class^="icon-connectivity"]:before, [class^=" icon-connectivity"]:before,
+[class^="icon-semantics"]:before, [class^=" icon-semantics"]:before,
+[class^="icon-epub"]:before, [class^=" icon-epub"]:before,
+[class^="icon-epub-colored"]:before, [class^=" icon-epub-colored"]:before,
+[class^="icon-qr"]:before, [class^=" icon-qr"]:before,
+[class^="icon-opengraph"]:before, [class^=" icon-opengraph"]:before,
+[class^="icon-opengraph"]:before, [class^=" icon-opengraph"]:before,
+[class^="icon-foaf"]:before, [class^=" icon-foaf"]:before,
+[class^="icon-info-card"]:before, [class^=" icon-info-card"]:before,
+[class^="icon-info-card-colored"]:before, [class^=" icon-info-card-colored"]:before,
+[class^="icon-browserid"]:before, [class^=" icon-browserid"]:before,
+[class^="icon-remote-storage"]:before, [class^=" icon-remote-storage"]:before,
+[class^="icon-remote-storage-colored"]:before, [class^=" icon-remote-storage-colored"]:before,
+[class^="icon-cc"]:before, [class^=" icon-cc"]:before,
+[class^="icon-cc-by"]:before, [class^=" icon-cc-by"]:before,
+[class^="icon-cc-nc"]:before, [class^=" icon-cc-nc"]:before,
+[class^="icon-cc-nc-eu"]:before, [class^=" icon-cc-nc-eu"]:before,
+[class^="icon-cc-nc-jp"]:before, [class^=" icon-cc-nc-jp"]:before,
+[class^="icon-cc-sa"]:before, [class^=" icon-cc-sa"]:before,
+[class^="icon-cc-nd"]:before, [class^=" icon-cc-nd"]:before,
+[class^="icon-cc-public"]:before, [class^=" icon-cc-public"]:before,
+[class^="icon-cc-zero"]:before, [class^=" icon-cc-zero"]:before,
+[class^="icon-cc-share"]:before, [class^=" icon-cc-share"]:before,
+[class^="icon-cc-remix"]:before, [class^=" icon-cc-remix"]:before,
+[class^="icon-open-web"]:before, [class^=" icon-open-web"]:before,
+[class^="icon-persona"]:before, [class^=" icon-persona"]:before,
+[class^="icon-odata"]:before, [class^=" icon-odata"]:before,
+[class^="icon-odata-colored"]:before, [class^=" icon-odata-colored"]:before,
+[class^="icon-markdown"]:before, [class^=" icon-markdown"]:before,
+[class^="icon-tosdr"]:before, [class^=" icon-tosdr"]:before {
+  font-family: 'OpenWeb Icons';
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; }
+
+/* line 68, openweb/openwebicons-bootstrap.css.scss */
+.icon-apml:before {
+  content: "\f001"; }
+
+/* line 69, openweb/openwebicons-bootstrap.css.scss */
+.icon-apml-colored:before {
+  content: "\f001";
+  color: #AFDD63; }
+
+/* line 71, openweb/openwebicons-bootstrap.css.scss */
+.icon-open-share:before {
+  content: "\f00E"; }
+
+/* line 72, openweb/openwebicons-bootstrap.css.scss */
+.icon-open-share-simple:before {
+  content: "\f00F"; }
+
+/* line 73, openweb/openwebicons-bootstrap.css.scss */
+.icon-open-share-colored:before {
+  content: "\f00E";
+  color: #538439; }
+
+/* line 75, openweb/openwebicons-bootstrap.css.scss */
+.icon-share:before {
+  content: "\f006"; }
+
+/* line 76, openweb/openwebicons-bootstrap.css.scss */
+.icon-share-simple:before {
+  content: "\f007"; }
+
+/* line 77, openweb/openwebicons-bootstrap.css.scss */
+.icon-share-colored:before {
+  content: "\f006";
+  color: #538439; }
+
+/* line 79, openweb/openwebicons-bootstrap.css.scss */
+.icon-feed:before {
+  content: "\f009"; }
+
+/* line 80, openweb/openwebicons-bootstrap.css.scss */
+.icon-feed-simple:before {
+  content: "\f00A"; }
+
+/* line 81, openweb/openwebicons-bootstrap.css.scss */
+.icon-feed-colored:before {
+  content: "\f009";
+  color: #EA680B; }
+
+/* line 83, openweb/openwebicons-bootstrap.css.scss */
+.icon-ostatus:before {
+  content: "\f004"; }
+
+/* line 84, openweb/openwebicons-bootstrap.css.scss */
+.icon-ostatus-simple:before {
+  content: "\f005"; }
+
+/* line 85, openweb/openwebicons-bootstrap.css.scss */
+.icon-ostatus-colored:before {
+  content: "\f004";
+  color: #FF6600; }
+
+/* line 87, openweb/openwebicons-bootstrap.css.scss */
+.icon-opml:before {
+  content: "\f003"; }
+
+/* line 88, openweb/openwebicons-bootstrap.css.scss */
+.icon-opml-colored:before {
+  content: "\f003";
+  color: #2490A1; }
+
+/* line 90, openweb/openwebicons-bootstrap.css.scss */
+.icon-activity:before {
+  content: "\f010"; }
+
+/* line 91, openweb/openwebicons-bootstrap.css.scss */
+.icon-activity-colored:before {
+  content: "\f010";
+  color: #4FB2D9; }
+
+/* line 93, openweb/openwebicons-bootstrap.css.scss */
+.icon-microformats:before {
+  content: "\f00C"; }
+
+/* line 94, openweb/openwebicons-bootstrap.css.scss */
+.icon-microformats-colored:before {
+  content: "\f00C";
+  color: #85BC07; }
+
+/* line 96, openweb/openwebicons-bootstrap.css.scss */
+.icon-geo:before {
+  content: "\f00B"; }
+
+/* line 97, openweb/openwebicons-bootstrap.css.scss */
+.icon-geo-colored:before {
+  content: "\f00B";
+  color: #990000; }
+
+/* line 99, openweb/openwebicons-bootstrap.css.scss */
+.icon-opensearch:before {
+  content: "\f002"; }
+
+/* line 100, openweb/openwebicons-bootstrap.css.scss */
+.icon-opensearch-colored:before {
+  content: "\f002";
+  color: #5050f3; }
+
+/* line 102, openweb/openwebicons-bootstrap.css.scss */
+.icon-oauth:before {
+  content: "\f008"; }
+
+/* line 103, openweb/openwebicons-bootstrap.css.scss */
+.icon-openid:before {
+  content: "\f00D"; }
+
+/* line 104, openweb/openwebicons-bootstrap.css.scss */
+.icon-rdf:before, .icon-rdfa:before, .icon-owl:before {
+  content: "\f000"; }
+
+/* line 106, openweb/openwebicons-bootstrap.css.scss */
+.icon-dataportability:before {
+  content: "\f013"; }
+
+/* line 108, openweb/openwebicons-bootstrap.css.scss */
+.icon-federated:before {
+  content: "\f011"; }
+
+/* line 110, openweb/openwebicons-bootstrap.css.scss */
+.icon-web-intents:before {
+  content: "\f014"; }
+
+/* line 112, openweb/openwebicons-bootstrap.css.scss */
+.icon-open-web:before {
+  content: "\f012"; }
+
+/* line 114, openweb/openwebicons-bootstrap.css.scss */
+.icon-xmpp:before {
+  content: "\f015"; }
+
+/* line 116, openweb/openwebicons-bootstrap.css.scss */
+.icon-html5:before {
+  content: "\f016"; }
+
+/* line 117, openweb/openwebicons-bootstrap.css.scss */
+.icon-html5-colored:before {
+  content: "\f016";
+  color: #E34C26; }
+
+/* line 119, openweb/openwebicons-bootstrap.css.scss */
+.icon-css3:before {
+  content: "\f017"; }
+
+/* line 121, openweb/openwebicons-bootstrap.css.scss */
+.icon-connectivity:before {
+  content: "\f018"; }
+
+/* line 123, openweb/openwebicons-bootstrap.css.scss */
+.icon-semantics:before {
+  content: "\f019"; }
+
+/* line 125, openweb/openwebicons-bootstrap.css.scss */
+.icon-opengraph:before {
+  content: "\f020"; }
+
+/* line 127, openweb/openwebicons-bootstrap.css.scss */
+.icon-epub:before {
+  content: "\f021"; }
+
+/* line 128, openweb/openwebicons-bootstrap.css.scss */
+.icon-epub-colored:before {
+  content: "\f021";
+  color: #85b916; }
+
+/* line 130, openweb/openwebicons-bootstrap.css.scss */
+.icon-qr:before {
+  content: "\f022"; }
+
+/* line 132, openweb/openwebicons-bootstrap.css.scss */
+.icon-foaf:before {
+  content: "\f023"; }
+
+/* line 134, openweb/openwebicons-bootstrap.css.scss */
+.icon-info-card:before {
+  content: "\f024"; }
+
+/* line 135, openweb/openwebicons-bootstrap.css.scss */
+.icon-info-card-colored:before {
+  content: "\f024";
+  color: #BF84E5; }
+
+/* line 137, openweb/openwebicons-bootstrap.css.scss */
+.icon-browserid:before {
+  content: "\f025"; }
+
+/* line 139, openweb/openwebicons-bootstrap.css.scss */
+.icon-remote-storage:before {
+  content: "\f026"; }
+
+/* line 140, openweb/openwebicons-bootstrap.css.scss */
+.icon-remote-storage-colored:before {
+  content: "\f026";
+  color: #ff4e09; }
+
+/* line 142, openweb/openwebicons-bootstrap.css.scss */
+.icon-persona:before {
+  content: "\f027"; }
+
+/* line 144, openweb/openwebicons-bootstrap.css.scss */
+.icon-odata:before {
+  content: "\f028"; }
+
+/* line 145, openweb/openwebicons-bootstrap.css.scss */
+.icon-odata-colored:before {
+  content: "\f028";
+  color: #EA680B; }
+
+/* line 147, openweb/openwebicons-bootstrap.css.scss */
+.icon-markdown:before {
+  content: "\f029"; }
+
+/* line 149, openweb/openwebicons-bootstrap.css.scss */
+.icon-tosdr:before {
+  content: "\f030"; }
+
+/* line 151, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc:before {
+  content: "\f080"; }
+
+/* line 152, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-by:before {
+  content: "\f081"; }
+
+/* line 153, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-nc:before {
+  content: "\f082"; }
+
+/* line 154, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-nc-eu:before {
+  content: "\f083"; }
+
+/* line 155, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-nc-jp:before {
+  content: "\f084"; }
+
+/* line 156, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-sa:before {
+  content: "\f085"; }
+
+/* line 157, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-nd:before {
+  content: "\f086"; }
+
+/* line 158, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-public:before {
+  content: "\f087"; }
+
+/* line 159, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-zero:before {
+  content: "\f088"; }
+
+/* line 160, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-share:before {
+  content: "\f089"; }
+
+/* line 161, openweb/openwebicons-bootstrap.css.scss */
+.icon-cc-remix:before {
+  content: "\f08a"; }

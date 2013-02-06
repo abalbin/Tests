@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TestsApp.Models.Examen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdExamen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreExamen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TítuloExamen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEjecucion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TiempoMaximo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdExamen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreExamen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TítuloExamen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCreacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEjecucion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiempoMaximo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

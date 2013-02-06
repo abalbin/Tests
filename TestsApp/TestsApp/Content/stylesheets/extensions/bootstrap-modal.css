@@ -1,0 +1,234 @@
+@charset "UTF-8";
+/*
+ * Bootstrap Modal
+ *
+ * Copyright Jordan Schroter
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ */
+/* line 11, extensions/bootstrap-modal.css.scss */
+.modal-open {
+  position: relative;
+  /* safari */
+  overflow: hidden; }
+
+/* add a scroll bar to stop page from jerking around */
+/* line 20, extensions/bootstrap-modal.css.scss */
+.modal-open.page-overflow .page-container,
+.modal-open.page-overflow .page-container .navbar-fixed-top,
+.modal-open.page-overflow .page-container .navbar-fixed-bottom,
+.modal-open.page-overflow .modal-scrollable {
+  overflow-y: scroll; }
+
+@media (max-width: 979px) {
+  /* line 26, extensions/bootstrap-modal.css.scss */
+  .modal-open.page-overflow .page-container .navbar-fixed-top,
+  .modal-open.page-overflow .page-container .navbar-fixed-bottom {
+    overflow-y: visible; } }
+/* line 32, extensions/bootstrap-modal.css.scss */
+.modal-scrollable {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto; }
+
+/* line 41, extensions/bootstrap-modal.css.scss */
+.modal {
+  outline: none;
+  position: absolute;
+  margin-top: 0;
+  top: 50%;
+  overflow: visible;
+  /* allow content to popup out (i.e tooltips) */ }
+
+/* line 49, extensions/bootstrap-modal.css.scss */
+.modal.fade {
+  top: -100%;
+  -webkit-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
+  transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out; }
+
+/* line 57, extensions/bootstrap-modal.css.scss */
+.modal.fade.in {
+  top: 50%; }
+
+/* line 61, extensions/bootstrap-modal.css.scss */
+.modal-body {
+  max-height: none;
+  overflow: visible; }
+
+/* line 66, extensions/bootstrap-modal.css.scss */
+.modal.modal-absolute {
+  position: absolute;
+  z-index: 950; }
+
+/* line 71, extensions/bootstrap-modal.css.scss */
+.modal .loading-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 6px; }
+
+/* line 81, extensions/bootstrap-modal.css.scss */
+.modal-backdrop.modal-absolute {
+  position: absolute;
+  z-index: 940; }
+
+/* line 87, extensions/bootstrap-modal.css.scss */
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  background: #fff; }
+
+/* line 93, extensions/bootstrap-modal.css.scss */
+.modal.container {
+  width: 940px;
+  margin-left: -470px; }
+
+/* Modal Overflow */
+/* line 100, extensions/bootstrap-modal.css.scss */
+.modal-overflow.modal {
+  top: 1%; }
+
+/* line 104, extensions/bootstrap-modal.css.scss */
+.modal-overflow.modal.fade {
+  top: -100%; }
+
+/* line 108, extensions/bootstrap-modal.css.scss */
+.modal-overflow.modal.fade.in {
+  top: 1%; }
+
+/* line 112, extensions/bootstrap-modal.css.scss */
+.modal-overflow .modal-body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
+
+/* Responsive */
+@media (min-width: 1200px) {
+  /* line 120, extensions/bootstrap-modal.css.scss */
+  .modal.container {
+    width: 1170px;
+    margin-left: -585px; } }
+@media (max-width: 979px) {
+  /* line 129, extensions/bootstrap-modal.css.scss */
+  .modal,
+  .modal.container,
+  .modal.modal-overflow {
+    top: 1%;
+    right: 1%;
+    left: 1%;
+    bottom: auto;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important; }
+
+  /* line 142, extensions/bootstrap-modal.css.scss */
+  .modal.fade.in,
+  .modal.container.fade.in,
+  .modal.modal-overflow.fade.in {
+    top: 1%;
+    bottom: auto; }
+
+  /* line 148, extensions/bootstrap-modal.css.scss */
+  .modal-body,
+  .modal-overflow .modal-body {
+    position: static;
+    margin: 0;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important; }
+
+  /* line 157, extensions/bootstrap-modal.css.scss */
+  .modal-footer,
+  .modal-overflow .modal-footer {
+    position: static; } }
+/* line 162, extensions/bootstrap-modal.css.scss */
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -12px 0 0 -12px; }
+
+/*
+Animate.css - http://daneden.me/animate
+Licensed under the ☺ license (http://licence.visualidiot.com/)
+
+Copyright (c) 2012 Dan Eden*/
+/* line 175, extensions/bootstrap-modal.css.scss */
+.animated {
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both; }
+
+@-webkit-keyframes shake {
+  /* line 187, extensions/bootstrap-modal.css.scss */
+  0%, 100% {
+    -webkit-transform: translateX(0); }
+
+  /* line 188, extensions/bootstrap-modal.css.scss */
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translateX(-10px); }
+
+  /* line 189, extensions/bootstrap-modal.css.scss */
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translateX(10px); } }
+
+@-moz-keyframes shake {
+  /* line 193, extensions/bootstrap-modal.css.scss */
+  0%, 100% {
+    -moz-transform: translateX(0); }
+
+  /* line 194, extensions/bootstrap-modal.css.scss */
+  10%, 30%, 50%, 70%, 90% {
+    -moz-transform: translateX(-10px); }
+
+  /* line 195, extensions/bootstrap-modal.css.scss */
+  20%, 40%, 60%, 80% {
+    -moz-transform: translateX(10px); } }
+
+@-o-keyframes shake {
+  /* line 199, extensions/bootstrap-modal.css.scss */
+  0%, 100% {
+    -o-transform: translateX(0); }
+
+  /* line 200, extensions/bootstrap-modal.css.scss */
+  10%, 30%, 50%, 70%, 90% {
+    -o-transform: translateX(-10px); }
+
+  /* line 201, extensions/bootstrap-modal.css.scss */
+  20%, 40%, 60%, 80% {
+    -o-transform: translateX(10px); } }
+
+@keyframes shake {
+  /* line 205, extensions/bootstrap-modal.css.scss */
+  0%, 100% {
+    transform: translateX(0); }
+
+  /* line 206, extensions/bootstrap-modal.css.scss */
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px); }
+
+  /* line 207, extensions/bootstrap-modal.css.scss */
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px); } }
+
+/* line 210, extensions/bootstrap-modal.css.scss */
+.shake {
+  -webkit-animation-name: shake;
+  -moz-animation-name: shake;
+  -o-animation-name: shake;
+  animation-name: shake; }
