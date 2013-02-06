@@ -521,6 +521,7 @@
     <Content Include="Content\font\openwebicons.ttf" />
     <Content Include="Content\font\openwebicons.woff" />
     <Content Include="Content\images\flags\License" />
+    <Content Include="Models\ModelTestsApp.edmx.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -556,27 +557,6 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\ModelTestsApp.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelTestsApp.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\ModelTestsApp.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-      <LastGenOutput>ModelTestsApp.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelTestsApp.edmx.diagram">
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\ModelTestsApp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-      <LastGenOutput>ModelTestsApp.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -608,6 +588,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Examen\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\ModelTestsApp.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelTestsApp.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\ModelTestsApp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
+      <LastGenOutput>ModelTestsApp.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelTestsApp.edmx.diagram">
+      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ModelTestsApp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
+      <LastGenOutput>ModelTestsApp.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

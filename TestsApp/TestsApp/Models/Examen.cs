@@ -11,8 +11,6 @@ namespace TestsApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Examen
     {
@@ -21,12 +19,9 @@ namespace TestsApp.Models
             this.Pregunta = new HashSet<Pregunta>();
         }
     
-        public int IdExamen { get; set; }
-        [Required]
-        [DisplayName("Nombre de Examen")]
-        public string NombreExamen { get; set; }
-        [Required]
-        public string TítuloExamen { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public System.DateTime FechaEjecucion { get; set; }
         public System.TimeSpan TiempoMaximo { get; set; }

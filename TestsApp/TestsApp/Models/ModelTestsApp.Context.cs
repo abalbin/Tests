@@ -25,10 +25,10 @@ namespace TestsApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Estado> Estado { get; set; }
+        public DbSet<Examen> Examen { get; set; }
         public DbSet<Pregunta> Pregunta { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public DbSet<Estado> Estado { get; set; }
-        public DbSet<Examen> Examen { get; set; }
     }
 }
