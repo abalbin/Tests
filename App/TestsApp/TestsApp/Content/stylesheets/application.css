@@ -2400,14 +2400,20 @@ h1, h2, h3, h4, h5, h6 {
     color: #999999; }
 
 /* line 72, bootstrap/_type.scss */
-h1,
+h1, h1 label,
 h2,
 h3 {
   line-height: 40px; }
 
 /* line 74, bootstrap/_type.scss */
-h1 {
+h1, h1 label {
   font-size: 38.5px; }
+
+h1 input {
+  font-size: 38.5px !important;
+  height: auto !important;
+  border: none;
+}
 
 /* line 75, bootstrap/_type.scss */
 h2 {

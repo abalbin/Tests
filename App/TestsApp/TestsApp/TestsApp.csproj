@@ -582,21 +582,6 @@
     <Content Include="Views\Estado\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Examen\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EntityDeploy Include="Models\ModelTestsApp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelTestsApp.Designer.cs</LastGenOutput>
@@ -631,6 +616,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\TipoPregunta\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

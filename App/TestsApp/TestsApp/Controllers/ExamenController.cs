@@ -57,7 +57,7 @@ namespace TestsApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdEstado = new SelectList(db.Estado, "IdEstado", "Nombre", examen.IdEstado);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
         }
 
@@ -71,7 +71,7 @@ namespace TestsApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdEstado = new SelectList(db.Estado, "IdEstado", "Nombre", examen.IdEstado);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
         }
 
@@ -87,7 +87,7 @@ namespace TestsApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdEstado = new SelectList(db.Estado, "IdEstado", "Nombre", examen.IdEstado);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
         }
 

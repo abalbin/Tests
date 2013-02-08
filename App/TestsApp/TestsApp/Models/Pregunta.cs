@@ -23,6 +23,7 @@ namespace TestsApp.Models
         public string Texto { get; set; }
         public Nullable<int> IdTipoPregunta { get; set; }
         public Nullable<int> IdExamen { get; set; }
+        public Nullable<decimal> Puntaje { get; set; }
     
         public virtual Examen Examen { get; set; }
         public virtual TipoPregunta TipoPregunta { get; set; }

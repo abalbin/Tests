@@ -10,15 +10,6 @@
     <legend>Examen</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Id)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Id)
-    </div>
-
-    
-
-    <div class="display-label">
          @Html.DisplayNameFor(model => model.Titulo)
     </div>
     <div class="display-field">
@@ -54,6 +45,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

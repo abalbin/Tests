@@ -5,7 +5,9 @@
                     field.val(this.text());
                 },
                 beforeFreeze: function (display) {
-                    display.text(this.val());
+                    if (this.val() == '') return false;
+                    else display.text(this.val());
                 }
             });
+
 });
