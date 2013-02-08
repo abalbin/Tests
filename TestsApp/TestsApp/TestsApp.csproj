@@ -167,6 +167,7 @@
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TipoPreguntaController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,6 +201,9 @@
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TipoPregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -420,6 +424,7 @@
     <Content Include="Content\javascripts\chosen.jquery.js" />
     <Content Include="Content\javascripts\circles.js" />
     <Content Include="Content\javascripts\application.custom.js" />
+    <Content Include="Content\javascripts\editable.custom.js" />
     <Content Include="Content\javascripts\dataTables\extras\AutoFill.js" />
     <Content Include="Content\javascripts\dataTables\extras\ColReorder.js" />
     <Content Include="Content\javascripts\dataTables\extras\ColVis.js" />
@@ -469,6 +474,7 @@
     <Content Include="Content\javascripts\ie-hacks.js" />
     <Content Include="Content\javascripts\ie_fix.js" />
     <Content Include="Content\javascripts\jquery-ui.js" />
+    <Content Include="Content\javascripts\jquery.editable-1.0.1.js" />
     <Content Include="Content\javascripts\jquery.gritter.js" />
     <Content Include="Content\javascripts\jquery.knob.js" />
     <Content Include="Content\javascripts\jquery.piety.js" />
@@ -493,6 +499,7 @@
     <Content Include="Content\javascripts\sliders.js" />
     <Content Include="Content\javascripts\tags.js" />
     <Content Include="Content\stylesheets\application.css" />
+    <Content Include="Content\stylesheets\application.custom.css" />
     <Content Include="Content\stylesheets\dataTables\extras\TableTools.css" />
     <Content Include="Content\stylesheets\dataTables\extras\TableTools_JUI.css" />
     <Content Include="Content\stylesheets\dataTables\jquery.dataTables.bootstrap.css" />
@@ -609,6 +616,21 @@
       <DependentUpon>ModelTestsApp.edmx</DependentUpon>
       <LastGenOutput>ModelTestsApp.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TipoPregunta\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TipoPregunta\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TipoPregunta\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TipoPregunta\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TipoPregunta\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

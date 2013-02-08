@@ -20,7 +20,6 @@ namespace TestsApp.Models
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
         public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public System.DateTime FechaEjecucion { get; set; }

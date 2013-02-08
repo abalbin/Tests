@@ -27,7 +27,10 @@ namespace TestsApp
                         "~/Content/javascripts/meio/Meio.Mask.Regexp.js",
                         "~/Content/javascripts/meio/Meio.Mask.Extras.js"
                         ));
-
+            bundles.Add(new ScriptBundle("~/bundles/editable").Include(
+                        "~/Content/javascripts/jquery.editable-1.0.1.js"));
+            bundles.Add(new ScriptBundle("~/bundles/custom_editable").Include(
+                        "~/Content/javascripts/editable.custom.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css"));

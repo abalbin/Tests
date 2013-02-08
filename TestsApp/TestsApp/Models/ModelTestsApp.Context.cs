@@ -30,5 +30,6 @@ namespace TestsApp.Models
         public DbSet<Pregunta> Pregunta { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<TipoPregunta> TipoPregunta { get; set; }
     }
 }
