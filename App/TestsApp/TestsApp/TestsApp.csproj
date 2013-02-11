@@ -481,6 +481,10 @@
     <Content Include="Content\javascripts\jquery.piety.js" />
     <Content Include="Content\javascripts\jquery.simplePagination.js" />
     <Content Include="Content\javascripts\jquery.uniform.js" />
+    <Content Include="Content\javascripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Content\javascripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\javascripts\jquery.validate.min.js" />
+    <Content Include="Content\javascripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\javascripts\jquery182.js" />
     <Content Include="Content\javascripts\justgage\justgage.js" />
     <Content Include="Content\javascripts\justgage\raphael.2.1.0.min.js" />
@@ -634,7 +638,10 @@
     <Content Include="Views\Examen\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\PreguntaPartial.cshtml" />
+    <Content Include="Views\Examen\PreguntaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examen\PreguntaPopUpPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

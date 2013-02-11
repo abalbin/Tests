@@ -41,7 +41,9 @@ namespace TestsApp.Controllers
         public ActionResult Create()
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
-            Session["ListaPreguntas"] = new List<Pregunta>();
+            Session.Remove("ListaPreguntas");
+            ListaPreguntas = new List<Pregunta>();
+            ViewBag.ListaPreguntas = ListaPreguntas;
             return View();
         }
 
@@ -63,10 +65,13 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePregunta(Pregunta pregunta)
+        public ActionResult CreatePregunta(Pregunta preg)
         {
-            (ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
-            return View(pregunta);
+            //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
+            //return View(pregunta);
+            ListaPreguntas.Add(preg);
+            ViewBag.ListaPreguntas = ListaPreguntas;
+            return PartialView("PreguntaPartial", ListaPreguntas);
         }
 
         //
@@ -128,6 +133,22 @@ namespace TestsApp.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public List<Pregunta> ListaPreguntas
+        {
+            get {
+                if (Session["ListaPreguntas"] == null)
+                {
+                    Session["ListaPreguntas"] = new List<Pregunta>();
+                    return Session["ListaPreguntas"] as List<Pregunta>;
+                }
+                else
+                    return Session["ListaPreguntas"] as List<Pregunta>;
+            }
+            set {
+                Session["ListaPreguntas"] = value;
+            }
         }
     }
 }
