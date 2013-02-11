@@ -424,6 +424,7 @@
     <Content Include="Content\javascripts\chosen.jquery.js" />
     <Content Include="Content\javascripts\circles.js" />
     <Content Include="Content\javascripts\application.custom.js" />
+    <Content Include="Content\javascripts\application.call.js" />
     <Content Include="Content\javascripts\editable.custom.js" />
     <Content Include="Content\javascripts\dataTables\extras\AutoFill.js" />
     <Content Include="Content\javascripts\dataTables\extras\ColReorder.js" />
@@ -631,6 +632,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Examen\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\PreguntaPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

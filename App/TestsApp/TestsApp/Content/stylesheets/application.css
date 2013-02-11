@@ -6,6 +6,29 @@
 * Copyright (c) 2012 jQuery Foundation and other contributors Licensed MIT */
 /* Layout helpers
 ----------------------------------*/
+/*Custom CSS*/
+.inline-small
+{
+    width: 60px !important;
+}
+
+.big{
+    font-size: 30px;
+    line-height: 31.5px;
+}
+
+.masked-time{
+    width: 100px !important;
+}
+
+#modal-pregunta{
+    width: 450px; 
+    margin-left: -379px; 
+    display: none; 
+    margin-top: 0px; 
+}
+
+/*--------------------------------*/
 /* line 10, jquery-ui.css.scss */
 .ui-helper-hidden {
   display: none; }
@@ -2401,8 +2424,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 72, bootstrap/_type.scss */
 h1, h1 label,
-h2,
-h3 {
+h2, h2 label,
+h3, h3 label {
   line-height: 40px; }
 
 /* line 74, bootstrap/_type.scss */
@@ -2416,12 +2439,24 @@ h1 input {
 }
 
 /* line 75, bootstrap/_type.scss */
-h2 {
+h2, h2 label {
   font-size: 31.5px; }
 
+h2 input {
+  font-size: 31.5px !important;
+  height: auto !important;
+  border: none;
+}
+
 /* line 76, bootstrap/_type.scss */
-h3 {
+h3, h3 label {
   font-size: 24.5px; }
+
+h3 input {
+  font-size: 24.5px !important;
+  height: auto !important;
+  border: none;
+}
 
 /* line 77, bootstrap/_type.scss */
 h4 {

@@ -41,6 +41,7 @@ namespace TestsApp.Controllers
         public ActionResult Create()
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
+            Session["ListaPreguntas"] = new List<Pregunta>();
             return View();
         }
 
@@ -59,6 +60,13 @@ namespace TestsApp.Controllers
 
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
+        }
+
+        [HttpPost]
+        public ActionResult CreatePregunta(Pregunta pregunta)
+        {
+            (ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
+            return View(pregunta);
         }
 
         //
