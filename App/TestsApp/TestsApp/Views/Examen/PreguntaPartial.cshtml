@@ -4,7 +4,7 @@
 {
     <div class="row-fluid">
         <div class="padded">
-            <div class="span12">vacio</div>
+            <div class="span12">No has agregado ninguna pregunta</div>
         </div>
     </div>
 }
@@ -13,6 +13,7 @@ else
     int i = 1;
     foreach (var item in Model)
     {
+        item.Id = i - 1;
     <div class="row-fluid">
         <div class="padded">
             <div class="span12">
@@ -25,15 +26,30 @@ else
                                 <i class="icon-cog"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-left">
-                                <li><a href="#">Editar</a></li>
-                                <li><a href="#">Eliminar</a></li>
+                                <li><a class="open-modal-respuesta" data-id="@(i - 1)" href="#modal-respuesta" data-toggle="modal">Agregar Respuesta</a></li>
+                                <li><a href="#">Editar Pregunta</a></li>
+                                <li><a href="#">Eliminar Pregunta</a></li>
                             </ul>
                         </div>
                     </div>
+                </div>
+                <div id="@("RespuestasContainer" + (i - 1).ToString())" class="padded10">
+                    @Html.Partial("RespuestaPartial", item)
                 </div>
             </div>
         </div>
     </div>
         i++;
     }
+    
 }
+
+<script type="text/javascript">
+    $(document).on("click", ".open-modal-respuesta", function () {
+        var preguntaId = $(this).data('id');
+        $("#hdnIndexPregunta").val(preguntaId);
+    });
+    
+    
+
+</script>

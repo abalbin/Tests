@@ -74,6 +74,14 @@ namespace TestsApp.Controllers
             return PartialView("PreguntaPartial", ListaPreguntas);
         }
 
+        [HttpPost]
+        public ActionResult CreateRespuesta(string texto, int indexParent)
+        {
+            ListaPreguntas[indexParent].Respuesta.Add(new Respuesta { Texto = texto });
+            ViewBag.ListaPreguntas = ListaPreguntas;
+            return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);
+        }
+
         //
         // GET: /Examen/Edit/5
 

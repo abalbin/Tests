@@ -95,7 +95,7 @@
                 </div>
 
                 <div id="PreguntasContainer">
-                    @Html.Partial("PreguntaPartial", ViewBag.ListaPreguntas as List<TestsApp.Models.Pregunta>)
+                    @Html.Partial("PreguntaPartial", Model == null ? new List<TestsApp.Models.Pregunta>() : Model.Pregunta)
                 </div>
 
                 <div id="modal-pregunta" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
@@ -110,6 +110,30 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script type="text/javascript">
+
+    function GuardarRespuesta_Click(indexPregunta) {
+        
+        //var index = $('#hdnIndexPregunta').val();
+        var index = indexPregunta;
+        var texto = $('#txtRespuesta' + index).val();
+        $.ajax({
+            type: 'POST',
+            url: 'CreateRespuesta',
+            data: { texto: texto, indexParent: index },
+            success: function (data) {
+                $("#RespuestasContainer" + index).html(data);
+                $('#modal-respuesta').modal('hide');
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/editable")

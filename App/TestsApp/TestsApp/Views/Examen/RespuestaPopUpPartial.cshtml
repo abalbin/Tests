@@ -1,0 +1,43 @@
+﻿@model TestsApp.Models.Respuesta
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Agregar Respuesta</h3>
+</div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="input full-width">
+                <input id="hdnIndexPregunta1" type="hidden" />
+                @Html.TextBoxFor(m => m.Texto, new { @id = "txtRespuesta", @placeholder = "Texto de la Respuesta" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+    <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue" onclick="GuardarRespuesta_Click()">Guardar</button>
+
+</div>
+
+<script type="text/javascript">
+    
+    function GuardarRespuesta_Click() {
+        var texto = $('#txtRespuesta').val();
+        var index = $('#hdnIndexPregunta').val();
+        $.ajax({
+            type: 'POST',
+            url: 'CreateRespuesta',
+            data: { texto: texto, indexParent: index },
+            success: function (data) {
+                $("#RespuestasContainer" + index).html(data);
+                $('#modal-respuesta').modal('hide');
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+</script>

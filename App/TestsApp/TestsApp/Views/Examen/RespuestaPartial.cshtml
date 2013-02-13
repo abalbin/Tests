@@ -1,0 +1,22 @@
+﻿@model TestsApp.Models.Pregunta
+<div class="row-fluid">
+    <div class="padded">
+        @if (Model.Respuesta.Count() == 0)
+        {
+    
+            <div class="span12">No has agregado ninguna respuesta</div>
+        
+        }
+        else
+        {
+            foreach (var item in Model.Respuesta)
+            {
+            @item.Texto
+            }
+        }
+        <div class="span12">
+            <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" />
+            <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue" onclick="GuardarRespuesta_Click(@Model.Id)">Guardar</button>
+        </div>
+    </div>
+</div>
