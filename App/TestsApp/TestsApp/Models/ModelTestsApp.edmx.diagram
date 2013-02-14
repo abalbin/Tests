@@ -5,16 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c1e6cf1ba9e441b0944512ded4c7b9f9" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="TestsAppBDModel.Estado" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Estado" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestsAppBDModel.Examen" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Pregunta" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Respuesta" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Pregunta" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Respuesta" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TestsAppBDModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestsAppBDModel.TipoPregunta" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestsAppBDModel.TipoPregunta" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <AssociationConnector Association="TestsAppBDModel.FK_Examen_Estado" ManuallyRouted="false" />
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_Examen" ManuallyRouted="false" />
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_TipoPregunta" ManuallyRouted="false" />
         <AssociationConnector Association="TestsAppBDModel.FK_Respuesta_Pregunta" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Linea" Width="1.5" PointX="0.75" PointY="5.75" />
+        <AssociationConnector Association="TestsAppBDModel.FK_Examen_Linea" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

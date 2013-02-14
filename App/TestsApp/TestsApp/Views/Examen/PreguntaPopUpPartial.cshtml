@@ -12,7 +12,7 @@
             </div>
             <div class="input full-width">
                 @Html.LabelFor(model => model.TipoPregunta, "Tipo de Pregunta")
-                @Html.DropDownListFor(m=>m.TipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                @Html.DropDownListFor(m => m.TipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

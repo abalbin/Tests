@@ -8,12 +8,17 @@
         <EntityContainer Name="TestsAppBDModelStoreContainer">
           <EntitySet Name="Estado" EntityType="TestsAppBDModel.Store.Estado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Examen" EntityType="TestsAppBDModel.Store.Examen" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Linea" EntityType="TestsAppBDModel.Store.Linea" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pregunta" EntityType="TestsAppBDModel.Store.Pregunta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="TestsAppBDModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoPregunta" EntityType="TestsAppBDModel.Store.TipoPregunta" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Examen_Estado" Association="TestsAppBDModel.Store.FK_Examen_Estado">
             <End Role="Estado" EntitySet="Estado" />
+            <End Role="Examen" EntitySet="Examen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Examen_Linea" Association="TestsAppBDModel.Store.FK_Examen_Linea">
+            <End Role="Linea" EntitySet="Linea" />
             <End Role="Examen" EntitySet="Examen" />
           </AssociationSet>
           <AssociationSet Name="FK_Pregunta_Examen" Association="TestsAppBDModel.Store.FK_Pregunta_Examen">
@@ -41,12 +46,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdLinea" Type="int" />
           <Property Name="Titulo" Type="varchar" Nullable="false" MaxLength="400" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="FechaEjecucion" Type="datetime" Nullable="false" />
-          <Property Name="PuntajeMaximo" Type="int" />
           <Property Name="TiempoMaximo" Type="time" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="PuntajeMaximo" Type="int" />
+        </EntityType>
+        <EntityType Name="Linea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Pregunta">
           <Key>
@@ -54,9 +67,9 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Texto" Type="varchar" MaxLength="400" />
-          <Property Name="Puntaje" Type="decimal" />
           <Property Name="IdTipoPregunta" Type="int" />
           <Property Name="IdExamen" Type="int" />
+          <Property Name="Puntaje" Type="decimal" />
         </EntityType>
         <EntityType Name="Respuesta">
           <Key>
@@ -95,6 +108,18 @@
             </Principal>
             <Dependent Role="Examen">
               <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Examen_Linea">
+          <End Role="Linea" Type="TestsAppBDModel.Store.Linea" Multiplicity="0..1" />
+          <End Role="Examen" Type="TestsAppBDModel.Store.Examen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Linea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Examen">
+              <PropertyRef Name="IdLinea" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -161,6 +186,11 @@
             <End Role="Pregunta" EntitySet="Pregunta" />
             <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
+          <EntitySet Name="Linea" EntityType="TestsAppBDModel.Linea" />
+          <AssociationSet Name="FK_Examen_Linea" Association="TestsAppBDModel.FK_Examen_Linea">
+            <End Role="Linea" EntitySet="Linea" />
+            <End Role="Examen" EntitySet="Examen" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -183,6 +213,8 @@
           <NavigationProperty Name="Estado" Relationship="TestsAppBDModel.FK_Examen_Estado" FromRole="Examen" ToRole="Estado" />
           <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Examen" ToRole="Pregunta" />
           <Property Type="Int32" Name="PuntajeMaximo" />
+          <Property Type="Int32" Name="IdLinea" />
+          <NavigationProperty Name="Linea" Relationship="TestsAppBDModel.FK_Examen_Linea" FromRole="Examen" ToRole="Linea" />
         </EntityType>
         <EntityType Name="Pregunta">
           <Key>
@@ -275,6 +307,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Linea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_Examen_Linea" FromRole="Linea" ToRole="Examen" />
+        </EntityType>
+        <Association Name="FK_Examen_Linea">
+          <End Type="TestsAppBDModel.Linea" Role="Linea" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Linea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Examen">
+              <PropertyRef Name="IdLinea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -292,6 +344,7 @@
           <EntitySetMapping Name="Examen">
             <EntityTypeMapping TypeName="TestsAppBDModel.Examen">
               <MappingFragment StoreEntitySet="Examen">
+                <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
                 <ScalarProperty Name="PuntajeMaximo" ColumnName="PuntajeMaximo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
@@ -341,6 +394,14 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="NombreControl" ColumnName="NombreControl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Linea">
+            <EntityTypeMapping TypeName="TestsAppBDModel.Linea">
+              <MappingFragment StoreEntitySet="Linea">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

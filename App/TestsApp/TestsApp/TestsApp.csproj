@@ -167,6 +167,7 @@
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -177,6 +178,9 @@
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Examen.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Linea.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelTestsApp.Context.cs">
@@ -560,6 +564,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Examen\RespuestaPartial.cshtml" />
     <Content Include="Views\Examen\RespuestaPopUpPartial.cshtml" />
+    <Content Include="Views\Linea\Index.cshtml" />
+    <Content Include="Views\Linea\Details.cshtml" />
+    <Content Include="Views\Linea\Create.cshtml" />
+    <Content Include="Views\Linea\Edit.cshtml" />
+    <Content Include="Views\Linea\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
