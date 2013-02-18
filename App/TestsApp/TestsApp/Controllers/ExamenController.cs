@@ -71,6 +71,8 @@ namespace TestsApp.Controllers
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
+            var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
+            preg.TipoPregunta = tipoPreguntaTemp;
             ListaPreguntas.Add(preg);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("PreguntaPartial", ListaPreguntas);

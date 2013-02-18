@@ -20,7 +20,8 @@ else
                 <div class="box-header">
                     @i. @item.Texto
                     <div class="pull-right">
-                        Puntaje: @item.Puntaje/@item.Puntaje
+                        Puntaje: @item.Puntaje/@item.Puntaje 
+                        &nbsp
                         <div class="btn-group">
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon-cog"></i>
@@ -33,15 +34,21 @@ else
                         </div>
                     </div>
                 </div>
-                <div id="@("RespuestasContainer" + (i - 1).ToString())" class="padded10">
-                    @Html.Partial("RespuestaPartial", item)
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="padded">
+                            <div id="@("RespuestasContainer" + (i - 1).ToString())">
+                                @Html.Partial("RespuestaPartial", item)
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
         i++;
     }
-    
+
 }
 
 <script type="text/javascript">
@@ -49,7 +56,4 @@ else
         var preguntaId = $(this).data('id');
         $("#hdnIndexPregunta").val(preguntaId);
     });
-    
-    
-
 </script>

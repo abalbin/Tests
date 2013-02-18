@@ -569,6 +569,7 @@
     <Content Include="Views\Linea\Create.cshtml" />
     <Content Include="Views\Linea\Edit.cshtml" />
     <Content Include="Views\Linea\Delete.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
