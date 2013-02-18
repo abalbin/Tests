@@ -17,7 +17,7 @@ else
             {
                 case "Checkbox":
             <li>
-                <input type="checkbox" data-id="@Model.Id"  onclick="ChkRespuesta_Click(@(i - 1))" />@item.Texto</li>
+                <input type="checkbox" data-id="@Model.Id" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto</li>
                     break;
                 case "Textarea":
             <li>

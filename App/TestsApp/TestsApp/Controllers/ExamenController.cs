@@ -79,11 +79,21 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRespuesta(string texto, int indexParent)
+        public ActionResult CreateRespuesta(string texto, int indexParent, IEnumerable<int> respuestas)
         {
             ListaPreguntas[indexParent].Respuesta.Add(new Respuesta { Texto = texto });
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeStateRespuesta(int indexRespuesta, int indexPregunta, bool ischecked)
+        {
+            if(ischecked)
+                ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 1;
+            else
+                ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 0;
+            return PartialView("RespuestaPartial", ListaPreguntas[indexPregunta]);
         }
 
         //

@@ -110,6 +110,28 @@
 
 <script type="text/javascript">
 
+    function ChkRespuesta_Click(indexRespuesta, chk) {
+
+        //var index = $('#hdnIndexPregunta').val();
+        var index = indexRespuesta;
+        var indexPregunta = $(chk).data('id');
+        var ischecked = $(chk).is(':checked');
+        $.ajax({
+            type: 'POST',
+            url: 'ChangeStateRespuesta',
+            data: { indexRespuesta: indexRespuesta, indexPregunta: indexPregunta, ischecked: ischecked },
+            success: function (data) {
+                
+                
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+
     function GuardarRespuesta_Click(indexPregunta) {
 
         //var index = $('#hdnIndexPregunta').val();
