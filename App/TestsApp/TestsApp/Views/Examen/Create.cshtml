@@ -33,14 +33,15 @@
                             <label class="control-label" for="txtFechaEjecucion">
                                 Fecha de ejecución:
                             </label>
-                            <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                                @Html.TextBoxFor(model => model.FechaEjecucion, new { @placeholder = "Elegir", @id = "txtFechaEjecucion" })
+                            @Html.ValidationMessageFor(model => model.FechaEjecucion)
+                            <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                                @Html.TextBoxFor(model => model.FechaEjecucion, "{0:dd/MM/yyyy}",new { @placeholder = "Elegir", @id = "txtFechaEjecucion" })
                                 <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                             </div>
                         </div>
                         <div class="span6">
                             <label data-type="editable" data-for="#ddlLinea">Línea</label>
-                            @Html.DropDownListFor(m => m.Linea, new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                            @Html.DropDownListFor(m => m.IdLinea, new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },
@@ -66,7 +67,7 @@
                             <p style="font-weight: normal;">
                                 Tiempo Máximo (hh:mm):
                                 <span>
-                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">20:00</label>
+                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">00:30</label>
                                     @Html.TextBoxFor(model => model.TiempoMaximo, new Dictionary<string, object> { { "id", "Tiempo" }, { "class", "masked-time" }, { "data-meiomask", "fixed.time" } })
                                 </span>
                             </p>
@@ -97,8 +98,10 @@
                 <div id="modal-pregunta" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
                     @Html.Partial("PreguntaPopUpPartial", new TestsApp.Models.Pregunta())
                 </div>
-
-
+            </div>
+            <div class="row-fluid">
+                <button type="button" class="btn btn-small">Cancelar</button>
+                <input type="submit" value="Create" class="btn btn-small medium-blue"/>
             </div>
         </div>
     </div>
@@ -121,8 +124,8 @@
             url: 'ChangeStateRespuesta',
             data: { indexRespuesta: indexRespuesta, indexPregunta: indexPregunta, ischecked: ischecked },
             success: function (data) {
-                
-                
+
+
                 return false;
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -144,8 +147,7 @@
             success: function (data) {
                 $("#RespuestasContainer" + index).html(data);
                 $('#modal-respuesta').modal('hide');
-                $(":checkbox").uniform();
-                $("input[type='checkbox'], input[type='radio']").uniform();
+                $("#RespuestasContainer" + index).find('input:checkbox').uniform();
                 return false;
             },
             error: function (jqXhr, textStatus, errorThrown) {

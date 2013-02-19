@@ -8,6 +8,7 @@
     <div class="row-fluid">
         <div class="span6">
             <div class="input full-width">
+                <input id="hdnIndexPregunta" type="hidden" />
                 @Html.TextBoxFor(m => m.Texto, new { @id = "txtPregunta", @placeholder = "Texto de la Pregunta" })
             </div>
             <div class="input full-width">
@@ -45,15 +46,16 @@
         var puntajePregunta = $('#txtPuntaje').val();
         var tipoPregunta = $('#ddlTipoPregunta').val();
         var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta };
-        var url = @(Model.Id == -1 ? "CreatePregunta" : "EditarPregunta");
+        
         $.ajax({
             type: 'POST',
-            url: url,
+            url: "CreatePregunta",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(preg),
             success: function (data) {
                 $("#PreguntasContainer").html(data);
                 $('#modal-pregunta').modal('hide');
+                $("#PreguntasContainer").find('input:checkbox').uniform();
                 return false;
             },
             error: function (jqXhr, textStatus, errorThrown) {

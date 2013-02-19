@@ -46,7 +46,8 @@ namespace TestsApp.Controllers
             Session.Remove("ListaPreguntas");
             ListaPreguntas = new List<Pregunta>();
             ViewBag.ListaPreguntas = ListaPreguntas;
-            return View();
+            Examen ex = new Examen();
+            return View(ex);
         }
 
         //
@@ -55,14 +56,14 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult Create(Examen examen)
         {
-            if (ModelState.IsValid)
-            {
-                db.Examen.Add(examen);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Examen.Add(examen);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
 
-            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
+            //ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
         }
 
@@ -71,18 +72,6 @@ namespace TestsApp.Controllers
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
-            var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
-            preg.TipoPregunta = tipoPreguntaTemp;
-            ListaPreguntas.Add(preg);
-            ViewBag.ListaPreguntas = ListaPreguntas;
-            return PartialView("PreguntaPartial", ListaPreguntas);
-        }
-
-        public ActionResult EditarPregunta(Pregunta preg)
-        {
-            //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
-            //return View(pregunta);
-            var preguntaEditar = ListaPreguntas[preg
             var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
             preg.TipoPregunta = tipoPreguntaTemp;
             ListaPreguntas.Add(preg);

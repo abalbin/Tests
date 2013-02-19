@@ -11,15 +11,21 @@ namespace TestsApp.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Examen
     {
         public Examen()
         {
+            this.Titulo = "Título del Examen";
+            this.TiempoMaximo = new TimeSpan(0, 30, 0);
+            this.PuntajeMaximo = 20;
+            this.FechaEjecucion = DateTime.Now;
             this.Pregunta = new HashSet<Pregunta>();
         }
     
         public int Id { get; set; }
+        [Required]
         public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public System.DateTime FechaEjecucion { get; set; }
