@@ -28,7 +28,7 @@ else
                             </a>
                             <ul class="dropdown-menu dropdown-left">
                                 <li><a class="open-modal-respuesta" data-id="@(i - 1)" href="#modal-respuesta" data-toggle="modal">Agregar Respuesta</a></li>
-                                <li><a href="#">Editar Pregunta</a></li>
+                                <li><a class="open-modal-pregunta" data-id="@(i - 1)" href="#modal-pregunta" data-toggle="modal">Editar Pregunta</a></li>
                                 <li><a href="#">Eliminar Pregunta</a></li>
                             </ul>
                         </div>
@@ -55,5 +55,16 @@ else
     $(document).on("click", ".open-modal-respuesta", function () {
         var preguntaId = $(this).data('id');
         $("#hdnIndexPregunta").val(preguntaId);
+    });
+
+    $(document).on("click", ".open-modal-pregunta", function () {
+        
+        var preguntaId = $(this).data('id');
+        $.ajax({
+            url: "PreguntaEditarPrev?id=" + preguntaId,
+            success: function (html) {
+                $('#modal-pregunta').html(html);
+            }
+        });
     });
 </script>

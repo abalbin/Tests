@@ -44,10 +44,11 @@
         var textoPregunta = $('#txtPregunta').val();
         var puntajePregunta = $('#txtPuntaje').val();
         var tipoPregunta = $('#ddlTipoPregunta').val();
-        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "1", "Puntaje": puntajePregunta };
+        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta };
+        var url = @(Model.Id == -1 ? "CreatePregunta" : "EditarPregunta");
         $.ajax({
             type: 'POST',
-            url: 'CreatePregunta',
+            url: url,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(preg),
             success: function (data) {

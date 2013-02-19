@@ -78,6 +78,27 @@ namespace TestsApp.Controllers
             return PartialView("PreguntaPartial", ListaPreguntas);
         }
 
+        public ActionResult EditarPregunta(Pregunta preg)
+        {
+            //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
+            //return View(pregunta);
+            var preguntaEditar = ListaPreguntas[preg
+            var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
+            preg.TipoPregunta = tipoPreguntaTemp;
+            ListaPreguntas.Add(preg);
+            ViewBag.ListaPreguntas = ListaPreguntas;
+            return PartialView("PreguntaPartial", ListaPreguntas);
+        }
+
+        public ActionResult EditarPreguntaPrev(int id)
+        {
+            var pregunta = ListaPreguntas[id];
+            if (pregunta != null)
+                return PartialView("PreguntaPopUpPartial", ListaPreguntas);
+            else
+                return PartialView("PreguntaPopUpPartial", null);
+        }
+
         [HttpPost]
         public ActionResult CreateRespuesta(string texto, int indexParent, IEnumerable<int> respuestas)
         {
