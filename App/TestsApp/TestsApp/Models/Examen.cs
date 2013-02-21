@@ -32,6 +32,7 @@ namespace TestsApp.Models
         public System.TimeSpan TiempoMaximo { get; set; }
         public int IdEstado { get; set; }
         public Nullable<int> PuntajeMaximo { get; set; }
+        [Required]
         public Nullable<int> IdLinea { get; set; }
     
         public virtual Estado Estado { get; set; }

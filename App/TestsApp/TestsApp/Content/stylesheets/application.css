@@ -25038,9 +25038,6 @@ ul.audience-alt {
       /* line 29, components/_widgets.scss */
       .recent-comments .comment-box .avatar.user7 {
         background-image: url('../images/users/user7.png'); }
-    /* line 32, components/_widgets.scss */
-    .recent-comments .comment-box .article {
-      margin-left: 100px; }
       /* line 35, components/_widgets.scss */
       .recent-comments .comment-box .article .post-info {
         color: #67a0be;
@@ -26155,7 +26152,7 @@ Copyright (c) 2012 Dan Eden*/
 
   /* line 15, _responsive-max480.scss */
   .recent-comments .comment-box .article .article-actions {
-    margin-left: -65px; }
+    margin-left: 0px; }
 
   /* line 16, _responsive-max480.scss */
   .login-container {

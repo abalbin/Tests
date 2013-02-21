@@ -158,6 +158,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Helper.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -409,6 +410,7 @@
     <Content Include="Content\images\users\user5.png" />
     <Content Include="Content\images\users\user6.png" />
     <Content Include="Content\images\users\user7.png" />
+    <Content Include="Content\javascripts\additional-methods.js" />
     <Content Include="Content\javascripts\application.js" />
     <Content Include="Content\javascripts\bootstrap.js" />
     <Content Include="Content\javascripts\bootstrap\bootstrap-affix.js" />
@@ -475,6 +477,8 @@
     <Content Include="Content\javascripts\fullcalendar\fullcalendar.js" />
     <Content Include="Content\javascripts\fullcalendar\gcal.js" />
     <Content Include="Content\javascripts\gauges.js" />
+    <Content Include="Content\javascripts\globalize.culture.es-PE.js" />
+    <Content Include="Content\javascripts\globalize.js" />
     <Content Include="Content\javascripts\html5shiv.js" />
     <Content Include="Content\javascripts\ie-hacks.js" />
     <Content Include="Content\javascripts\ie_fix.js" />
@@ -485,10 +489,10 @@
     <Content Include="Content\javascripts\jquery.piety.js" />
     <Content Include="Content\javascripts\jquery.simplePagination.js" />
     <Content Include="Content\javascripts\jquery.uniform.js" />
-    <Content Include="Content\javascripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\javascripts\jquery.unobtrusive-ajax.js" />
     <None Include="Content\javascripts\jquery.validate-vsdoc.js" />
-    <Content Include="Content\javascripts\jquery.validate.min.js" />
-    <Content Include="Content\javascripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\javascripts\jquery.validate.js" />
+    <Content Include="Content\javascripts\jquery.validate.unobtrusive.js" />
     <Content Include="Content\javascripts\jquery182.js" />
     <Content Include="Content\javascripts\justgage\justgage.js" />
     <Content Include="Content\javascripts\justgage\raphael.2.1.0.min.js" />
@@ -570,6 +574,7 @@
     <Content Include="Views\Linea\Edit.cshtml" />
     <Content Include="Views\Linea\Delete.cshtml" />
     <Content Include="Views\Shared\_LayoutNoBox.cshtml" />
+    <Content Include="Views\Examen\ExamenItemListaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

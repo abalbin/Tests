@@ -13,6 +13,13 @@ namespace TestsApp
            
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Content/javascripts/application.js"));
+            bundles.Add(new ScriptBundle("~/bundles/validate").Include(
+                        "~/Content/javascripts/jquery.unobtrusive-ajax.js",
+                        "~/Content/javascripts/jquery.validate.js",
+                        "~/Content/javascripts/additional-methods.js",
+                        "~/Content/javascripts/jquery.validate.unobtrusive.js",
+                        "~/Content/javascripts/globalize.js",
+                        "~/Content/javascripts/globalize.culture.es-PE.js"));
             bundles.Add(new ScriptBundle("~/bundles/moo").Include(
                         "~/Content/javascripts/mootools-core-1.3-full-nocompat.js",
                         "~/Content/javascripts/mootools-more-1.3.0.1.js"));
@@ -33,7 +40,8 @@ namespace TestsApp
                         "~/Content/javascripts/editable.custom.js"));
             
             
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",
+                        "~/Content/stylesheets/application.custom.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

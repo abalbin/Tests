@@ -17,9 +17,10 @@
             <div class="row-fluid">
                 <div class="span6">
                     <div class="input full-width">
+                        @Html.ValidationMessageFor(model => model.Titulo)
                         <h1 id="TituloExamen">
                             <span>
-                                <label data-type="editable" data-for="#Titulo">Título del Examen</label>
+                                <label data-type="editable" data-for="#Titulo">@Model.Titulo</label>
                                 @Html.TextBoxFor(model => model.Titulo, new { @id = "Titulo" })
                             </span>
                         </h1>
@@ -41,6 +42,7 @@
                         </div>
                         <div class="span6">
                             <label data-type="editable" data-for="#ddlLinea">Línea</label>
+                            @Html.ValidationMessageFor(model => model.IdLinea)
                             @Html.DropDownListFor(m => m.IdLinea, new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
@@ -56,7 +58,7 @@
                             <p style="font-weight: normal;">
                                 Puntaje:
                                 <span>
-                                    <label data-type="editable" data-for="#Puntaje" style="display: inline;">20</label>
+                                    <label data-type="editable" data-for="#Puntaje" style="display: inline;">@Model.PuntajeMaximo</label>
                                     @Html.TextBoxFor(model => model.PuntajeMaximo, new { @id = "Puntaje", @class = "inline-small" })
                                 </span>
                             </p>
@@ -67,7 +69,7 @@
                             <p style="font-weight: normal;">
                                 Tiempo Máximo (hh:mm):
                                 <span>
-                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">00:30</label>
+                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">@Model.TiempoMaximo.ToString(@"hh\:mm")</label>
                                     @Html.TextBoxFor(model => model.TiempoMaximo, new Dictionary<string, object> { { "id", "Tiempo" }, { "class", "masked-time" }, { "data-meiomask", "fixed.time" } })
                                 </span>
                             </p>

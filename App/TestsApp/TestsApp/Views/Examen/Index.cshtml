@@ -29,29 +29,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaCreacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaEjecucion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TiempoMaximo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEjecucion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TiempoMaximo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="row-fluid">
+    <div class="padded10">
+        <ul class="recent-comments span12">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <li class="comment-box span6">
+                    @Html.Partial("ExamenItemListaPartial", Model.ToList()[i])
+                </li>
+            }
+            <li class="comment-box view-more span12" style="text-align: center">
+                <a href="#">View more</a>
+            </li>
+        </ul>
+    </div>
+</div>

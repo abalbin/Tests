@@ -56,12 +56,15 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult Create(Examen examen)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Examen.Add(examen);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+            examen.Pregunta = ListaPreguntas;
+            if (ModelState.IsValid)
+            {
+                examen.FechaCreacion = DateTime.Now;
+                examen.IdEstado = 1;
+                db.Examen.Add(examen);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
             //ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
@@ -73,7 +76,8 @@ namespace TestsApp.Controllers
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
             var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
-            preg.TipoPregunta = tipoPreguntaTemp;
+            TipoPregunta nuevoTipoPregunta = new TipoPregunta() { Id = tipoPreguntaTemp.Id, Nombre = tipoPreguntaTemp.Nombre, NombreControl = tipoPreguntaTemp.NombreControl };
+            preg.TipoPregunta = nuevoTipoPregunta;
             ListaPreguntas.Add(preg);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("PreguntaPartial", ListaPreguntas);

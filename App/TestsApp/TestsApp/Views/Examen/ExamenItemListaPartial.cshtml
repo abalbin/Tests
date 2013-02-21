@@ -1,0 +1,20 @@
+﻿@model TestsApp.Models.Examen
+@{DateTime fechaActual = DateTime.Now;
+  TestsApp.App_Code.Helper helperObj = new TestsApp.App_Code.Helper();}
+<div class="article">
+    <div class="post-info">
+        @helperObj.ReturnTextDifferenceNow(Model.FechaCreacion)
+    </div>
+    <div class="post-content-preview">
+        <h3>
+            @Model.Titulo
+        </h3>
+    </div>
+
+    <div class="article-actions">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+        @Html.ActionLink("Aprobar", "Details", new { id = Model.Id }, new { @class = "btn btn-mini medium-blue" })
+        @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+    </div>
+</div>
+
