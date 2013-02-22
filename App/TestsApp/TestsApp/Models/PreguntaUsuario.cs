@@ -12,12 +12,14 @@ namespace TestsApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class PreguntaUsuario
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> IdPregunta { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
+        public Nullable<decimal> Puntaje { get; set; }
+    
+        public virtual Pregunta Pregunta { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

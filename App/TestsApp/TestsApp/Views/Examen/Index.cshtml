@@ -4,58 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Exámenes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Examen", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaCreacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaEjecucion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TiempoMaximo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado.Nombre)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaEjecucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TiempoMaximo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado.Nombre)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
 <div class="row-fluid">
     <div class="padded10">
         <ul class="recent-comments span12">
@@ -71,3 +24,69 @@
         </ul>
     </div>
 </div>
+<div id="modal-asignarAster" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("AsignarAsterPopUpPartial", new List<TestsApp.Models.ExamenUsuario>())
+</div>
+
+<script type="text/javascript"> 
+    $(document).on("click", ".open-modal-asignarAster", function () {
+        
+        var examenId = $(this).data('id');
+        $.ajax({
+            url: "Examen/Aprobar?id=" + examenId,
+            success: function (html) {
+                $('#modal-asignarAster').modal('show')
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+
+    $(document).on("click", ".asignar-usuario", function () {
+
+        var usuarioId = $(this).data('id');
+        $.ajax({
+            url: "Examen/AsignarUsuario?idUsuario=" + usuarioId,
+            success: function (html) {
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+
+    $(document).on("click", ".no-asignar-usuario", function () {
+
+        var usuarioId = $(this).data('id');
+        $.ajax({
+            url: "Examen/NoAsignarUsuario?idUsuario=" + usuarioId,
+            success: function (html) {
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+</script>

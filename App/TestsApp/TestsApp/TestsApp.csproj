@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,6 +180,9 @@
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Examen.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExamenUsuario.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Linea.cs">
@@ -202,13 +206,19 @@
     <Compile Include="Models\Pregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PreguntaUsuario.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Respuesta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
+    <Compile Include="Models\RespuestaUsuario.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoPregunta.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -575,6 +585,12 @@
     <Content Include="Views\Linea\Delete.cshtml" />
     <Content Include="Views\Shared\_LayoutNoBox.cshtml" />
     <Content Include="Views\Examen\ExamenItemListaPartial.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Examen\AsignarAsterPopUpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

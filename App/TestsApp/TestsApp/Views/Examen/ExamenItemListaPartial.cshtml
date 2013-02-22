@@ -9,11 +9,15 @@
         <h3>
             @Model.Titulo
         </h3>
+        <p>Línea: @Model.Linea.Nombre</p>
+        <p>
+            Fecha de ejecución: @Model.FechaEjecucion.Day de @Model.FechaEjecucion.ToString("MMMM") del @Model.FechaEjecucion.Year
+        </p>
     </div>
 
     <div class="article-actions">
         @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
-        @Html.ActionLink("Aprobar", "Details", new { id = Model.Id }, new { @class = "btn btn-mini medium-blue" })
+        <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
         @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
     </div>
 </div>

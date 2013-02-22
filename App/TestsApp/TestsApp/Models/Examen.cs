@@ -11,7 +11,6 @@ namespace TestsApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Examen
     {
@@ -21,22 +20,22 @@ namespace TestsApp.Models
             this.TiempoMaximo = new TimeSpan(0, 30, 0);
             this.PuntajeMaximo = 20;
             this.FechaEjecucion = DateTime.Now;
+            this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.Pregunta = new HashSet<Pregunta>();
         }
     
         public int Id { get; set; }
-        [Required]
+        public Nullable<int> IdLinea { get; set; }
         public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public System.DateTime FechaEjecucion { get; set; }
         public System.TimeSpan TiempoMaximo { get; set; }
         public int IdEstado { get; set; }
         public Nullable<int> PuntajeMaximo { get; set; }
-        [Required]
-        public Nullable<int> IdLinea { get; set; }
     
         public virtual Estado Estado { get; set; }
-        public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
+        public virtual ICollection<Pregunta> Pregunta { get; set; }
     }
 }

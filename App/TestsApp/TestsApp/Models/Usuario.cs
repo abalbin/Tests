@@ -12,24 +12,23 @@ namespace TestsApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pregunta
+    public partial class Usuario
     {
-        public Pregunta()
+        public Usuario()
         {
+            this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
-            this.Respuesta = new HashSet<Respuesta>();
+            this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
         }
     
         public int Id { get; set; }
-        public string Texto { get; set; }
-        public Nullable<int> IdTipoPregunta { get; set; }
-        public Nullable<int> IdExamen { get; set; }
-        public Nullable<int> CantidadRespuesta { get; set; }
-        public Nullable<decimal> Puntaje { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public string NombreUsuario { get; set; }
+        public string Contraseña { get; set; }
     
-        public virtual Examen Examen { get; set; }
-        public virtual TipoPregunta TipoPregunta { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
         public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
-        public virtual ICollection<Respuesta> Respuesta { get; set; }
+        public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
     }
 }

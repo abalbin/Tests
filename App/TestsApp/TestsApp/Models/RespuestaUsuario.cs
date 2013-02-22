@@ -12,20 +12,14 @@ namespace TestsApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Respuesta
+    public partial class RespuestaUsuario
     {
-        public Respuesta()
-        {
-            this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
-        }
-    
         public int Id { get; set; }
+        public Nullable<int> IdRespuesta { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
         public string Texto { get; set; }
-        public Nullable<int> Orden { get; set; }
-        public Nullable<int> IdPregunta { get; set; }
-        public Nullable<int> EsCorrecta { get; set; }
     
-        public virtual Pregunta Pregunta { get; set; }
-        public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
+        public virtual Respuesta Respuesta { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

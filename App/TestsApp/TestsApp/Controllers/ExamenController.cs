@@ -37,6 +37,41 @@ namespace TestsApp.Controllers
             return View(examen);
         }
 
+        public ActionResult Aprobar(int id = 0)
+        {
+            Examen examen = db.Examen.Find(id);
+            IdExamenAsignar = 0;
+            if (examen == null)
+            {
+                return HttpNotFound();
+            }
+            IdExamenAsignar = id;
+            return PartialView("AsignarAsterPopUpPartial", examen.ExamenUsuario);
+        }
+
+        public ActionResult AsignarUsuario(int idUsuario = 0)
+        {
+            Examen examen = db.Examen.Find(IdExamenAsignar);
+            if (examen != null)
+            {
+                ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = IdExamenAsignar, IdUsuario = idUsuario };
+                ListaExamenUsuarioAsignar.Add(nuevoExamenUsuario);
+            }
+            return PartialView("AsignarAsterPopUpPartial", ListaExamenUsuarioAsignar);
+        }
+
+        public ActionResult NoAsignarUsuario(int idUsuario = 0)
+        {
+            Examen examen = db.Examen.Find(IdExamenAsignar);
+            if (examen != null)
+            {
+                var currentExamenUsuario = ListaExamenUsuarioAsignar.FirstOrDefault(r=>r.IdUsuario ==idUsuario && r.IdExamen == IdExamenAsignar);
+                if (currentExamenUsuario != null)
+                    ListaExamenUsuarioAsignar.Remove(currentExamenUsuario);
+            }
+            return PartialView("AsignarAsterPopUpPartial", ListaExamenUsuarioAsignar);
+        }
+
         //
         // GET: /Examen/Create
 
@@ -103,7 +138,7 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult ChangeStateRespuesta(int indexRespuesta, int indexPregunta, bool ischecked)
         {
-            if(ischecked)
+            if (ischecked)
                 ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 1;
             else
                 ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 0;
@@ -173,7 +208,8 @@ namespace TestsApp.Controllers
 
         public List<Pregunta> ListaPreguntas
         {
-            get {
+            get
+            {
                 if (Session["ListaPreguntas"] == null)
                 {
                     Session["ListaPreguntas"] = new List<Pregunta>();
@@ -182,7 +218,44 @@ namespace TestsApp.Controllers
                 else
                     return Session["ListaPreguntas"] as List<Pregunta>;
             }
-            set {
+            set
+            {
+                Session["ListaPreguntas"] = value;
+            }
+        }
+
+        public List<ExamenUsuario> ListaExamenUsuarioAsignar
+        {
+            get
+            {
+                if (Session["ListaExamenUsuarioAsignar"] == null)
+                {
+                    Session["ListaExamenUsuarioAsignar"] = new List<ExamenUsuario>();
+                    return Session["ListaExamenUsuarioAsignar"] as List<ExamenUsuario>;
+                }
+                else
+                    return Session["ListaExamenUsuarioAsignar"] as List<ExamenUsuario>;
+            }
+            set
+            {
+                Session["ListaExamenUsuarioAsignar"] = value;
+            }
+        }
+
+        public int IdExamenAsignar
+        {
+            get
+            {
+                if (Session["IdExamenAsignar"] == null)
+                {
+                    Session["IdExamenAsignar"] = 0;
+                    return Convert.ToInt32(Session["ListaPreguntas"]);
+                }
+                else
+                    return Convert.ToInt32(Session["ListaPreguntas"]);
+            }
+            set
+            {
                 Session["ListaPreguntas"] = value;
             }
         }

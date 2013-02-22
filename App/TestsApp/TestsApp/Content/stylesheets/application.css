@@ -22839,6 +22839,8 @@ div.dataTables_wrapper .fg-toolbar {
   line-height: 20px;
   vertical-align: middle; }
 
+div.dataTables_scroll { clear: both; }
+
 /* line 75, components/_tables.scss */
 div.dataTables_paginate {
   float: none;
