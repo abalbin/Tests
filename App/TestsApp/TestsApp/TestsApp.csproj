@@ -493,6 +493,8 @@
     <Content Include="Content\javascripts\ie-hacks.js" />
     <Content Include="Content\javascripts\ie_fix.js" />
     <Content Include="Content\javascripts\jquery-ui.js" />
+    <Content Include="Content\javascripts\jquery.countdown-es.js" />
+    <Content Include="Content\javascripts\jquery.countdown.js" />
     <Content Include="Content\javascripts\jquery.editable-1.0.1.js" />
     <Content Include="Content\javascripts\jquery.gritter.js" />
     <Content Include="Content\javascripts\jquery.knob.js" />
@@ -537,6 +539,7 @@
     <Content Include="Content\stylesheets\ie_fix.css" />
     <Content Include="Content\stylesheets\jquery-jvectormap.css" />
     <Content Include="Content\stylesheets\jquery-ui.css" />
+    <Content Include="Content\stylesheets\jquery.countdown.css" />
     <Content Include="Content\stylesheets\jquery.gritter.css" />
     <Content Include="Content\stylesheets\openweb\openwebicons-bootstrap.css" />
     <Content Include="Content\stylesheets\simplePagination.css" />
@@ -591,6 +594,7 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Examen\AsignarAsterPopUpPartial.cshtml" />
+    <Content Include="Views\Examen\Give.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

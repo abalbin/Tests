@@ -38,10 +38,14 @@ namespace TestsApp
                         "~/Content/javascripts/jquery.editable-1.0.1.js"));
             bundles.Add(new ScriptBundle("~/bundles/custom_editable").Include(
                         "~/Content/javascripts/editable.custom.js"));
+            bundles.Add(new ScriptBundle("~/bundles/countdown").Include(
+                        "~/Content/javascripts/jquery.countdown.js",
+                        "~/Content/javascripts/jquery.countdown-es.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",
-                        "~/Content/stylesheets/application.custom.css"));
+                        "~/Content/stylesheets/application.custom.css",
+                        "~/Content/stylesheets/jquery.countdown.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

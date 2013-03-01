@@ -25,12 +25,15 @@ else
                     break;
             }
             i++;
-        }        
+        }
     </ul>
 }
-<div class="row-fluid">
-    <div class="input-append">
-        <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />        
-        <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
+@if (Model.Examen == null)
+{
+    <div class="row-fluid">
+        <div class="input-append">
+            <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
+            <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
+        </div>
     </div>
-</div>
+}

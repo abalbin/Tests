@@ -37,6 +37,21 @@ namespace TestsApp.Controllers
             return View(examen);
         }
 
+        public ActionResult Give(int id = 0)
+        {
+            Examen examen = new Examen();
+            examen = db.Examen.FirstOrDefault(e => e.Id == id);
+            //Hack para bindear---------------------
+            foreach (var item in examen.Pregunta)
+                item.Respuesta.ToList();
+            //--------------------------------------
+            if (examen == null)
+            {
+                return HttpNotFound();
+            }
+            return View(examen);
+        }
+
         public ActionResult Aprobar(int id = 0)
         {
             Examen examen = db.Examen.Find(id);
@@ -47,6 +62,23 @@ namespace TestsApp.Controllers
             }
             IdExamenAsignar = id;
             return PartialView("AsignarAsterPopUpPartial", examen.ExamenUsuario);
+        }
+
+        [HttpPost]
+        public ActionResult Aprobar()
+        {
+            if (ListaExamenUsuarioAsignar.Count > 0)
+            {
+                foreach (var item in ListaExamenUsuarioAsignar)
+                {
+                    db.ExamenUsuario.Add(item);
+                    db.SaveChanges();
+                }
+                var examen = db.Examen.Include(e => e.Estado);
+                return View(examen.ToList());
+            }
+            else
+                return PartialView("AsignarAsterPopUpPartial", ListaExamenUsuarioAsignar);
         }
 
         public ActionResult AsignarUsuario(int idUsuario = 0)
@@ -65,7 +97,7 @@ namespace TestsApp.Controllers
             Examen examen = db.Examen.Find(IdExamenAsignar);
             if (examen != null)
             {
-                var currentExamenUsuario = ListaExamenUsuarioAsignar.FirstOrDefault(r=>r.IdUsuario ==idUsuario && r.IdExamen == IdExamenAsignar);
+                var currentExamenUsuario = ListaExamenUsuarioAsignar.FirstOrDefault(r => r.IdUsuario == idUsuario && r.IdExamen == IdExamenAsignar);
                 if (currentExamenUsuario != null)
                     ListaExamenUsuarioAsignar.Remove(currentExamenUsuario);
             }

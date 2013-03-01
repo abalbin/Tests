@@ -41,9 +41,17 @@
 </div>
 <div class="modal-footer">
     <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
-    <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue" onclick="GuardarRespuesta_Click()">Guardar</button>
+    <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue btn-aprobar-examen">Guardar</button>
 </div>
 
 <script type="text/javascript"> 
-    
+    $(document).on("click", ".btn-aprobar-examen", function () {
+        $.ajax({
+            url: "Examen/Aprobar",
+            type: 'POST',
+            success: function (html) {
+                
+            }
+        });
+    });
 </script>
