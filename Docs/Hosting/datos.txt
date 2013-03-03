@@ -1,0 +1,10 @@
+winhost siscomer
+
+0024714
+minegocio2013
+
+FTP:
+
+ftp.siscomer.com
+user: siscome1
+pass: reynaldoricardo
