@@ -89,6 +89,8 @@
           <Property Name="IdUsuario" Type="int" />
           <Property Name="IdExamen" Type="int" />
           <Property Name="Puntaje" Type="decimal" Scale="2" />
+          <Property Name="Tiempo" Type="time" />
+          <Property Name="FechaEjecucion" Type="datetime" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -126,6 +128,7 @@
           <Property Name="Orden" Type="int" />
           <Property Name="IdPregunta" Type="int" />
           <Property Name="EsCorrecta" Type="int" />
+          <Property Name="Marcada" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RespuestaUsuario">
           <Key>
@@ -135,6 +138,7 @@
           <Property Name="IdRespuesta" Type="int" />
           <Property Name="IdUsuario" Type="int" />
           <Property Name="Texto" Type="varchar" MaxLength="400" />
+          <Property Name="Marcada" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoPregunta">
           <Key>
@@ -381,6 +385,8 @@
           <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="2" />
           <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_ExamenUsuario_Examen" FromRole="ExamenUsuario" ToRole="Examen" />
           <NavigationProperty Name="Usuario" Relationship="TestsAppBDModel.FK_ExamenUsuario_Usuario" FromRole="ExamenUsuario" ToRole="Usuario" />
+          <Property Type="Time" Name="Tiempo" Precision="7" />
+          <Property Type="DateTime" Name="FechaEjecucion" Precision="3" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -427,6 +433,7 @@
           <Property Type="Int32" Name="EsCorrecta" />
           <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Respuesta" ToRole="Pregunta" />
           <NavigationProperty Name="RespuestaUsuario" Relationship="TestsAppBDModel.FK_RespuestaUsuario_Respuesta" FromRole="Respuesta" ToRole="RespuestaUsuario" />
+          <Property Type="Boolean" Name="Marcada" Nullable="false" />
         </EntityType>
         <EntityType Name="RespuestaUsuario">
           <Key>
@@ -438,6 +445,7 @@
           <Property Type="String" Name="Texto" MaxLength="400" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Respuesta" Relationship="TestsAppBDModel.FK_RespuestaUsuario_Respuesta" FromRole="RespuestaUsuario" ToRole="Respuesta" />
           <NavigationProperty Name="Usuario" Relationship="TestsAppBDModel.FK_RespuestaUsuario_Usuario" FromRole="RespuestaUsuario" ToRole="Usuario" />
+          <Property Type="Boolean" Name="Marcada" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoPregunta">
           <Key>
@@ -624,6 +632,8 @@
           <EntitySetMapping Name="ExamenUsuario">
             <EntityTypeMapping TypeName="TestsAppBDModel.ExamenUsuario">
               <MappingFragment StoreEntitySet="ExamenUsuario">
+                <ScalarProperty Name="FechaEjecucion" ColumnName="FechaEjecucion" />
+                <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
                 <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
                 <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -664,6 +674,7 @@
           <EntitySetMapping Name="Respuesta">
             <EntityTypeMapping TypeName="TestsAppBDModel.Respuesta">
               <MappingFragment StoreEntitySet="Respuesta">
+                <ScalarProperty Name="Marcada" ColumnName="Marcada" />
                 <ScalarProperty Name="EsCorrecta" ColumnName="EsCorrecta" />
                 <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
@@ -675,6 +686,7 @@
           <EntitySetMapping Name="RespuestaUsuario">
             <EntityTypeMapping TypeName="TestsAppBDModel.RespuestaUsuario">
               <MappingFragment StoreEntitySet="RespuestaUsuario">
+                <ScalarProperty Name="Marcada" ColumnName="Marcada" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdRespuesta" ColumnName="IdRespuesta" />

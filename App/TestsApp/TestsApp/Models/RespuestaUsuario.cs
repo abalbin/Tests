@@ -18,6 +18,7 @@ namespace TestsApp.Models
         public Nullable<int> IdRespuesta { get; set; }
         public Nullable<int> IdUsuario { get; set; }
         public string Texto { get; set; }
+        public bool Marcada { get; set; }
     
         public virtual Respuesta Respuesta { get; set; }
         public virtual Usuario Usuario { get; set; }

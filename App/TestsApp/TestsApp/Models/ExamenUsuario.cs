@@ -18,6 +18,8 @@ namespace TestsApp.Models
         public Nullable<int> IdUsuario { get; set; }
         public Nullable<int> IdExamen { get; set; }
         public Nullable<decimal> Puntaje { get; set; }
+        public Nullable<System.TimeSpan> Tiempo { get; set; }
+        public Nullable<System.DateTime> FechaEjecucion { get; set; }
     
         public virtual Examen Examen { get; set; }
         public virtual Usuario Usuario { get; set; }

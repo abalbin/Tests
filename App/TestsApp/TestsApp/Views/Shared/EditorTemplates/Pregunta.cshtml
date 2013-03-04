@@ -1,0 +1,28 @@
+﻿@model TestsApp.Models.Pregunta
+@{TestsApp.App_Code.Helper helperObj = new TestsApp.App_Code.Helper();}
+@Html.HiddenFor(m => m.Id)
+<div class="row-fluid">
+    <div class="padded">
+        <div class="span12">
+            <div class="box-header">
+                @helperObj.GetOrderNumberEditorFor(ViewData.TemplateInfo.HtmlFieldPrefix)
+                .
+                @Html.DisplayFor(m => m.Texto)
+                <div class="pull-right">
+                    Puntaje: @Html.DisplayFor(m => m.Puntaje)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="padded">
+                        <div id="RespuestasContainer">
+                            <ul>
+                                @Html.EditorFor(m => m.Respuesta)
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,12 +52,12 @@
                     <i class="icon-check"></i>Preguntas
                 </div>
                 <div id="PreguntasContainer">
-                    @Html.Partial("PreguntaPartial", Model == null ? new List<TestsApp.Models.Pregunta>() : Model.Pregunta)
+                    @Html.EditorFor(m=>m.Pregunta)
                 </div>
             </div>
             <div class="row-fluid">
                 <button type="button" class="btn btn-small">Cancelar</button>
-                <input type="submit" value="Create" class="btn btn-small medium-blue" />
+                <input type="submit" value="Terminar" class="btn btn-small medium-blue" />
             </div>
         </div>
     </div>

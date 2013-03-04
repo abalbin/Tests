@@ -24,6 +24,7 @@ namespace TestsApp.Models
         public Nullable<int> Orden { get; set; }
         public Nullable<int> IdPregunta { get; set; }
         public Nullable<int> EsCorrecta { get; set; }
+        public bool Marcada { get; set; }
     
         public virtual Pregunta Pregunta { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }

@@ -52,6 +52,56 @@ namespace TestsApp.Controllers
             return View(examen);
         }
 
+        [HttpPost]
+        public ActionResult Give(Examen examen)
+        {
+            var examenHelp = db.Examen.FirstOrDefault(r => r.Id == examen.Id);
+            if (examenHelp != null)
+            {
+                ExamenUsuario exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == 3);
+
+                if (exUsuario != null)
+                {
+                    PreguntaUsuario pregUsuario;
+                    RespuestaUsuario rptausuario;
+                    Pregunta preguntaOriginal;
+                    Respuesta respuestOriginal;
+                    decimal puntajePregunta;
+                    decimal puntajeTotal = 0;
+                    foreach (var preg in examen.Pregunta)
+                    {
+                        preguntaOriginal = db.Pregunta.First(r => r.Id == preg.Id);
+                        puntajePregunta = 0;
+                        pregUsuario = new PreguntaUsuario { IdUsuario = exUsuario.IdUsuario, IdPregunta = preg.Id };
+                        foreach (var rpta in preg.Respuesta)
+                        {
+                            respuestOriginal = db.Respuesta.First(r => r.Id == rpta.Id);
+                            rptausuario = new RespuestaUsuario { IdUsuario = exUsuario.IdUsuario };
+                            rptausuario.IdRespuesta = rpta.Id;
+                            rptausuario.Texto = rpta.Texto;
+                            rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
+                            puntajePregunta += ((rpta.Marcada && respuestOriginal.EsCorrecta == 1) ? (Convert.ToDecimal(preguntaOriginal.Puntaje / preguntaOriginal.CantidadRespuesta)) : 0);
+                            db.RespuestaUsuario.Add(rptausuario);
+                            db.SaveChanges();
+                        }
+                        pregUsuario.Puntaje = puntajePregunta;
+                        db.PreguntaUsuario.Add(pregUsuario);
+                        db.SaveChanges();
+                        puntajeTotal += Convert.ToDecimal(pregUsuario.Puntaje);
+                    }
+                    exUsuario.Puntaje = puntajeTotal;
+                    exUsuario.FechaEjecucion = DateTime.Now;
+                    db.SaveChanges();
+
+                }
+                else
+                    return HttpNotFound();
+            }
+            else
+                return HttpNotFound();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Aprobar(int id = 0)
         {
             Examen examen = db.Examen.Find(id);
@@ -142,9 +192,13 @@ namespace TestsApp.Controllers
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
-            var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
-            TipoPregunta nuevoTipoPregunta = new TipoPregunta() { Id = tipoPreguntaTemp.Id, Nombre = tipoPreguntaTemp.Nombre, NombreControl = tipoPreguntaTemp.NombreControl };
-            preg.TipoPregunta = nuevoTipoPregunta;
+            //var tipoPreguntaTemp = new TestsAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
+            //TipoPregunta nuevoTipoPregunta = new TipoPregunta() { Id = tipoPreguntaTemp.Id, Nombre = tipoPreguntaTemp.Nombre, NombreControl = tipoPreguntaTemp.NombreControl };
+            ////preg.TipoPregunta = nuevoTipoPregunta;
+            //preg.TipoPregunta = db.TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
+            var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
+            if (preg.CantidadRespuesta == null)
+                preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
             ListaPreguntas.Add(preg);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("PreguntaPartial", ListaPreguntas);
@@ -162,7 +216,11 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult CreateRespuesta(string texto, int indexParent, IEnumerable<int> respuestas)
         {
-            ListaPreguntas[indexParent].Respuesta.Add(new Respuesta { Texto = texto });
+            int idtipoPreg = ListaPreguntas[indexParent].IdTipoPregunta.Value;
+            var tipoPreg = db.TipoPregunta.First(r => r.Id == idtipoPreg);
+            Respuesta rpta = new Respuesta { Texto = texto };
+            rpta.EsCorrecta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+            ListaPreguntas[indexParent].Respuesta.Add(rpta);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);
         }
@@ -174,6 +232,7 @@ namespace TestsApp.Controllers
                 ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 1;
             else
                 ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 0;
+            ListaPreguntas[indexPregunta].CantidadRespuesta = ListaPreguntas[indexPregunta].Respuesta.Where(r => r.EsCorrecta == 1).ToList().Count;
             return PartialView("RespuestaPartial", ListaPreguntas[indexPregunta]);
         }
 

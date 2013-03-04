@@ -1,0 +1,6 @@
+Lógica del puntaje para un examen
+---------------------------------
+
+- Al momento de registrar el examen, se tendrá el número total de respuestas válidas máximo para cada pregunta.
+- Con el número anterior se puede validar el número de respuestas que se van a marcar.
+- Asimismo, con ese número se puede saber el puntaje de cada respuesta en una pregunta (se dividirá el total entre el número de respuestas válidas).

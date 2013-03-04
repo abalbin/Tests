@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace TestsApp.App_Code
@@ -44,6 +45,18 @@ namespace TestsApp.App_Code
         {
             TimeSpan span = d2.Subtract(d1);
             return (int)span.TotalMinutes;
+        }
+
+        public string ExtractNumberOfString(string str)
+        {
+            return Regex.Match(str, @"\d+").Value;
+        }
+
+        public int GetOrderNumberEditorFor(string str)
+        {
+            str = ExtractNumberOfString(str);
+            int i = Convert.ToInt32(str);
+            return i + 1;
         }
     }
 }

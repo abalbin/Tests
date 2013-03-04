@@ -1,19 +1,19 @@
 ﻿@model TestsApp.Models.Pregunta
 @{bool disableSave = false;}
 @if (Model.Respuesta.Count() == 0)
-{
-    
-    <div class="span12">No has agregado ninguna respuesta</div>
-        
+{ 
+    <div class="span12">No has agregado ninguna respuesta</div>      
 }
 else
 {
-    disableSave = (Model.TipoPregunta.NombreControl.Equals("Textarea")) && Model.Respuesta.Count() == 1;
+    string nombreControl = new TestsApp.Models.TestsAppBDEntities().TipoPregunta.First(r => r.Id == Model.IdTipoPregunta).NombreControl;
+    disableSave = (nombreControl.Equals("Textarea")) && Model.Respuesta.Count() == 1;
     int i = 1;
     <ul>
         @foreach (var item in Model.Respuesta)
         {
-            switch (Model.TipoPregunta.NombreControl)
+            
+            switch (nombreControl)
             {
                 case "Checkbox":
             <li>
@@ -28,12 +28,11 @@ else
         }
     </ul>
 }
-@if (Model.Examen == null)
-{
-    <div class="row-fluid">
-        <div class="input-append">
-            <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
-            <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
-        </div>
+
+<div class="row-fluid">
+    <div class="input-append">
+        <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
+        <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
     </div>
-}
+</div>
+

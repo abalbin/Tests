@@ -1,0 +1,16 @@
+﻿@model TestsApp.Models.Respuesta
+@Html.HiddenFor(m => m.Id)
+<li>
+@switch (Model.Pregunta.TipoPregunta.NombreControl)
+{
+    case "Checkbox":
+    @Html.CheckBoxFor(m => m.Marcada)
+    @Html.DisplayFor(m => m.Texto)
+        break;
+    case "Textarea":
+    Model.Texto = string.Empty;
+    @Html.TextAreaFor(m => m.Texto)
+        break;
+}
+</li>
+
