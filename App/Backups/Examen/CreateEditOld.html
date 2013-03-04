@@ -1,0 +1,55 @@
+<fieldset>
+                    <legend>Datos Generales</legend>
+                    
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Titulo)
+                    </div>
+                    <div class="input full-width">
+                        @Html.TextBoxFor(model => model.Titulo, new { @placeholder = "Título" })
+                        @Html.ValidationMessageFor(model => model.Titulo)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.FechaCreacion)
+                    </div>
+                    <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                        @Html.TextBoxFor(model => model.FechaCreacion, new { @placeholder = "Fecha de Creación" })
+                        <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.FechaEjecucion)
+                    </div>
+                    <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                        @Html.TextBoxFor(model => model.FechaEjecucion, new { @placeholder = "Fecha de Ejecución" })
+                        <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TiempoMaximo)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.TiempoMaximo, new Dictionary<string, object>
+                                                                        {
+                                                                            { "placeholder", "Tiempo de examen" }, 
+                                                                            { "class", "masked" },
+                                                                            { "data-meiomask", "fixed.time" },
+                                                                        })
+                        @Html.ValidationMessageFor(model => model.TiempoMaximo)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IdEstado, "Estado")
+                    </div>
+                    <div class="input full-width">
+                        @Html.DropDownList("IdEstado", null, string.Empty, new Dictionary<string, object>
+                                                                        {
+                                                                            { "data-placeholder", "Elija un estado" }, 
+                                                                            { "class", "chzn-select" }
+                                                                        })
+                        @Html.ValidationMessageFor(model => model.IdEstado)
+                    </div>
+
+                    <div class="vpadded">
+                        <input type="submit" class="btn btn-small" value="Create" />
+                    </div>
+                </fieldset>
