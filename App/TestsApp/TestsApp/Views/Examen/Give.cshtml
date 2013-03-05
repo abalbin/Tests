@@ -13,6 +13,7 @@
 {
     <input type="hidden" id="hdn-Minutos" value="@Model.TiempoMaximo.Minutes" />
     <input type="hidden" id="hdn-Segundos" value="@Model.TiempoMaximo.Seconds" />
+    <input type="hidden" id="hdn-FechaInicioEjecucion" value="@Model.FechaEjecucion.ToString("yyyy,MM,dd,hh,mm,ss")" />
     <div class="row-fluid">
         <div class="padded">
             <div class="row-fluid">
@@ -65,11 +66,20 @@
 <script type="text/javascript">
     $(function () {
         var austDay = new Date();
-        austDay = new Date(0, 0, 26);
-        var minutos = $('#hdn-Minutos').val();
-        var segundos = $('#hdn-Segundos').val();
+        austDay = new Date(2013, 03, 05);
+        var minutos = parseInt($('#hdn-Minutos').val());
+        var segundos = parseInt($('#hdn-Segundos').val());
         var untilStr = "+" + minutos + "m " + "+" + segundos + "s";
-        $('#tiempoRestante').countdown({ until: untilStr, format: 'MS' });
+        var strDate = $('#hdn-FechaInicioEjecucion').val().split(',');
+        var d = new Date(parseInt(strDate[0]), parseInt(strDate[1]) - 1, parseInt(strDate[2]), parseInt(strDate[3]), parseInt(strDate[4]), parseInt(strDate[5]), 0);
+        d.setSeconds(d.getSeconds() + segundos);
+        d.setMinutes(d.getMinutes() + minutos);
+        $('#tiempoRestante').countdown({ until: d, format: 'MS', onExpiry: liftOff }, d);
     });
+
+    function liftOff() {
+        alert('Se terminó su tiempo');
+    }
+
 
 </script>

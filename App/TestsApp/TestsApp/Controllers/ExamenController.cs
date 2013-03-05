@@ -41,13 +41,20 @@ namespace TestsApp.Controllers
         {
             Examen examen = new Examen();
             examen = db.Examen.FirstOrDefault(e => e.Id == id);
-            //Hack para bindear---------------------
-            foreach (var item in examen.Pregunta)
-                item.Respuesta.ToList();
-            //--------------------------------------
+
             if (examen == null)
             {
                 return HttpNotFound();
+            }
+            else
+            {
+                if (FechaInicioEjecucion == null)
+                    FechaInicioEjecucion = DateTime.Now;
+                examen.FechaEjecucion = FechaInicioEjecucion.Value;
+                //Hack para bindear---------------------
+                foreach (var item in examen.Pregunta)
+                    item.Respuesta.ToList();
+                //--------------------------------------
             }
             return View(examen);
         }
@@ -348,6 +355,20 @@ namespace TestsApp.Controllers
             set
             {
                 Session["ListaPreguntas"] = value;
+            }
+        }
+
+        public DateTime? FechaInicioEjecucion
+        {
+            get
+            {
+                if (Session["FechaInicioEjecucion"] == null)
+                    return null;
+                return Convert.ToDateTime(Session["FechaInicioEjecucion"]);
+            }
+            set
+            {
+                Session["FechaInicioEjecucion"] = value;
             }
         }
     }
