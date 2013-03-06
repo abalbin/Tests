@@ -20,6 +20,7 @@ namespace TestsApp.Controllers
 
         public ActionResult Index()
         {
+            Session.RemoveAll();
             var examen = db.Examen.Include(e => e.Estado);
             return View(examen.ToList());
         }
@@ -98,6 +99,7 @@ namespace TestsApp.Controllers
                     }
                     exUsuario.Puntaje = puntajeTotal;
                     exUsuario.FechaEjecucion = DateTime.Now;
+                    exUsuario.Tiempo = examen.TiempoTranscurrido;
                     db.SaveChanges();
 
                 }
@@ -131,8 +133,7 @@ namespace TestsApp.Controllers
                     db.ExamenUsuario.Add(item);
                     db.SaveChanges();
                 }
-                var examen = db.Examen.Include(e => e.Estado);
-                return View(examen.ToList());
+                return RedirectToAction("Index");
             }
             else
                 return PartialView("AsignarAsterPopUpPartial", ListaExamenUsuarioAsignar);

@@ -24,7 +24,7 @@ namespace TestsApp.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View("Login", "_LoginLayout");
+            return View("Login");
         }
 
         //
@@ -35,6 +35,7 @@ namespace TestsApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            bool auth = WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe);
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);

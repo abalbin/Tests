@@ -1,6 +1,7 @@
 ﻿@model TestsApp.Models.LoginModel
 
 @{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Log in";
 }
 
@@ -8,12 +9,13 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="login-container center">
-                
+
                 <div class="title text-transparent">Ingresar</div>
                 <hr class="main">
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
                     <ul class="fields-list">
                         <li>
                             <i class="icon-user" style="float: left;"></i>
@@ -28,7 +30,7 @@
                     </ul>
 
                     <div class="actions">
-                        <a href="../Home/Index" class="btn btn-large medium-blue login-btn">Ingresar </a>
+                        <input type="submit" class="btn btn-large medium-blue login-btn" value="Ingresar" />
                     </div>
 
                     <hr class="main">                    
@@ -38,4 +40,8 @@
         </div>
     </div>
 </div>
+
+<p>
+    @Html.ActionLink("Register", "Register") if you don't have an account.
+</p>
 

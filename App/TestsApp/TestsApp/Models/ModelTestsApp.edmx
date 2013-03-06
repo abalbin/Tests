@@ -80,6 +80,7 @@
           <Property Name="TiempoMaximo" Type="time" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="PuntajeMaximo" Type="int" />
+          <Property Name="TiempoTranscurrido" Type="time" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -374,6 +375,7 @@
           <NavigationProperty Name="Linea" Relationship="TestsAppBDModel.FK_Examen_Linea" FromRole="Examen" ToRole="Linea" />
           <NavigationProperty Name="ExamenUsuario" Relationship="TestsAppBDModel.FK_ExamenUsuario_Examen" FromRole="Examen" ToRole="ExamenUsuario" />
           <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Examen" ToRole="Pregunta" />
+          <Property Type="Time" Name="TiempoTranscurrido" Precision="7" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -618,6 +620,7 @@
           <EntitySetMapping Name="Examen">
             <EntityTypeMapping TypeName="TestsAppBDModel.Examen">
               <MappingFragment StoreEntitySet="Examen">
+                <ScalarProperty Name="TiempoTranscurrido" ColumnName="TiempoTranscurrido" />
                 <ScalarProperty Name="PuntajeMaximo" ColumnName="PuntajeMaximo" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="TiempoMaximo" ColumnName="TiempoMaximo" />
