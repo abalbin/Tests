@@ -8,114 +8,119 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/validate")
-    
+
 </head>
 <body>
-    <nav id="primary" class="main-nav collapsible-nav">
-        <!-- Brand -->
-        <a id="sidebar-brand" href="../pages/dashboard.html">Exámenes
-  </a>
-        <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
-            <i class="icon-reorder"></i>
-        </button>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <nav id="primary" class="main-nav collapsible-nav">
+            <!-- Brand -->
+            <a id="sidebar-brand" href="../pages/dashboard.html">Exámenes
+            </a>
+            <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-reorder"></i>
+            </button>
 
-        <ul class="nav-collapse collapse">
+            <ul class="nav-collapse collapse">
 
-            <!-- Profile -->
-            <li class="profile">
-                <a href="#profile-opts" class="accordion-toggle" data-toggle="collapse">
-                    <img class="avatar user3">
-                    <span class="text" id="profile-text">Jane Doe <b class="caret"></b>
-                    </span>
-                </a>
+                <!-- Profile -->
+                <li class="profile">
+                    <a href="#profile-opts" class="accordion-toggle" data-toggle="collapse">
+                        <img class="avatar user3">
+                        <span class="text" id="profile-text">Jane Doe <b class="caret"></b>
+                        </span>
+                    </a>
 
-                <ul id="profile-opts" class="collapse secondary">
-                    <li class="">
-                        <a href="#">Cambiar Contraseña
-          </a>
-                    </li>
-                    <li class="">
-                        <a href="#">Cerrar Sesión
-          </a>
-                    </li>
-                </ul>
-            </li>
+                    <ul id="profile-opts" class="collapse secondary">
+                        <li class="">
+                            <a href="#">Cambiar Contraseña
+                            </a>
+                        </li>
+                        <li class="">
 
-            <!-- Seguridad -->
-            <li class="">
-                <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-group"></i>
-                    </span>
-                    <span class="text">Seguridad <b class="caret"></b></span>
-                </a>
-                <ul id="seguridad-list" class="collapse secondary">
-                    <li class="">
-                        <a href="pages/components/buttons.html">Usuarios</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Roles</a>
-                    </li>
-                </ul>
-            </li>
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
 
-            <!-- Exámenes -->
-            <li class="">
-                <a href="#examenes-list" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-list-ol"></i>
-                    </span>
-                    <span class="text">Exámenes <b class="caret"></b></span>
-                </a>
-                <ul id="examenes-list" class="collapse secondary">
-                    <li class="">
-                        <a href="pages/components/buttons.html">Mantenimiento</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Preguntas</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Respuestas</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Alertas</a>
-                    </li>
-                </ul>
-            </li>
+                        </li>
+                    </ul>
+                </li>
 
-            <!-- Documentos -->
-            <li class="">
-                <a href="#documentos-list" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-file"></i>
-                    </span>
-                    <span class="text">Documentos <b class="caret"></b></span>
-                </a>
-                <ul id="documentos-list" class="collapse secondary">
-                    <li class="">
-                        <a href="pages/components/buttons.html">Manuales</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Otros</a>
-                    </li>
-                </ul>
-            </li>
+                <!-- Seguridad -->
+                <li class="">
+                    <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-group"></i>
+                        </span>
+                        <span class="text">Seguridad <b class="caret"></b></span>
+                    </a>
+                    <ul id="seguridad-list" class="collapse secondary">
+                        <li class="">
+                            <a href="pages/components/buttons.html">Usuarios</a>
+                        </li>
+                        <li class="">
+                            <a href="pages/components/forms.html">Roles</a>
+                        </li>
+                    </ul>
+                </li>
 
-            <!-- Reportes -->
-            <li class="">
-                <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-odata"></i>
-                    </span>
-                    <span class="text">Reportes
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                <!-- Exámenes -->
+                <li class="">
+                    <a href="#examenes-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-list-ol"></i>
+                        </span>
+                        <span class="text">Exámenes <b class="caret"></b></span>
+                    </a>
+                    <ul id="examenes-list" class="collapse secondary">
+                        <li class="">
+                            <a href="pages/components/buttons.html">Mantenimiento</a>
+                        </li>
+                        <li class="">
+                            <a href="pages/components/forms.html">Preguntas</a>
+                        </li>
+                        <li class="">
+                            <a href="pages/components/forms.html">Respuestas</a>
+                        </li>
+                        <li class="">
+                            <a href="pages/components/forms.html">Alertas</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Documentos -->
+                <li class="">
+                    <a href="#documentos-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-file"></i>
+                        </span>
+                        <span class="text">Documentos <b class="caret"></b></span>
+                    </a>
+                    <ul id="documentos-list" class="collapse secondary">
+                        <li class="">
+                            <a href="pages/components/buttons.html">Manuales</a>
+                        </li>
+                        <li class="">
+                            <a href="pages/components/forms.html">Otros</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Reportes -->
+                <li class="">
+                    <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-odata"></i>
+                        </span>
+                        <span class="text">Reportes
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
     <div class="top-bar">
         <a id="topbar-brand" class="brand" href="../dashboard.html">Exámenes App
-  </a>
+        </a>
 
 
     </div>

@@ -12,7 +12,7 @@
 
                 <div class="title text-transparent">Ingresar</div>
                 <hr class="main">
-                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
@@ -40,8 +40,4 @@
         </div>
     </div>
 </div>
-
-<p>
-    @Html.ActionLink("Register", "Register") if you don't have an account.
-</p>
 

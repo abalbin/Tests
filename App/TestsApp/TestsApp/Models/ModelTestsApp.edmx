@@ -15,7 +15,9 @@
           <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RespuestaUsuario" EntityType="TestsAppBDModel.Store.RespuestaUsuario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoPregunta" EntityType="TestsAppBDModel.Store.TipoPregunta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="TestsAppBDModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Usuario" EntityType="TestsAppBDModel.Store.Usuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Roles" EntityType="TestsAppBDModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Examen_Estado" Association="TestsAppBDModel.Store.FK_Examen_Estado">
             <End Role="Estado" EntitySet="Estado" />
             <End Role="Examen" EntitySet="Examen" />
@@ -149,6 +151,16 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="NombreControl" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="UrlImagen" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -158,6 +170,13 @@
           <Property Name="Apellidos" Type="varchar" MaxLength="150" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="20" />
           <Property Name="Contraseña" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <Association Name="FK_Examen_Estado">
           <End Role="Estado" Type="TestsAppBDModel.Store.Estado" Multiplicity="1" />
@@ -350,6 +369,8 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="RespuestaUsuario" EntitySet="RespuestaUsuario" />
           </AssociationSet>
+          <EntitySet Name="webpages_Roles" EntityType="TestsAppBDModel.webpages_Roles" />
+          <EntitySet Name="UserProfile" EntityType="TestsAppBDModel.UserProfile" />
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -603,6 +624,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrlImagen" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -714,6 +752,25 @@
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="TestsAppBDModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="TestsAppBDModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UrlImagen" ColumnName="UrlImagen" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

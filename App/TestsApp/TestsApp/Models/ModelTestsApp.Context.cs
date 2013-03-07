@@ -35,5 +35,7 @@ namespace TestsApp.Models
         public DbSet<RespuestaUsuario> RespuestaUsuario { get; set; }
         public DbSet<TipoPregunta> TipoPregunta { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
     }
 }

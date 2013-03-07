@@ -16,10 +16,6 @@ namespace TestsApp.Models
     {
         public Examen()
         {
-            this.Titulo = "Título del Examen";
-            this.TiempoMaximo = new TimeSpan(0, 30, 0);
-            this.PuntajeMaximo = 20;
-            this.FechaEjecucion = DateTime.Now;
             this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.Pregunta = new HashSet<Pregunta>();
         }

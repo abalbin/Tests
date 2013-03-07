@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TestsApp.Models.UserProfile>
+
+@{
+    ViewBag.Title = "ManageUsers";
+}
+
+<h2>ManageUsers</h2>
+<p>
+    @Html.ActionLink("Crear nuevo usuario", "Register")
+</p>
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("Ver", "Details", new { id = item.UserId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.UserId })
+            </td>
+        </tr>
+    }
+
+</table>

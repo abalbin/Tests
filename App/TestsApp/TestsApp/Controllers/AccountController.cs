@@ -42,7 +42,7 @@ namespace TestsApp.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "El usuario o la contraseña es incorrecto.");
             return View(model);
         }
 
@@ -55,7 +55,7 @@ namespace TestsApp.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -81,8 +81,17 @@ namespace TestsApp.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    using (var context = new UsersContext())
+                    {
+                        var newUser = context.UserProfiles.FirstOrDefault(r => r.UserName.Equals(model.UserName));
+                        if(newUser != null)
+                        {
+                            newUser.FirstName = model.FirstName;
+                            newUser.LastName = model.LastName;
+                            context.SaveChanges();
+                        }
+                    }
+                    return RedirectToAction("ManageUsers");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -121,6 +130,13 @@ namespace TestsApp.Controllers
             }
 
             return RedirectToAction("Manage", new { Message = message });
+        }
+
+        [Authorize]
+        public ActionResult ManageUsers()
+        {
+            var users = new TestsAppBDEntities().UserProfile.ToList();
+            return View(users);
         }
 
         //

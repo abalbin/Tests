@@ -169,12 +169,17 @@
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201303072030057_TestsAppBD.cs" />
+    <Compile Include="Migrations\201303072030057_TestsAppBD.Designer.cs">
+      <DependentUpon>201303072030057_TestsAppBD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Estado.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
@@ -218,7 +223,13 @@
     <Compile Include="Models\TipoPregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserProfile.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Usuario.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -588,15 +599,16 @@
     <Content Include="Views\Linea\Delete.cshtml" />
     <Content Include="Views\Shared\_LayoutNoBox.cshtml" />
     <Content Include="Views\Examen\ExamenItemListaPartial.cshtml" />
-    <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Usuario\Details.cshtml" />
-    <Content Include="Views\Usuario\Create.cshtml" />
-    <Content Include="Views\Usuario\Edit.cshtml" />
-    <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Examen\AsignarAsterPopUpPartial.cshtml" />
     <Content Include="Views\Examen\Give.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Pregunta.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Respuesta.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Rol\Details.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Rol\Delete.cshtml" />
+    <Content Include="Views\Account\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -681,6 +693,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Examen\PreguntaPopUpPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201303072030057_TestsAppBD.resx">
+      <DependentUpon>201303072030057_TestsAppBD.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

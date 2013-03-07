@@ -9,33 +9,33 @@ using TestsApp.Models;
 
 namespace TestsApp.Controllers
 {
-    public class UsuarioController : Controller
+    public class RolController : Controller
     {
         private TestsAppBDEntities db = new TestsAppBDEntities();
 
         //
-        // GET: /Usuario/
+        // GET: /Rol/
 
         public ActionResult Index()
         {
-            return View(db.Usuario.ToList());
+            return View(db.webpages_Roles.ToList());
         }
 
         //
-        // GET: /Usuario/Details/5
+        // GET: /Rol/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            webpages_Roles webpages_roles = db.webpages_Roles.Find(id);
+            if (webpages_roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(webpages_roles);
         }
 
         //
-        // GET: /Usuario/Create
+        // GET: /Rol/Create
 
         public ActionResult Create()
         {
@@ -43,70 +43,70 @@ namespace TestsApp.Controllers
         }
 
         //
-        // POST: /Usuario/Create
+        // POST: /Rol/Create
 
         [HttpPost]
-        public ActionResult Create(Usuario usuario)
+        public ActionResult Create(webpages_Roles webpages_roles)
         {
             if (ModelState.IsValid)
             {
-                db.Usuario.Add(usuario);
+                db.webpages_Roles.Add(webpages_roles);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(usuario);
+            return View(webpages_roles);
         }
 
         //
-        // GET: /Usuario/Edit/5
+        // GET: /Rol/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            webpages_Roles webpages_roles = db.webpages_Roles.Find(id);
+            if (webpages_roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(webpages_roles);
         }
 
         //
-        // POST: /Usuario/Edit/5
+        // POST: /Rol/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Usuario usuario)
+        public ActionResult Edit(webpages_Roles webpages_roles)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(webpages_roles).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            return View(webpages_roles);
         }
 
         //
-        // GET: /Usuario/Delete/5
+        // GET: /Rol/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            webpages_Roles webpages_roles = db.webpages_Roles.Find(id);
+            if (webpages_roles == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(webpages_roles);
         }
 
         //
-        // POST: /Usuario/Delete/5
+        // POST: /Rol/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            db.Usuario.Remove(usuario);
+            webpages_Roles webpages_roles = db.webpages_Roles.Find(id);
+            db.webpages_Roles.Remove(webpages_roles);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
