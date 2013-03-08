@@ -22,6 +22,6 @@ namespace TestsApp.Models
         public Nullable<System.DateTime> FechaEjecucion { get; set; }
     
         public virtual Examen Examen { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

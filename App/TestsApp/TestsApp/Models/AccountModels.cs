@@ -85,6 +85,10 @@ namespace TestsApp.Models
         [Required]
         [Display(Name = "Apellidos")]
         public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Rol")]
+        public string[] IdRol { get; set; }
     }
 
     public class ExternalLogin

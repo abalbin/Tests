@@ -55,7 +55,49 @@ namespace TestsApp.Controllers
         {
             WebSecurity.Logout();
 
+            Session.Abandon();
+
+            // clear authentication cookie
+            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+
+            // clear session cookie (not necessary for your current problem but i would recommend you do it anyway)
+            HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
+            cookie2.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie2);
+
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult Delete(int id = 0)
+        {
+            UserProfile user = new TestsAppBDEntities().UserProfile.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("DeleteUserPartial", user);
+        }
+
+        ////
+        //// POST: /Examen/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Para borrar toda la data o guardar historial
+            //using (var context = new TestsAppBDEntities())
+            //{
+            //    UserProfile user = context.UserProfile.Find(id);
+            //    context.ExamenUsuario.
+            //}
+            UserProfile user = new TestsAppBDEntities().UserProfile.Find(id);
+            string[] roles = Roles.GetRolesForUser(user.UserName);
+            if (roles.Count() > 0)
+                Roles.RemoveUserFromRoles(user.UserName, roles);
+            Membership.DeleteUser(user.UserName, true);
+            return RedirectToAction("ManageUsers");
         }
 
         //
@@ -64,6 +106,9 @@ namespace TestsApp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+
+            ViewBag.IdRol = new SelectList(new TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName");
+
             return View();
         }
 
@@ -81,16 +126,27 @@ namespace TestsApp.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    using (var context = new UsersContext())
+                    List<string> roleNames = new List<string>();
+                    using (var context = new TestsAppBDEntities())
                     {
-                        var newUser = context.UserProfiles.FirstOrDefault(r => r.UserName.Equals(model.UserName));
-                        if(newUser != null)
+                        var newUser = context.UserProfile.FirstOrDefault(r => r.UserName.Equals(model.UserName));
+                        if (newUser != null)
                         {
                             newUser.FirstName = model.FirstName;
                             newUser.LastName = model.LastName;
                             context.SaveChanges();
                         }
+                        foreach (var s in model.IdRol)
+                        {
+                            int id = Convert.ToInt32(s);
+                            string nombreRol = context.webpages_Roles.First(r => r.RoleId == id).RoleName;
+                            roleNames.Add(nombreRol);
+                        }
                     }
+
+                    if (Roles.GetRolesForUser(model.UserName).Count() > 0)
+                        Roles.RemoveUserFromRoles(model.UserName, Roles.GetRolesForUser(model.UserName));
+                    Roles.AddUserToRoles(model.UserName, roleNames.ToArray());
                     return RedirectToAction("ManageUsers");
                 }
                 catch (MembershipCreateUserException e)

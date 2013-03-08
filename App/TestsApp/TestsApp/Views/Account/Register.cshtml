@@ -35,12 +35,17 @@
                 @Html.LabelFor(m => m.LastName)
                 @Html.TextBoxFor(m => m.LastName)
             </li>
-
+            <li>
+                @Html.LabelFor(m => m.IdRol)
+                @Html.DropDownList("IdRol", new SelectList(new TestsApp.Models.TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName"), String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
+                                                       })
+            </li>
         </ol>
         <input type="submit" value="Register" />
     </fieldset>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

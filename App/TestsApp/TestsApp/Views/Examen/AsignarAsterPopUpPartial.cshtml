@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
-@{List<TestsApp.Models.Usuario> listaUsuarios = new TestsApp.Models.TestsAppBDEntities().Usuario.ToList();}
+@{List<TestsApp.Models.UserProfile> listaUsuarios = new TestsApp.Models.TestsAppBDEntities().UserProfile.ToList();}
 <input type="hidden" id="hdnIdExamen" />
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -18,17 +18,17 @@
                 @foreach (var item in listaUsuarios)
                 {
                     <tr>
-                        <td>@string.Format("{0} {1}", item.Nombres, item.Apellidos)</td>
+                        <td>@string.Format("{0} {1}", item.FirstName, item.LastName)</td>
                         <td class="td-actions">
-                            @if (Model.FirstOrDefault(r => r.IdUsuario == item.Id) != null)
+                            @if (Model.FirstOrDefault(r => r.IdUsuario == item.UserId) != null)
                             {
-                                <a data-id="@item.Id" class="btn btn-mini light-blue inverse no-asignar-usuario">
+                                <a data-id="@item.UserId" class="btn btn-mini light-blue inverse no-asignar-usuario">
                                     <i class=" icon-remove"></i>
                                 </a>
                             }
                             else
                             {
-                                <a data-id="@item.Id" class="btn btn-mini dark-blue asignar-usuario">
+                                <a data-id="@item.UserId" class="btn btn-mini dark-blue asignar-usuario">
                                     <i class=" icon-ok"></i>
                                 </a>
                             }

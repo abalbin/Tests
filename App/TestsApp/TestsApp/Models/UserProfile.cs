@@ -12,16 +12,25 @@ namespace TestsApp.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class UserProfile
     {
+        public UserProfile()
+        {
+            this.ExamenUsuario = new HashSet<ExamenUsuario>();
+            this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
+            this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
+        }
+    
         [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UrlImagen { get; set; }
+    
+        public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
+        public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
+        public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
     }
 }

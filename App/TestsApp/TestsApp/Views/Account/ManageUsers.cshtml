@@ -32,9 +32,24 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |
             @Html.ActionLink("Ver", "Details", new { id = item.UserId }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.UserId })
+                @Ajax.ActionLink("Eliminar", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId="modal-delete-user", OnSuccess="showModalDeleteUser"})
             </td>
         </tr>
     }
 
 </table>
+
+<div id="modal-delete-user" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("DeleteUserPartial", new TestsApp.Models.UserProfile())
+</div>
+
+<script type="text/javascript">
+    function showModalDeleteUser() {
+        $("#modal-delete-user").modal('show');
+    }
+
+    function hideModalDeleteUser() {
+        $("#modal-delete-user").modal('hide');
+    }
+
+</script>

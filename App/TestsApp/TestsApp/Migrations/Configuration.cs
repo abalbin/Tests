@@ -30,7 +30,6 @@ namespace TestsApp.Migrations
                     "abalbin",
                     "123456",
                     new { FirstName = "Arturo", LastName = "Balbin" });
-
             if (!Roles.GetRolesForUser("abalbin").Contains("Administrador"))
                 Roles.AddUsersToRoles(new[] { "abalbin" }, new[] { "Administrador" });
         }
