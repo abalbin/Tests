@@ -12,7 +12,7 @@ namespace TestsApp.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
-            return View("Index", "_LayoutNoBox");
+            return View("Index");
         }
 
         public ActionResult About()

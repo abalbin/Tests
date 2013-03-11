@@ -17,6 +17,12 @@ namespace TestsApp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return RedirectToAction("Login");
+        }
+
         //
         // GET: /Account/Login
 
@@ -35,7 +41,6 @@ namespace TestsApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            bool auth = WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe);
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);

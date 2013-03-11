@@ -75,13 +75,13 @@
         var d = new Date(parseInt(strDate[0]), parseInt(strDate[1]) - 1, parseInt(strDate[2]), parseInt(strDate[3]), parseInt(strDate[4]), parseInt(strDate[5]), 0);
         var dInicio = new Date(parseInt(strDate[0]), parseInt(strDate[1]) - 1, parseInt(strDate[2]), parseInt(strDate[3]), parseInt(strDate[4]), parseInt(strDate[5]), 0);
         //d = new Date();
-        d.setSeconds(d.getSeconds() + 10);
-        //d.setMinutes(d.getMinutes() + minutos);
+        d.setSeconds(d.getSeconds() + segundos);
+        d.setMinutes(d.getMinutes() + minutos);
         $('#tiempoRestante').countdown({ until: d, format: 'MS', onExpiry: liftOff });
 
         function liftOff() {
             setTiempoTranscurrido();
-            alert('Se terminó su tiempo');
+            $('.btn-terminar-examen').click();
         }
 
         $('.btn-terminar-examen').click(function () {

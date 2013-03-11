@@ -5,12 +5,16 @@
 }
 
 <h2>Exámenes</h2>
-
-<p>
-    @Html.ActionLink("Crear Examen", "Create")
-</p>
+@if (Roles.IsUserInRole("Administrador"))
+{
+    <p>
+        @Html.ActionLink("Crear Examen", "Create")
+    </p>
+}
 <div class="row-fluid">
     <div class="padded10">
+        @if(Model.Count() > 0)
+        {
         <ul class="recent-comments span12">
             @for (int i = 0; i < Model.Count(); i++)
             {
@@ -22,15 +26,25 @@
                 <a href="#">View more</a>
             </li>
         </ul>
+        }
+        else
+        {
+            <p>
+                No tiene ningún examen asignado.
+            </p>
+        }
     </div>
 </div>
 <div id="modal-asignarAster" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
     @Html.Partial("AsignarAsterPopUpPartial", new List<TestsApp.Models.ExamenUsuario>())
 </div>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
+    $(function () {
+        $(".btn-dar-disabled").tooltip();
+    });
     $(document).on("click", ".open-modal-asignarAster", function () {
-        
+
         var examenId = $(this).data('id');
         $.ajax({
             url: "Examen/Aprobar?id=" + examenId,

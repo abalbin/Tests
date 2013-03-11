@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style="display:none;" }))
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
     {
         @Html.AntiForgeryToken()
     }
@@ -40,31 +40,32 @@
                     </li>
                     <li class="">
 
-                        
+
                         <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
 
                     </li>
                 </ul>
             </li>
-
-            <!-- Seguridad -->
-            <li class="">
-                <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-group"></i>
-                    </span>
-                    <span class="text">Seguridad <b class="caret"></b></span>
-                </a>
-                <ul id="seguridad-list" class="collapse secondary">
-                    <li class="">
-                        <a href="pages/components/buttons.html">Usuarios</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Roles</a>
-                    </li>
-                </ul>
-            </li>
-
+            @if (Roles.IsUserInRole("Administrador"))
+            {
+                <!-- Seguridad -->
+                <li class="">
+                    <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-group"></i>
+                        </span>
+                        <span class="text">Seguridad <b class="caret"></b></span>
+                    </a>
+                    <ul id="seguridad-list" class="collapse secondary">
+                        <li class="">
+                            <a href="Account/ManageUsers">Usuarios</a>
+                        </li>
+                        <li class="">
+                            <a href="Rol">Roles</a>
+                        </li>
+                    </ul>
+                </li>
+            }
             <!-- Exámenes -->
             <li class="">
                 <a href="#examenes-list" class="accordion-toggle" data-toggle="collapse">
@@ -75,17 +76,14 @@
                 </a>
                 <ul id="examenes-list" class="collapse secondary">
                     <li class="">
-                        <a href="pages/components/buttons.html">Mantenimiento</a>
+                        <a href="Examen">Ver</a>
                     </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Preguntas</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Respuestas</a>
-                    </li>
-                    <li class="">
-                        <a href="pages/components/forms.html">Alertas</a>
-                    </li>
+                    @if (Roles.IsUserInRole("Administrador"))
+                    {
+                        <li class="">
+                            <a href="pages/components/forms.html">Alertas</a>
+                        </li>
+                    }
                 </ul>
             </li>
 
@@ -106,17 +104,19 @@
                     </li>
                 </ul>
             </li>
-
-            <!-- Reportes -->
-            <li class="">
-                <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
-                    <span class="icon">
-                        <i class="icon-odata"></i>
-                    </span>
-                    <span class="text">Reportes
-                    </span>
-                </a>
-            </li>
+            @if (Roles.IsUserInRole("Administrador"))
+            {
+                <!-- Reportes -->
+                <li class="">
+                    <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-odata"></i>
+                        </span>
+                        <span class="text">Reportes
+                        </span>
+                    </a>
+                </li>
+            }
         </ul>
 
     </nav>

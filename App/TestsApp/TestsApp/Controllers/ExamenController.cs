@@ -7,22 +7,30 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using TestsApp.Filters;
 using TestsApp.Models;
 
 namespace TestsApp.Controllers
 {
+    [Authorize]
     public class ExamenController : Controller
     {
         private TestsAppBDEntities db = new TestsAppBDEntities();
 
         //
         // GET: /Examen/
-
+        [InitializeSimpleMembership]
         public ActionResult Index()
         {
             Session.RemoveAll();
-            var examen = db.Examen.Include(e => e.Estado);
-            return View(examen.ToList());
+            UserProfile us = db.UserProfile.First(r => r.UserName == User.Identity.Name);
+            List<Examen> examenes = new List<Examen>();
+            if (Roles.IsUserInRole("Administrador"))
+                examenes = db.Examen.ToList();
+            else
+                examenes = db.ExamenUsuario.Where(e => e.IdUsuario == us.UserId).Select(e => e.Examen).ToList();
+            return View(examenes);
         }
 
         //
@@ -61,12 +69,14 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Give(Examen examen)
         {
             var examenHelp = db.Examen.FirstOrDefault(r => r.Id == examen.Id);
             if (examenHelp != null)
             {
-                ExamenUsuario exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == 3);
+                UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
+                ExamenUsuario exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == user.UserId);
 
                 if (exUsuario != null)
                 {
