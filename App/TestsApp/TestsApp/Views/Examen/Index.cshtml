@@ -13,19 +13,22 @@
 }
 <div class="row-fluid">
     <div class="padded10">
-        @if(Model.Count() > 0)
+        @if (Model.Count() > 0)
         {
-        <ul class="recent-comments span12">
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-                <li class="comment-box span6">
-                    @Html.Partial("ExamenItemListaPartial", Model.ToList()[i])
-                </li>
-            }
-            <li class="comment-box view-more span12" style="text-align: center">
-                <a href="#">View more</a>
-            </li>
-        </ul>
+            <ul class="recent-comments span12">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <li class="comment-box span6">
+                        @Html.Partial("ExamenItemListaPartial", Model.ToList()[i])
+                    </li>
+                }
+                @if (Model.Count() > 8)
+                {
+                    <li class="comment-box view-more span12" style="text-align: center">
+                        <a href="#">Ver más</a>
+                    </li>
+                }
+            </ul>
         }
         else
         {

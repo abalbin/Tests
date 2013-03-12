@@ -1,0 +1,42 @@
+﻿@model TestsApp.Models.ExamenUsuario
+@{TestsApp.Models.Examen examen = new TestsApp.Models.TestsAppBDEntities().Examen.First(r => r.Id == Model.IdExamen);}
+
+@{
+    ViewBag.Title = "Resultados";
+}
+
+<div class="box-header">
+    <i class="icon-th-list"></i>Resultados 
+</div>
+
+<div class="row-fluid">
+    <div class="padded">
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="input full-width">
+                    <h1>
+                        @examen.Titulo
+                    </h1>
+                </div>
+                <div class="input full-width">
+                    Puntaje obtenido: @Model.Puntaje
+                </div>
+            </div>
+            <div class="span6">
+
+                <div class="row-fluid input full-width">
+                    Tiempo Máximo: @examen.TiempoMaximo
+
+                </div>
+                <div class="row-fluid input full-width">
+                    Tiempo Transcurrido: @Model.Tiempo
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            @Html.ActionLink("Terminar", "Index", null, new { @class = "btn btn-small medium-blue" })
+        </div>
+    </div>
+</div>

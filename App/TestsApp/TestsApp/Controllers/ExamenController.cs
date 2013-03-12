@@ -111,14 +111,23 @@ namespace TestsApp.Controllers
                     exUsuario.FechaEjecucion = DateTime.Now;
                     exUsuario.Tiempo = examen.TiempoTranscurrido;
                     db.SaveChanges();
-
+                    return RedirectToAction("Result", new { idExamen = exUsuario.IdExamen, idUsuario = exUsuario.IdUsuario });
                 }
                 else
                     return HttpNotFound();
             }
             else
                 return HttpNotFound();
-            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Result(int idExamen, int idUsuario)
+        {
+            var exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == idExamen && r.IdUsuario == idUsuario);
+            if (exUsuario != null)
+                return View(exUsuario);
+            else
+                return HttpNotFound();
         }
 
         public ActionResult Aprobar(int id = 0)

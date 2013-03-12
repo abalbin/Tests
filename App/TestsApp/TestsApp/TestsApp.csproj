@@ -607,6 +607,7 @@
     <Content Include="Views\Rol\Delete.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
     <Content Include="Views\Account\DeleteUserPartial.cshtml" />
+    <Content Include="Views\Examen\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
