@@ -24,8 +24,11 @@ namespace TestsApp.Models
     
         [Key]
         public int UserId { get; set; }
+        [Display(Name="Usuario")]
         public string UserName { get; set; }
+        [Display(Name = "Nombres")]
         public string FirstName { get; set; }
+        [Display(Name = "Apellidos")]
         public string LastName { get; set; }
         public string UrlImagen { get; set; }
     

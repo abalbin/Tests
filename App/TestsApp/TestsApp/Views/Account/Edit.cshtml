@@ -1,0 +1,40 @@
+﻿@model TestsApp.Models.UserProfile
+@{
+    ViewBag.Title = "Editar";
+}
+
+<hgroup class="title">
+    <h2>Editar</h2>
+</hgroup>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.UrlImagen)
+    <ol>
+        <li>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName)
+        </li>
+        <li>Roles:
+            @Html.ListBox("IdRol", new SelectList(new TestsApp.Models.TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName"), new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
+                                                       })
+        </li>
+    </ol>
+    <input type="submit" value="Guardar" class="btn" />
+}

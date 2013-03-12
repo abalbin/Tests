@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TestsApp.Models.webpages_Roles>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Roles del Sistema";
 }
 
-<h2>Index</h2>
+<h2>Roles del Sistema</h2>
 
 <p>
     @Html.ActionLink("Nuevo Rol", "Create")
@@ -13,26 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoleId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.RoleId }) |
-            @Html.ActionLink("Ver", "Details", new { id = item.RoleId }) |
             @Html.ActionLink("Eliminar", "Delete", new { id = item.RoleId })
             </td>
         </tr>

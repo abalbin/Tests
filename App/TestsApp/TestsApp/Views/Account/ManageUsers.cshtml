@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TestsApp.Models.UserProfile>
 
 @{
-    ViewBag.Title = "ManageUsers";
+    ViewBag.Title = "Usuarios";
 }
 
-<h2>ManageUsers</h2>
+<h2>Administración de Usuarios</h2>
 <p>
     @Html.ActionLink("Crear nuevo usuario", "Register")
 </p>
@@ -17,11 +17,26 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>Roles
+            </th>
             <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
+        string[] roles = Roles.GetRolesForUser(item.UserName);
+        string s = string.Empty;
+        foreach (string t in roles)
+        {
+            s += t + ", ";
+        }
+        if (s.Length > 0)
+        {
+            s = s.Substring(0, s.Length - 2);
+        }
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
@@ -30,9 +45,14 @@
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @s
+            </td>
+            <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |
-            @Html.ActionLink("Ver", "Details", new { id = item.UserId }) |
-                @Ajax.ActionLink("Eliminar", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId="modal-delete-user", OnSuccess="showModalDeleteUser"})
+                @Ajax.ActionLink("Eliminar", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId = "modal-delete-user", OnSuccess = "showModalDeleteUser" })
             </td>
         </tr>
     }

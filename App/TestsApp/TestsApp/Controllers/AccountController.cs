@@ -17,6 +17,8 @@ namespace TestsApp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private TestsAppBDEntities db = new TestsAppBDEntities();
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -108,13 +110,68 @@ namespace TestsApp.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Register()
         {
 
             ViewBag.IdRol = new SelectList(new TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName");
 
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            UserProfile user = db.UserProfile.Find(id);
+            if (user == null)
+                return HttpNotFound();
+            List<string> listaRoles = new List<string>();
+            foreach (var s in Roles.GetRolesForUser(user.UserName))
+            {
+                string idRol = db.webpages_Roles.First(r => r.RoleName == s).RoleId.ToString();
+                listaRoles.Add(idRol);
+            }
+            ViewBag.IdRol = listaRoles.ToArray();
+            return View(user);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserProfile model, string[] IdRol)
+        {
+            UserProfile usOriginal = new TestsAppBDEntities().UserProfile.Find(model.UserId);
+            if (ModelState.IsValid)
+            {
+                // Attempt to register the user
+                try
+                {
+                    List<string> roleNames = new List<string>();
+                    db.Entry(model).State = System.Data.EntityState.Modified;
+                    db.SaveChanges();
+                    foreach (var s in IdRol)
+                    {
+                        int id = Convert.ToInt32(s);
+                        string nombreRol = db.webpages_Roles.First(r => r.RoleId == id).RoleName;
+                        roleNames.Add(nombreRol);
+                    }
+
+                    if (Roles.GetRolesForUser(model.UserName).Count() > 0)
+                        Roles.RemoveUserFromRoles(model.UserName, Roles.GetRolesForUser(model.UserName));
+                    Roles.AddUserToRoles(model.UserName, roleNames.ToArray());
+                    if (usOriginal.UserName == User.Identity.Name)
+                        if (model.UserName != User.Identity.Name)
+                            return RedirectToAction("Login");
+                    return RedirectToAction("ManageUsers");
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         //

@@ -14,13 +14,14 @@ using TestsApp.Models;
 namespace TestsApp.Controllers
 {
     [Authorize]
+    [InitializeSimpleMembership]
     public class ExamenController : Controller
     {
         private TestsAppBDEntities db = new TestsAppBDEntities();
 
         //
         // GET: /Examen/
-        [InitializeSimpleMembership]
+        
         public ActionResult Index()
         {
             Session.RemoveAll();

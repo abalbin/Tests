@@ -18,9 +18,9 @@
     <div class="article-actions">
         @if (User.IsInRole("Administrador"))
         {
-            @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            //@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
-            @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            //@Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
         }
         @if (Model.FechaEjecucion.Date == DateTime.Now.Date)
         {

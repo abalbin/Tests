@@ -48,20 +48,23 @@
             </li>
             @if (Roles.IsUserInRole("Administrador"))
             {
-                <!-- Seguridad -->
+                <!-- Administración -->
                 <li class="">
                     <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
                         <span class="icon">
                             <i class="icon-group"></i>
                         </span>
-                        <span class="text">Seguridad <b class="caret"></b></span>
+                        <span class="text">Administración <b class="caret"></b></span>
                     </a>
                     <ul id="seguridad-list" class="collapse secondary">
                         <li class="">
-                            <a href="Account/ManageUsers">Usuarios</a>
+                            @Html.ActionLink("Usuarios","ManageUsers","Account")
                         </li>
                         <li class="">
-                            <a href="Rol">Roles</a>
+                            @Html.ActionLink("Roles","Index","Rol")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Líneas","Index","Linea")
                         </li>
                     </ul>
                 </li>
@@ -76,11 +79,11 @@
                 </a>
                 <ul id="examenes-list" class="collapse secondary">
                     <li class="">
-                        <a href="Examen">Ver</a>
+                        @Html.ActionLink("Ver","Index","Examen")
                     </li>
                     @if (Roles.IsUserInRole("Administrador"))
                     {
-                        <li class="">
+                        <li class="li-disabled">
                             <a href="pages/components/forms.html">Alertas</a>
                         </li>
                     }
@@ -88,8 +91,8 @@
             </li>
 
             <!-- Documentos -->
-            <li class="">
-                <a href="#documentos-list" class="accordion-toggle" data-toggle="collapse">
+            <li class="li-disabled">
+                <a href="#documentos-list" class="accordion-toggle" >
                     <span class="icon">
                         <i class="icon-file"></i>
                     </span>
@@ -107,7 +110,7 @@
             @if (Roles.IsUserInRole("Administrador"))
             {
                 <!-- Reportes -->
-                <li class="">
+                <li class="li-disabled">
                     <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
                         <span class="icon">
                             <i class="icon-odata"></i>
@@ -176,5 +179,13 @@
     @Scripts.Render("~/bundles/meio")
     @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $('.li-disabled').live('click', function (e) {
+            e.preventDefault();
+            alert('Esta opción aun no está habilitada. Disculpe la molestia.');
+        });
+
+
+    </script>
 </body>
 </html>

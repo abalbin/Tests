@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TestsApp.Models.Examen>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Exámenes";
 }
 
-<h2>Exámenes</h2>
+<h2>Exámenes Disponibles</h2>
 @if (Roles.IsUserInRole("Administrador"))
 {
     <p>
