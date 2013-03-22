@@ -21,10 +21,10 @@ namespace TestsApp.Models
             this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
             this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
         }
-    
+
         [Key]
         public int UserId { get; set; }
-        [Display(Name="Usuario")]
+        [Display(Name = "Usuario")]
         public string UserName { get; set; }
         [Display(Name = "Nombres")]
         public string FirstName { get; set; }

@@ -226,6 +226,7 @@
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\GiveExamenModel.cs" />
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
@@ -609,6 +610,7 @@
     <Content Include="Views\Account\DeleteUserPartial.cshtml" />
     <Content Include="Views\Examen\Result.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Examen\GivePreguntaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

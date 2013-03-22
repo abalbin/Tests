@@ -111,6 +111,7 @@
           <Property Name="IdExamen" Type="int" />
           <Property Name="CantidadRespuesta" Type="int" />
           <Property Name="Puntaje" Type="decimal" />
+          <Property Name="Orden" Type="int" />
         </EntityType>
         <EntityType Name="PreguntaUsuario">
           <Key>
@@ -421,6 +422,7 @@
           <NavigationProperty Name="TipoPregunta" Relationship="TestsAppBDModel.FK_Pregunta_TipoPregunta" FromRole="Pregunta" ToRole="TipoPregunta" />
           <NavigationProperty Name="PreguntaUsuario" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="Pregunta" ToRole="PreguntaUsuario" />
           <NavigationProperty Name="Respuesta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Pregunta" ToRole="Respuesta" />
+          <Property Type="Int32" Name="Orden" />
         </EntityType>
         <EntityType Name="PreguntaUsuario">
           <Key>
@@ -671,6 +673,7 @@
           <EntitySetMapping Name="Pregunta">
             <EntityTypeMapping TypeName="TestsAppBDModel.Pregunta">
               <MappingFragment StoreEntitySet="Pregunta">
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
                 <ScalarProperty Name="CantidadRespuesta" ColumnName="CantidadRespuesta" />
                 <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TestsApp.Filters;
 using TestsApp.Models;
+using TestsApp.Models.ViewModels;
 
 namespace TestsApp.Controllers
 {
@@ -47,6 +48,34 @@ namespace TestsApp.Controllers
             return View(examen);
         }
 
+        [HttpPost]
+        public ActionResult NextQuestion(Pregunta pregunta)
+        {
+            Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
+            Pregunta next = db.Pregunta.FirstOrDefault(r => r.Orden == current.Orden + 1 && r.IdExamen == current.IdExamen);
+            if (next == null)
+                return HttpNotFound();
+            else
+            {
+                ModelState.Clear();
+                return PartialView("GivePreguntaPartial", next);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult PreviousQuestion(Pregunta pregunta)
+        {
+            Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
+            Pregunta prev = db.Pregunta.FirstOrDefault(r => r.Orden == current.Orden - 1 && r.IdExamen == current.IdExamen);
+            if (prev == null)
+                return HttpNotFound();
+            else
+            {
+                ModelState.Clear();
+                return PartialView("GivePreguntaPartial", prev);
+            }
+        }
+
         public ActionResult Give(int id = 0)
         {
             Examen examen = new Examen();
@@ -58,15 +87,18 @@ namespace TestsApp.Controllers
             }
             else
             {
+                GiveExamenModel giveExamenModel = new GiveExamenModel(examen);
                 if (FechaInicioEjecucion == null)
                     FechaInicioEjecucion = DateTime.Now;
-                examen.FechaEjecucion = FechaInicioEjecucion.Value;
+                giveExamenModel.FechaEjecucion = FechaInicioEjecucion.Value;
                 //Hack para bindear---------------------
                 foreach (var item in examen.Pregunta)
                     item.Respuesta.ToList();
                 //--------------------------------------
+                ModelState.Clear();
+                return View(examen);
             }
-            return View(examen);
+            
         }
 
         [HttpPost]
@@ -227,6 +259,7 @@ namespace TestsApp.Controllers
             var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
             if (preg.CantidadRespuesta == null)
                 preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+            preg.Orden = ListaPreguntas.Count + 1;
             ListaPreguntas.Add(preg);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("PreguntaPartial", ListaPreguntas);

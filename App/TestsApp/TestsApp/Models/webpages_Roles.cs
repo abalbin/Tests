@@ -11,13 +11,10 @@ namespace TestsApp.Models
 {
     using System;
     using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
     
     public partial class webpages_Roles
     {
-        [Display(Name="Id")]
         public int RoleId { get; set; }
-        [Display(Name = "Nombre de Rol")]
         public string RoleName { get; set; }
     }
 }

@@ -1,0 +1,19 @@
+public Examen()
+        {
+            this.Titulo = "Título del Examen";
+            this.TiempoMaximo = new TimeSpan(0, 30, 0);
+            this.PuntajeMaximo = 20;
+            this.FechaEjecucion = DateTime.Now;
+            this.ExamenUsuario = new HashSet<ExamenUsuario>();
+            this.Pregunta = new HashSet<Pregunta>();
+        }
+
+        [Key]
+        public int UserId { get; set; }
+        [Display(Name="Usuario")]
+        public string UserName { get; set; }
+        [Display(Name = "Nombres")]
+        public string FirstName { get; set; }
+        [Display(Name = "Apellidos")]
+        public string LastName { get; set; }
+        public string UrlImagen { get; set; }
