@@ -22,7 +22,7 @@ namespace TestsApp.Controllers
 
         //
         // GET: /Examen/
-        
+
         public ActionResult Index()
         {
             Session.RemoveAll();
@@ -53,10 +53,51 @@ namespace TestsApp.Controllers
         {
             Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
             Pregunta next = db.Pregunta.FirstOrDefault(r => r.Orden == current.Orden + 1 && r.IdExamen == current.IdExamen);
+            
             if (next == null)
                 return HttpNotFound();
             else
             {
+                UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
+                Pregunta preguntaOriginal = db.Pregunta.First(r => r.Id == current.Id);
+                decimal puntajePregunta = 0;
+                Respuesta respuestaOriginal;
+                RespuestaUsuario rptausuario;
+                foreach (var rpta in pregunta.Respuesta)
+                {
+                    rptausuario = db.RespuestaUsuario.FirstOrDefault(r => r.IdUsuario == user.UserId && r.IdRespuesta == rpta.Id);
+                    respuestaOriginal = db.Respuesta.First(r => r.Id == rpta.Id);
+                    puntajePregunta += ((rpta.Marcada && respuestaOriginal.EsCorrecta == 1) ? (Convert.ToDecimal(preguntaOriginal.Puntaje / preguntaOriginal.CantidadRespuesta)) : 0);
+                    if (rptausuario == null)
+                    {
+                        rptausuario = new RespuestaUsuario { IdUsuario = user.UserId };
+                        rptausuario.IdRespuesta = rpta.Id;
+                        rptausuario.Texto = respuestaOriginal.Texto;
+                        rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
+                        db.RespuestaUsuario.Add(rptausuario);
+                    }
+                    else
+                        rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
+                    db.SaveChanges();
+                }
+                PreguntaUsuario pregUsuario = db.PreguntaUsuario.FirstOrDefault(r => r.IdUsuario == user.UserId && r.IdPregunta == current.Id);
+                if (pregUsuario == null)
+                {
+                    pregUsuario = new PreguntaUsuario { IdUsuario = user.UserId, IdPregunta = current.Id };
+                    pregUsuario.Puntaje = puntajePregunta;
+                    db.PreguntaUsuario.Add(pregUsuario);
+                }
+                else
+                    pregUsuario.Puntaje = puntajePregunta;
+                db.SaveChanges();
+
+                if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == next.Id && r.IdUsuario == user.UserId) != null)
+                {
+                    foreach (var rpta in next.Respuesta)
+                    {
+                        rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdUsuario == user.UserId).Marcada;
+                    }
+                }
                 ModelState.Clear();
                 return PartialView("GivePreguntaPartial", next);
             }
@@ -71,6 +112,46 @@ namespace TestsApp.Controllers
                 return HttpNotFound();
             else
             {
+                UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
+                Pregunta preguntaOriginal = db.Pregunta.First(r => r.Id == current.Id);
+                decimal puntajePregunta = 0;
+                Respuesta respuestaOriginal;
+                RespuestaUsuario rptausuario;
+                foreach (var rpta in pregunta.Respuesta)
+                {
+                    rptausuario = db.RespuestaUsuario.FirstOrDefault(r => r.IdUsuario == user.UserId && r.IdRespuesta == rpta.Id);
+                    respuestaOriginal = db.Respuesta.First(r => r.Id == rpta.Id);
+                    puntajePregunta += ((rpta.Marcada && respuestaOriginal.EsCorrecta == 1) ? (Convert.ToDecimal(preguntaOriginal.Puntaje / preguntaOriginal.CantidadRespuesta)) : 0);
+                    if (rptausuario == null)
+                    {
+                        rptausuario = new RespuestaUsuario { IdUsuario = user.UserId };
+                        rptausuario.IdRespuesta = rpta.Id;
+                        rptausuario.Texto = respuestaOriginal.Texto;
+                        rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
+                        db.RespuestaUsuario.Add(rptausuario);
+                    }
+                    else
+                        rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
+                    db.SaveChanges();
+                   
+                }
+                PreguntaUsuario pregUsuario = db.PreguntaUsuario.FirstOrDefault(r => r.IdUsuario == user.UserId && r.IdPregunta == current.Id);
+                if (pregUsuario == null)
+                {
+                    pregUsuario = new PreguntaUsuario { IdUsuario = user.UserId, IdPregunta = current.Id };
+                    pregUsuario.Puntaje = puntajePregunta;
+                    db.PreguntaUsuario.Add(pregUsuario);
+                }
+                else
+                    pregUsuario.Puntaje = puntajePregunta;
+                db.SaveChanges();
+                if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == prev.Id && r.IdUsuario == user.UserId) != null)
+                {
+                    foreach (var rpta in prev.Respuesta)
+                    {
+                        rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdUsuario == user.UserId).Marcada;
+                    }
+                }
                 ModelState.Clear();
                 return PartialView("GivePreguntaPartial", prev);
             }
@@ -90,7 +171,7 @@ namespace TestsApp.Controllers
                 GiveExamenModel giveExamenModel = new GiveExamenModel(examen);
                 if (FechaInicioEjecucion == null)
                     FechaInicioEjecucion = DateTime.Now;
-                giveExamenModel.FechaEjecucion = FechaInicioEjecucion.Value;
+                examen.FechaEjecucion = FechaInicioEjecucion.Value;
                 //Hack para bindear---------------------
                 foreach (var item in examen.Pregunta)
                     item.Respuesta.ToList();
@@ -98,52 +179,29 @@ namespace TestsApp.Controllers
                 ModelState.Clear();
                 return View(examen);
             }
-            
+
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Give(Examen examen)
+        public ActionResult Give(Pregunta pregunta, TimeSpan tiempoTranscurrido)
         {
-            var examenHelp = db.Examen.FirstOrDefault(r => r.Id == examen.Id);
+            var examenHelp = db.Examen.FirstOrDefault(r => r.Id == pregunta.IdExamen);
             if (examenHelp != null)
             {
                 UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
-                ExamenUsuario exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == user.UserId);
+                ExamenUsuario exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == pregunta.IdExamen && r.IdUsuario == user.UserId);
 
                 if (exUsuario != null)
                 {
-                    PreguntaUsuario pregUsuario;
-                    RespuestaUsuario rptausuario;
-                    Pregunta preguntaOriginal;
-                    Respuesta respuestOriginal;
-                    decimal puntajePregunta;
                     decimal puntajeTotal = 0;
-                    foreach (var preg in examen.Pregunta)
-                    {
-                        preguntaOriginal = db.Pregunta.First(r => r.Id == preg.Id);
-                        puntajePregunta = 0;
-                        pregUsuario = new PreguntaUsuario { IdUsuario = exUsuario.IdUsuario, IdPregunta = preg.Id };
-                        foreach (var rpta in preg.Respuesta)
-                        {
-                            respuestOriginal = db.Respuesta.First(r => r.Id == rpta.Id);
-                            rptausuario = new RespuestaUsuario { IdUsuario = exUsuario.IdUsuario };
-                            rptausuario.IdRespuesta = rpta.Id;
-                            rptausuario.Texto = rpta.Texto;
-                            rptausuario.Marcada = preguntaOriginal.TipoPregunta.Nombre.Equals("Textarea") ? true : rpta.Marcada;
-                            puntajePregunta += ((rpta.Marcada && respuestOriginal.EsCorrecta == 1) ? (Convert.ToDecimal(preguntaOriginal.Puntaje / preguntaOriginal.CantidadRespuesta)) : 0);
-                            db.RespuestaUsuario.Add(rptausuario);
-                            db.SaveChanges();
-                        }
-                        pregUsuario.Puntaje = puntajePregunta;
-                        db.PreguntaUsuario.Add(pregUsuario);
-                        db.SaveChanges();
-                        puntajeTotal += Convert.ToDecimal(pregUsuario.Puntaje);
-                    }
+                    var preguntas = db.PreguntaUsuario.Where(r => r.Pregunta.Examen.Id == pregunta.IdExamen && r.IdUsuario == user.UserId);
+                    foreach (var preg in preguntas)
+                        puntajeTotal += Convert.ToDecimal(preg.Puntaje);
                     exUsuario.Puntaje = puntajeTotal;
                     exUsuario.FechaEjecucion = DateTime.Now;
-                    exUsuario.Tiempo = examen.TiempoTranscurrido;
-                    db.SaveChanges();
+                    exUsuario.Tiempo = tiempoTranscurrido;
+                    //db.SaveChanges();
                     return RedirectToAction("Result", new { idExamen = exUsuario.IdExamen, idUsuario = exUsuario.IdUsuario });
                 }
                 else
@@ -151,7 +209,6 @@ namespace TestsApp.Controllers
             }
             else
                 return HttpNotFound();
-
         }
 
         public ActionResult Result(int idExamen, int idUsuario)
