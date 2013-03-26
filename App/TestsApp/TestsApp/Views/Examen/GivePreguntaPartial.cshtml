@@ -3,37 +3,38 @@
 @Html.HiddenFor(m => m.Id)
 @Html.HiddenFor(m => m.IdExamen)
 <div class="row-fluid">
-    <div class="padded">
-        <div class="span12">
-            <div class="box-header">
-                @Model.Orden
-                .
-                @Html.DisplayFor(m => m.Texto)
-                <div class="pull-right">
-                    Puntaje: @Html.DisplayFor(m => m.Puntaje)
+    <div class="span12">
+        Pregunta @Model.Orden de @Model.Examen.Pregunta.Count
+        <p class="lead">
+            @Html.DisplayFor(m => m.Texto)
+        </p>
+        <div class="row-fluid row-margin-bottom-regular">
+            <div class="span8">
+                <div id="RespuestasContainer">
+                    <ul>
+                        @Html.EditorFor(m => m.Respuesta)
+                    </ul>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="padded">
-                        <div id="RespuestasContainer">
-                            <ul>
-                                @Html.EditorFor(m => m.Respuesta)
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-fluid">
+        </div>
+        <div class="row-fluid center">
+            <input type="submit" value="Terminar" class="hidden btn-terminar-examen-hidden" />
+            <div class="btn-group">
                 @if (Model.Orden > 1)
                 {
                     <button type="button" id="btnPreviousQuestion" class="btn btn-small" onclick="PreviousQuestion()">Anterior</button>
                 }
+           
+                
+                @if (Model.Orden == Model.Examen.Pregunta.Count)
+                {
+                    <input type="submit" value="Terminar" id="btnFinish" class="btn btn-small green btn-terminar-examen" />
+                }
+           
                 @if (Model.Orden < Model.Examen.Pregunta.Count)
                 {
-                    <button type="button" id="btnNextQuestion" class="btn btn-small medium-blue" onclick="NextQuestion()">Siguiente</button>
+                    <button type="button" id="btnNextQuestion" class="btn btn-small medium-blue pull-right" onclick="NextQuestion()">Siguiente</button>
                 }
-                <button type="button" id="btnFinish" class="btn btn-small medium-blue btn-terminar-examen" >Terminar</button>
             </div>
         </div>
     </div>
@@ -51,7 +52,9 @@
             },
             error: function () {
 
-            }
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
         });
     }
 
@@ -66,7 +69,9 @@
             },
             error: function () {
 
-            }
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
         });
     }
 </script>

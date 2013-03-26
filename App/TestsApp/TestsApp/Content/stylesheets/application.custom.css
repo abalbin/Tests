@@ -1,3 +1,19 @@
 ﻿li.span6:nth-child(2n+1), li.span12 {
     margin-left: 0 !important;
 }
+#loading-div {
+    display: none;
+    position: absolute;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.center-div {
+    margin: 0 auto !important;
+}
+
+.row-margin-bottom-regular {
+    margin-bottom: 20px;
+}
