@@ -17,3 +17,11 @@
 .row-margin-bottom-regular {
     margin-bottom: 20px;
 }
+
+.rightAnswer {
+    color: green;
+}
+
+.wrongAnswer {
+    color: red;
+}

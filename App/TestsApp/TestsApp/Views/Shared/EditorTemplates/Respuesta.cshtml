@@ -1,16 +1,43 @@
 ﻿@model TestsApp.Models.Respuesta
 @Html.HiddenFor(m => m.Id)
-<li>
-@switch (Model.Pregunta.TipoPregunta.NombreControl)
+@{TestsApp.Models.UserProfile user = new TestsApp.Models.TestsAppBDEntities().UserProfile.First(r => r.UserName == User.Identity.Name);
+  TestsApp.Models.ExamenUsuario exUsuario = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.Pregunta.IdExamen && r.IdUsuario == user.UserId);}
+@if (exUsuario.Estado < 2)
 {
-    case "Checkbox":
-    @Html.CheckBoxFor(m => m.Marcada)
-    @Html.DisplayFor(m => m.Texto)
-        break;
-    case "Textarea":
-    Model.Texto = string.Empty;
-    @Html.TextAreaFor(m => m.Texto)
-        break;
-}
-</li>
+    <li>
 
+        @switch (Model.Pregunta.TipoPregunta.NombreControl)
+        {
+            case "Checkbox":
+            @Html.CheckBoxFor(m => m.Marcada)
+            @Html.DisplayFor(m => m.Texto)
+                break;
+            case "Textarea":
+                Model.Texto = string.Empty;
+            @Html.TextAreaFor(m => m.Texto)
+                break;
+        }
+    </li>
+}
+
+@if (exUsuario.Estado == 2)
+{
+    <li>
+
+        @switch (Model.Pregunta.TipoPregunta.NombreControl)
+        {
+            case "Checkbox":
+            <i class="@String.Format("icon-{0}", Model.Marcada ? "check" : "circle")"></i>
+            @Html.DisplayFor(m => m.Texto)
+                if (Model.EsCorrecta == 1)
+                {
+            <i class="@String.Format("icon-{0}", "ok wrongAnswer")"></i>
+                }
+                break;
+            case "Textarea":
+                Model.Texto = string.Empty;
+            @Html.TextAreaFor(m => m.Texto)
+                break;
+        }
+    </li>
+}

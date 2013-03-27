@@ -53,7 +53,7 @@
                     <div id="PreguntasContainer">
                         @Html.Partial("GivePreguntaPartial", Model.Pregunta.ElementAt(0))
                     </div>
-                    
+                    <input type="submit" value="Terminar" class="hidden btn-terminar-examen-hidden" />
                 }
             </div>
         </div>
@@ -62,6 +62,42 @@
 
 
 <script type="text/javascript">
+    function NextQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("NextQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize(),
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
+        });
+    }
+
+    function PreviousQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PreviousQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize(),
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
+        });
+    }
+    function FinishTest() {
+        $('.btn-terminar-examen-hidden').click();
+    }
     function startingAjax() {
         //$('#loading-div').css("left", 100);
         //$('#loading-div').css("top", 5);
@@ -92,7 +128,7 @@
             $('.btn-terminar-examen-hidden').click();
         }
 
-        $('.btn-terminar-examen').click(function () {
+        $('.btn-terminar-examen-hidden').click(function () {
             setTiempoTranscurrido();
         });
 

@@ -49,7 +49,7 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult NextQuestion(Pregunta pregunta)
+        public ActionResult NextQuestion(Pregunta pregunta, int estadoExamen = 0)
         {
             Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
             Pregunta next = db.Pregunta.FirstOrDefault(r => r.Orden == current.Orden + 1 && r.IdExamen == current.IdExamen);
@@ -58,7 +58,8 @@ namespace TestsApp.Controllers
                 return HttpNotFound();
             else
             {
-                SavePregunta(current, pregunta, user);
+                if (estadoExamen != 2)
+                    SavePregunta(current, pregunta, user);
 
                 if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == next.Id && r.IdUsuario == user.UserId) != null)
                 {
@@ -73,7 +74,7 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult PreviousQuestion(Pregunta pregunta)
+        public ActionResult PreviousQuestion(Pregunta pregunta, int estadoExamen = 0)
         {
             Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
             Pregunta prev = db.Pregunta.FirstOrDefault(r => r.Orden == current.Orden - 1 && r.IdExamen == current.IdExamen);
@@ -82,7 +83,9 @@ namespace TestsApp.Controllers
                 return HttpNotFound();
             else
             {
-                SavePregunta(current, pregunta, user);
+                if (estadoExamen != 2)
+                    SavePregunta(current, pregunta, user);
+
                 if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == prev.Id && r.IdUsuario == user.UserId) != null)
                 {
                     foreach (var rpta in prev.Respuesta)
@@ -97,7 +100,7 @@ namespace TestsApp.Controllers
 
         private void SavePregunta(Pregunta current, Pregunta pregunta, UserProfile user)
         {
-            
+
             Pregunta preguntaOriginal = db.Pregunta.First(r => r.Id == current.Id);
             decimal puntajePregunta = 0;
             Respuesta respuestaOriginal;
@@ -143,16 +146,46 @@ namespace TestsApp.Controllers
             }
             else
             {
-                GiveExamenModel giveExamenModel = new GiveExamenModel(examen);
+                UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
+                ExamenUsuario exUsua = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == user.UserId);
                 if (FechaInicioEjecucion == null)
-                    FechaInicioEjecucion = DateTime.Now;
+                {
+                    if (exUsua.Estado == 1)
+                        FechaInicioEjecucion = exUsua.FechaInicio;
+                    else
+                        FechaInicioEjecucion = DateTime.Now;
+                }
                 examen.FechaEjecucion = FechaInicioEjecucion.Value;
                 //Hack para bindear---------------------
                 foreach (var item in examen.Pregunta)
                     item.Respuesta.ToList();
                 //--------------------------------------
-                ModelState.Clear();
-                return View(examen);
+                //Para visualizar las marcadas (en caso existan) de la primera respuesta
+                Pregunta primera = examen.Pregunta.ElementAt(0);
+                if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == primera.Id && r.IdUsuario == user.UserId) != null)
+                {
+                    foreach (var rpta in primera.Respuesta)
+                    {
+                        rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdUsuario == user.UserId).Marcada;
+                    }
+                }
+                //--------------------------------------------------------------------
+                //Actualizar Estado de ExamenUsuario:
+
+                if (exUsua != null && exUsua.Estado != 2)
+                {
+                    if (exUsua.Estado == 0)
+                    {
+                        exUsua.FechaInicio = DateTime.Now;
+                        exUsua.Estado = 1;
+                        db.SaveChanges();
+                    }
+                    ModelState.Clear();
+                    return View(examen);
+                }
+                else
+                    return HttpNotFound();
+
             }
 
         }
@@ -163,7 +196,7 @@ namespace TestsApp.Controllers
         {
             Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
             UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
-            if(current != null)
+            if (current != null)
                 SavePregunta(current, pregunta, user);
             var examenHelp = db.Examen.FirstOrDefault(r => r.Id == pregunta.IdExamen);
             if (examenHelp != null)
@@ -177,8 +210,9 @@ namespace TestsApp.Controllers
                     foreach (var preg in preguntas)
                         puntajeTotal += Convert.ToDecimal(preg.Puntaje);
                     exUsuario.Puntaje = puntajeTotal;
-                    exUsuario.FechaEjecucion = DateTime.Now;
+                    exUsuario.FechaTermino = DateTime.Now;
                     exUsuario.Tiempo = TiempoTranscurrido;
+                    exUsuario.Estado = 2;
                     db.SaveChanges();
                     return RedirectToAction("Result", new { idExamen = exUsuario.IdExamen, idUsuario = exUsuario.IdUsuario });
                 }
@@ -193,7 +227,18 @@ namespace TestsApp.Controllers
         {
             var exUsuario = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == idExamen && r.IdUsuario == idUsuario);
             if (exUsuario != null)
+            {
+                //Para visualizar las marcadas (en caso existan) de la primera respuesta
+                Pregunta primera = exUsuario.Examen.Pregunta.ElementAt(0);
+                if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == primera.Id && r.IdUsuario == idUsuario) != null)
+                {
+                    foreach (var rpta in primera.Respuesta)
+                    {
+                        rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdUsuario == idUsuario).Marcada;
+                    }
+                }
                 return View(exUsuario);
+            }
             else
                 return HttpNotFound();
         }
@@ -217,6 +262,7 @@ namespace TestsApp.Controllers
             {
                 foreach (var item in ListaExamenUsuarioAsignar)
                 {
+                    item.Estado = 0;
                     db.ExamenUsuario.Add(item);
                     db.SaveChanges();
                 }

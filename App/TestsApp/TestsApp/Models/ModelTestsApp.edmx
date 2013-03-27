@@ -92,7 +92,9 @@
           <Property Name="IdExamen" Type="int" />
           <Property Name="Puntaje" Type="decimal" Scale="2" />
           <Property Name="Tiempo" Type="time" />
-          <Property Name="FechaEjecucion" Type="datetime" />
+          <Property Name="FechaTermino" Type="datetime" />
+          <Property Name="FechaInicio" Type="datetime" />
+          <Property Name="Estado" Type="int" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -397,8 +399,10 @@
           <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="2" />
           <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_ExamenUsuario_Examen" FromRole="ExamenUsuario" ToRole="Examen" />
           <Property Type="Time" Name="Tiempo" Precision="7" />
-          <Property Type="DateTime" Name="FechaEjecucion" Precision="3" />
           <NavigationProperty Name="UserProfile" Relationship="TestsAppBDModel.FK_ExamenUsuario_UserProfile" FromRole="ExamenUsuario" ToRole="UserProfile" />
+          <Property Type="Int32" Name="Estado" />
+          <Property Type="DateTime" Name="FechaTermino" Precision="3" />
+          <Property Type="DateTime" Name="FechaInicio" Precision="3" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -653,7 +657,9 @@
           <EntitySetMapping Name="ExamenUsuario">
             <EntityTypeMapping TypeName="TestsAppBDModel.ExamenUsuario">
               <MappingFragment StoreEntitySet="ExamenUsuario">
-                <ScalarProperty Name="FechaEjecucion" ColumnName="FechaEjecucion" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="FechaTermino" ColumnName="FechaTermino" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
                 <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
                 <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
