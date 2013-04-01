@@ -243,6 +243,13 @@ namespace TestsApp.Controllers
                 return HttpNotFound();
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult Result(Pregunta pregunta, TimeSpan TiempoTranscurrido)
+        {
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Aprobar(int id = 0)
         {
             Examen examen = db.Examen.Find(id);
