@@ -19888,7 +19888,7 @@ ol, ul
 section#main
 {
     overflow: hidden;
-    margin-left: 140px;
+    margin-left: 170px;
     padding-top: 50px;
 }
 
@@ -22828,7 +22828,7 @@ nav#primary
     box-shadow: rgba(0, 0, 0, 0.2) 3px 0px 5px 0px;
     border-right: 1px solid #1D1E21;
     float: left;
-    width: 140px;
+    width: 170px;
     height: 100%;
     position: fixed;
     margin-top: 42px;
@@ -22866,7 +22866,7 @@ nav#primary
         nav#primary > ul > li > a i
         {
             display: inline-block;
-            font-size: 26px;
+            font-size: 20px;
             height: 24px;
             padding-right: 5px;
             vertical-align: top;

@@ -1,27 +1,55 @@
-﻿li.span6:nth-child(2n+1), li.span12 {
+﻿li.span6:nth-child(2n+1), li.span12
+{
     margin-left: 0 !important;
 }
-#loading-div {
+
+#loading-div
+{
     display: none;
     position: absolute;
 }
 
-.centered {
+.centered
+{
     margin: 0 auto;
 }
 
-.center-div {
+.center-div
+{
     margin: 0 auto !important;
 }
 
-.row-margin-bottom-regular {
+.row-margin-bottom-regular
+{
     margin-bottom: 20px;
 }
 
-.rightAnswer {
+.rightAnswer
+{
     color: green;
 }
 
-.wrongAnswer {
+.wrongAnswer
+{
     color: red;
+}
+
+.rotate
+{
+    /* Safari */
+    -webkit-transform: rotate(-30deg);
+    /* Firefox */
+    -moz-transform: rotate(-30deg);
+    /* IE */
+    -ms-transform: rotate(-30deg);
+    /* Opera */
+    -o-transform: rotate(-30deg);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.score{
+    color: red;
+    font-size: 28px;
+    font-style:italic;
 }

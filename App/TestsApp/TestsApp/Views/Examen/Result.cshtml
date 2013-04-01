@@ -41,12 +41,14 @@
                         <i class="icon-spinner icon-spin icon-2x pull-left"></i>Guardando...
                     </div>
                 </div>
+                
                 @using (Html.BeginForm("Give", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
                 {
                     <div id="PreguntasContainer">
                         @Html.Partial("GivePreguntaPartial", Model.Examen.Pregunta.ElementAt(0))
                     </div>  
                 }
+                    
             </div>
 
         <div class="row-fluid">
