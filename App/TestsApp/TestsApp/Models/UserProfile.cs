@@ -31,9 +31,12 @@ namespace TestsApp.Models
         [Display(Name = "Apellidos")]
         public string LastName { get; set; }
         public string UrlImagen { get; set; }
+        public string Mail { get; set; }
+        public Nullable<int> IdLinea { get; set; }
     
         public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
         public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
+        public virtual Linea Linea { get; set; }
     }
 }

@@ -89,6 +89,14 @@ namespace TestsApp.Models
         [Required]
         [Display(Name = "Rol")]
         public string[] IdRol { get; set; }
+
+        [Required]
+        [Display(Name = "Línea")]
+        public int IdLinea { get; set; }
+
+        [Required]
+        [Display(Name = "E-Mail")]
+        public string Mail { get; set; }
     }
 
     public class ExternalLogin

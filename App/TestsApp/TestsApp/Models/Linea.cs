@@ -16,12 +16,14 @@ namespace TestsApp.Models
     {
         public Linea()
         {
-            this.Examen = new HashSet<Examen>();
+            this.UserProfile = new HashSet<UserProfile>();
+            this.Producto = new HashSet<Producto>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
     
-        public virtual ICollection<Examen> Examen { get; set; }
+        public virtual ICollection<UserProfile> UserProfile { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

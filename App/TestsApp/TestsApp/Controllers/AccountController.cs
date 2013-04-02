@@ -116,8 +116,38 @@ namespace TestsApp.Controllers
         {
 
             ViewBag.IdRol = new SelectList(new TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName");
-
             return View();
+        }
+
+        [Authorize]
+        public ActionResult RegisterMassive()
+        {
+            try
+            {
+                var list = db.UserMigration.ToList();
+                foreach (UserMigration u in list)
+                {
+                    RegisterModel rm = new RegisterModel();
+                    string[] un = u.Mail != null ? u.Mail.Split('@') : null;
+                    rm.UserName = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+                    rm.Password = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+                    rm.ConfirmPassword = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+                    rm.FirstName = u.Nombres;
+                    rm.LastName = u.Apellidos;
+                    rm.IdLinea = Convert.ToInt32(u.IdLinea);
+                    rm.Mail = u.Mail;
+                    List<string> li = new List<string>();
+                    li.Add(u.RoleId.ToString());
+                    rm.IdRol = li.ToArray();
+                    RegisterUser(rm);
+                }
+                //RegisterUser(model);
+                return RedirectToAction("ManageUsers");
+            }
+            catch (MembershipCreateUserException e)
+            {
+                return HttpNotFound();
+            }
         }
 
         [Authorize]
@@ -188,28 +218,7 @@ namespace TestsApp.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    List<string> roleNames = new List<string>();
-                    using (var context = new TestsAppBDEntities())
-                    {
-                        var newUser = context.UserProfile.FirstOrDefault(r => r.UserName.Equals(model.UserName));
-                        if (newUser != null)
-                        {
-                            newUser.FirstName = model.FirstName;
-                            newUser.LastName = model.LastName;
-                            context.SaveChanges();
-                        }
-                        foreach (var s in model.IdRol)
-                        {
-                            int id = Convert.ToInt32(s);
-                            string nombreRol = context.webpages_Roles.First(r => r.RoleId == id).RoleName;
-                            roleNames.Add(nombreRol);
-                        }
-                    }
-
-                    if (Roles.GetRolesForUser(model.UserName).Count() > 0)
-                        Roles.RemoveUserFromRoles(model.UserName, Roles.GetRolesForUser(model.UserName));
-                    Roles.AddUserToRoles(model.UserName, roleNames.ToArray());
+                    RegisterUser(model);
                     return RedirectToAction("ManageUsers");
                 }
                 catch (MembershipCreateUserException e)
@@ -220,6 +229,32 @@ namespace TestsApp.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void RegisterUser(RegisterModel model)
+        {
+            WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+            List<string> roleNames = new List<string>();
+            using (var context = new TestsAppBDEntities())
+            {
+                var newUser = context.UserProfile.FirstOrDefault(r => r.UserName.Equals(model.UserName));
+                if (newUser != null)
+                {
+                    newUser.FirstName = model.FirstName;
+                    newUser.LastName = model.LastName;
+                    context.SaveChanges();
+                }
+                foreach (var s in model.IdRol)
+                {
+                    int id = Convert.ToInt32(s);
+                    string nombreRol = context.webpages_Roles.First(r => r.RoleId == id).RoleName;
+                    roleNames.Add(nombreRol);
+                }
+            }
+
+            if (Roles.GetRolesForUser(model.UserName).Count() > 0)
+                Roles.RemoveUserFromRoles(model.UserName, Roles.GetRolesForUser(model.UserName));
+            Roles.AddUserToRoles(model.UserName, roleNames.ToArray());
         }
 
         //

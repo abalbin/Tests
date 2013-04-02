@@ -36,5 +36,7 @@ namespace TestsApp.Models
         public DbSet<TipoPregunta> TipoPregunta { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Producto> Producto { get; set; }
+        public DbSet<UserMigration> UserMigration { get; set; }
     }
 }

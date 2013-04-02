@@ -215,6 +215,9 @@
     <Compile Include="Models\PreguntaUsuario.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Producto.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Respuesta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
@@ -224,10 +227,12 @@
     <Compile Include="Models\TipoPregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserMigration.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModels\GiveExamenModel.cs" />
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
@@ -615,6 +620,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

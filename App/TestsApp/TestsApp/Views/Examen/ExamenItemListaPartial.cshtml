@@ -9,7 +9,8 @@
         <h3>
             @Model.Titulo
         </h3>
-        <p>Línea: @Model.Linea.Nombre</p>
+        <p>Línea: @Model.Producto.Linea.Nombre</p>
+        <p>Producto: @Model.Producto.Nombre</p>
         <p>
             Fecha de ejecución: @Model.FechaEjecucion.Day de @Model.FechaEjecucion.ToString("MMMM") del @Model.FechaEjecucion.Year
         </p>

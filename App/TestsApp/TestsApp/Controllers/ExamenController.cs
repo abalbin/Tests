@@ -10,7 +10,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TestsApp.Filters;
 using TestsApp.Models;
-using TestsApp.Models.ViewModels;
 
 namespace TestsApp.Controllers
 {
@@ -313,6 +312,18 @@ namespace TestsApp.Controllers
             ViewBag.ListaPreguntas = ListaPreguntas;
             Examen ex = new Examen();
             return View(ex);
+        }
+
+        public ActionResult GetProductsByLine(int id)
+        {
+            var result = db.Producto.Where(r => r.IdLinea == id);
+
+            //build JSON.  
+            var modelResult = from m in result
+                                 select new { value = m.Id,
+                                                text = m.Nombre };
+
+            return Json(modelResult, JsonRequestBehavior.AllowGet);
         }
 
         //
