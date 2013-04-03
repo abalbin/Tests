@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TestsApp.Models.TipoExamen>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Elegir Tipo de Examen</h3>
+</div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <div class="span12">
+            @Html.DropDownList("IdTipo", new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoExamen, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span3" },
+                                                           { "id", "ddlTipoExamen"}
+                                                       })
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+    <a id="lnkContinueCreate" class="btn btn-small medium-blue disabled">Continuar</a>
+</div>
+

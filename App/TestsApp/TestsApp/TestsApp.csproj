@@ -224,6 +224,9 @@
     <Compile Include="Models\RespuestaUsuario.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TipoExamen.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TipoPregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
@@ -617,6 +620,7 @@
     <Content Include="Views\Examen\Result.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Examen\GivePreguntaPartial.cshtml" />
+    <Content Include="Views\Examen\ElegirTipoExamenPopUpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

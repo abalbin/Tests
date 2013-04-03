@@ -8,7 +8,8 @@
 @if (Roles.IsUserInRole("Administrador"))
 {
     <p>
-        @Html.ActionLink("Crear Examen", "Create")
+        @*@Html.ActionLink("Crear Examen", "Create")*@
+        <a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Nuevo Examen</a>
     </p>
 }
 <div class="row-fluid">
@@ -42,9 +43,17 @@
     @Html.Partial("AsignarAsterPopUpPartial", new List<TestsApp.Models.ExamenUsuario>())
 </div>
 
+<div id="modal-elegirTipoExamen" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("ElegirTipoExamenPopUpPartial", new TestsApp.Models.TestsAppBDEntities().TipoExamen.ToList())
+</div>
+
 <script type="text/javascript">
     $(function () {
         $(".btn-dar-disabled").tooltip();
+        $("#ddlTipoExamen").change(function () {
+            $("#lnkContinueCreate").attr("href", "Examen/Create/" + $("#ddlTipoExamen").val());
+            $("#lnkContinueCreate").removeClass("disabled");
+        });
     });
     $(document).on("click", ".open-modal-asignarAster", function () {
 

@@ -48,7 +48,7 @@
                                                            { "class", "chzn-select span3" },
                                                            { "id", "ddlLinea"}
                                                        })
-                            <label data-type="editable" data-for="#ddlProducto">Línea</label>
+                            <label data-type="editable" data-for="#ddlProducto">Producto</label>
                             @Html.ValidationMessageFor(model => model.IdProducto)
                             @Html.DropDownListFor(m => m.IdProducto, new SelectList(new TestsApp.Models.TestsAppBDEntities().Producto, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
@@ -130,7 +130,7 @@
         var ischecked = $(chk).is(':checked');
         $.ajax({
             type: 'POST',
-            url: 'ChangeStateRespuesta',
+            url: '@Url.Action("ChangeStateRespuesta", "Examen")',
             data: { indexRespuesta: indexRespuesta, indexPregunta: indexPregunta, ischecked: ischecked },
             success: function (data) {
 
@@ -151,7 +151,7 @@
         var texto = $('#txtRespuesta' + index).val();
         $.ajax({
             type: 'POST',
-            url: 'CreateRespuesta',
+            url: '@Url.Action("CreateRespuesta", "Examen")',
             data: { texto: texto, indexParent: index },
             success: function (data) {
                 $("#RespuestasContainer" + index).html(data);

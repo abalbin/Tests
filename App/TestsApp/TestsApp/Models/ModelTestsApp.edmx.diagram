@@ -31,6 +31,8 @@
         <AssociationConnector Association="TestsAppBDModel.FK_Examen_Producto" />
         <AssociationConnector Association="TestsAppBDModel.FK_Producto_Linea" />
         <EntityTypeShape EntityType="TestsAppBDModel.UserMigration" Width="1.5" PointX="2.6944879175603798" PointY="0.28869804753395639" />
+        <EntityTypeShape EntityType="TestsAppBDModel.TipoExamen" Width="1.5" PointX="6.4311290096636533" PointY="27.810276029543147" />
+        <AssociationConnector Association="TestsAppBDModel.FK_Examen_TipoExamen" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

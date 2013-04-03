@@ -37,19 +37,19 @@
 .rotate
 {
     /* Safari */
-    -webkit-transform: rotate(-30deg);
+    -webkit-transform: rotate(-10deg);
     /* Firefox */
-    -moz-transform: rotate(-30deg);
+    -moz-transform: rotate(-10deg);
     /* IE */
-    -ms-transform: rotate(-30deg);
+    -ms-transform: rotate(-10deg);
     /* Opera */
-    -o-transform: rotate(-30deg);
+    -o-transform: rotate(-10deg);
     /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .score{
-    color: red;
-    font-size: 28px;
+    color: #FC4B42;
+    font-size: 22px;
     font-style:italic;
 }

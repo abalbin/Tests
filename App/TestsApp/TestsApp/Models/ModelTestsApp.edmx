@@ -15,6 +15,7 @@
           <EntitySet Name="Producto" EntityType="TestsAppBDModel.Store.Producto" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RespuestaUsuario" EntityType="TestsAppBDModel.Store.RespuestaUsuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TipoExamen" EntityType="TestsAppBDModel.Store.TipoExamen" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoPregunta" EntityType="TestsAppBDModel.Store.TipoPregunta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserMigration" EntityType="TestsAppBDModel.Store.UserMigration" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="TestsAppBDModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
@@ -25,6 +26,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Examen_Producto" Association="TestsAppBDModel.Store.FK_Examen_Producto">
             <End Role="Producto" EntitySet="Producto" />
+            <End Role="Examen" EntitySet="Examen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Examen_TipoExamen" Association="TestsAppBDModel.Store.FK_Examen_TipoExamen">
+            <End Role="TipoExamen" EntitySet="TipoExamen" />
             <End Role="Examen" EntitySet="Examen" />
           </AssociationSet>
           <AssociationSet Name="FK_ExamenUsuario_Examen" Association="TestsAppBDModel.Store.FK_ExamenUsuario_Examen">
@@ -92,6 +97,7 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="PuntajeMaximo" Type="int" />
           <Property Name="TiempoTranscurrido" Type="time" />
+          <Property Name="IdTipo" Type="int" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -163,6 +169,13 @@
           <Property Name="Texto" Type="varchar" MaxLength="400" />
           <Property Name="Marcada" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="TipoExamen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="TipoPregunta">
           <Key>
             <PropertyRef Name="Id" />
@@ -222,6 +235,18 @@
             </Principal>
             <Dependent Role="Examen">
               <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Examen_TipoExamen">
+          <End Role="TipoExamen" Type="TestsAppBDModel.Store.TipoExamen" Multiplicity="0..1" />
+          <End Role="Examen" Type="TestsAppBDModel.Store.Examen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoExamen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Examen">
+              <PropertyRef Name="IdTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -427,6 +452,11 @@
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
           <EntitySet Name="UserMigration" EntityType="TestsAppBDModel.UserMigration" />
+          <EntitySet Name="TipoExamen" EntityType="TestsAppBDModel.TipoExamen" />
+          <AssociationSet Name="FK_Examen_TipoExamen" Association="TestsAppBDModel.FK_Examen_TipoExamen">
+            <End Role="TipoExamen" EntitySet="TipoExamen" />
+            <End Role="Examen" EntitySet="Examen" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -453,6 +483,8 @@
           <Property Type="Time" Name="TiempoTranscurrido" Precision="7" />
           <Property Type="Int32" Name="IdProducto" />
           <NavigationProperty Name="Producto" Relationship="TestsAppBDModel.FK_Examen_Producto" FromRole="Examen" ToRole="Producto" />
+          <Property Type="Int32" Name="IdTipo" />
+          <NavigationProperty Name="TipoExamen" Relationship="TestsAppBDModel.FK_Examen_TipoExamen" FromRole="Examen" ToRole="TipoExamen" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -739,6 +771,26 @@
           <Property Type="String" Name="Apellidos" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Mail" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TipoExamen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_Examen_TipoExamen" FromRole="TipoExamen" ToRole="Examen" />
+        </EntityType>
+        <Association Name="FK_Examen_TipoExamen">
+          <End Type="TestsAppBDModel.TipoExamen" Role="TipoExamen" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoExamen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Examen">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -756,6 +808,7 @@
           <EntitySetMapping Name="Examen">
             <EntityTypeMapping TypeName="TestsAppBDModel.Examen">
               <MappingFragment StoreEntitySet="Examen">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="TiempoTranscurrido" ColumnName="TiempoTranscurrido" />
                 <ScalarProperty Name="PuntajeMaximo" ColumnName="PuntajeMaximo" />
@@ -883,6 +936,14 @@
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoExamen">
+            <EntityTypeMapping TypeName="TestsAppBDModel.TipoExamen">
+              <MappingFragment StoreEntitySet="TipoExamen">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

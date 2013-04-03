@@ -35,10 +35,12 @@ namespace TestsApp.Models
         public Nullable<System.TimeSpan> TiempoTranscurrido { get; set; }
         [Required]
         public Nullable<int> IdProducto { get; set; }
+        public Nullable<int> IdTipo { get; set; }
     
         public virtual Estado Estado { get; set; }
         public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
         public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual Producto Producto { get; set; }
+        public virtual TipoExamen TipoExamen { get; set; }
     }
 }

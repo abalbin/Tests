@@ -38,5 +38,6 @@ namespace TestsApp.Models
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Producto> Producto { get; set; }
         public DbSet<UserMigration> UserMigration { get; set; }
+        public DbSet<TipoExamen> TipoExamen { get; set; }
     }
 }

@@ -304,14 +304,21 @@ namespace TestsApp.Controllers
         //
         // GET: /Examen/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
-            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
-            Session.Remove("ListaPreguntas");
-            ListaPreguntas = new List<Pregunta>();
-            ViewBag.ListaPreguntas = ListaPreguntas;
-            Examen ex = new Examen();
-            return View(ex);
+            if (id != 0)
+            {
+                ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
+                Session.Remove("ListaPreguntas");
+                ListaPreguntas = new List<Pregunta>();
+                ViewBag.ListaPreguntas = ListaPreguntas;
+                Examen ex = new Examen();
+                ex.IdTipo = id;
+                ex.Titulo = db.TipoExamen.First(r => r.Id == id).Nombre;
+                return View(ex);
+            }
+            else
+                return HttpNotFound();
         }
 
         public ActionResult GetProductsByLine(int id)
