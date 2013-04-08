@@ -10,7 +10,8 @@ namespace TestsApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/javascripts/jquery*"));
-           
+            bundles.Add(new ScriptBundle("~/bundles/dtcf").Include(
+                         "~/Content/javascripts/dataTables/jquery.dataTables.columnFilter.js"));
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Content/javascripts/application.js"));
             bundles.Add(new ScriptBundle("~/bundles/validate").Include(

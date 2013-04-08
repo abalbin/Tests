@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
+
+@{
+    ViewBag.Title = "Reporte";
+}
+
+
+<h2>Reporte de Asesoría en Terreno</h2>
+
+<table class="table table-striped data-table" id="rptAsesoriaTerreno">
+    <thead>
+        <tr>
+            <th>
+                Ejecutivo
+            </th>
+            <th>
+                Aster
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntaje)
+            </th>
+            <th>
+                Fecha
+            </th>
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        string fecha = item.FechaInicio.Value.ToShortDateString();
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile1.FirstName) @Html.DisplayFor(modelItem => item.UserProfile1.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile2.FirstName) @Html.DisplayFor(modelItem => item.UserProfile2.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Puntaje)
+            </td>
+            <td>
+                @fecha
+            </td>
+        </tr>
+    }
+
+    <tfoot>
+		<tr>
+			<th>Buscar Ejecutivo</th>
+			<th>Buscar Aster</th>
+			<th>Buscar Puntaje</th>
+			<th>Buscar Fecha</th>
+		</tr>
+	</tfoot>
+
+</table>
+@Scripts.Render("~/bundles/dtcf")
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // Setup JQuery UI date picker format to dd/mm/yy
+        $.datepicker.regional[""].dateFormat = 'dd/mm/yy';
+        $.datepicker.setDefaults($.datepicker.regional['']);
+        $('#rptAsesoriaTerreno').dataTable()
+             .columnFilter({
+                 aoColumns: [{ type: "text" },
+                             { type: "text" },
+                             { type: "text" },
+                             { type: "text" }
+                 ]
+             });
+    });
+
+</script>

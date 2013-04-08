@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\javascripts\dataTables\jquery.dataTables.columnFilter.js" />
     <Content Include="Content\stylesheets\font\fontawesome-webfont.svg" />
     <Content Include="Content\stylesheets\font\openwebicons.svg" />
     <Content Include="Content\stylesheets\images\bg-input-focus.png" />
@@ -623,6 +625,7 @@
     <Content Include="Views\Examen\ElegirTipoExamenPopUpPartial.cshtml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\SiscomeFTP.pubxml" />
+    <Content Include="Views\Report\AsesoriaTerreno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

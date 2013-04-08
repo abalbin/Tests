@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>@ViewBag.Title - Elearning</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
@@ -58,13 +58,13 @@
                     </a>
                     <ul id="seguridad-list" class="collapse secondary">
                         <li class="">
-                            @Html.ActionLink("Usuarios","ManageUsers","Account")
+                            @Html.ActionLink("Usuarios", "ManageUsers", "Account")
                         </li>
                         <li class="">
-                            @Html.ActionLink("Roles","Index","Rol")
+                            @Html.ActionLink("Roles", "Index", "Rol")
                         </li>
                         <li class="">
-                            @Html.ActionLink("Líneas","Index","Linea")
+                            @Html.ActionLink("Líneas", "Index", "Linea")
                         </li>
                     </ul>
                 </li>
@@ -79,7 +79,7 @@
                 </a>
                 <ul id="examenes-list" class="collapse secondary">
                     <li class="">
-                        @Html.ActionLink("Ver","Index","Examen")
+                        @Html.ActionLink("Ver", "Index", "Examen")
                     </li>
                     @if (Roles.IsUserInRole("Administrador"))
                     {
@@ -92,7 +92,7 @@
 
             <!-- Documentos -->
             <li class="li-disabled">
-                <a href="#documentos-list" class="accordion-toggle" >
+                <a href="#documentos-list" class="accordion-toggle">
                     <span class="icon">
                         <i class="icon-file"></i>
                     </span>
@@ -110,14 +110,19 @@
             @if (Roles.IsUserInRole("Administrador"))
             {
                 <!-- Reportes -->
-                <li class="li-disabled">
-                    <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
+                <li class="">
+                    <a href="#reportes-list" class="accordion-toggle" data-toggle="collapse">
                         <span class="icon">
                             <i class="icon-odata"></i>
                         </span>
-                        <span class="text">Reportes
+                        <span class="text">Reportes <b class="caret"></b>
                         </span>
                     </a>
+                    <ul id="reportes-list" class="collapse secondary">
+                        <li class="">
+                            <a href="Report/AsesoriaTerreno">Asesoría En Terreno</a>
+                        </li>
+                    </ul>
                 </li>
             }
         </ul>
@@ -178,6 +183,7 @@
     @Scripts.Render("~/bundles/moo")
     @Scripts.Render("~/bundles/meio")
     @Scripts.Render("~/bundles/custom")
+
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         $('.li-disabled').live('click', function (e) {
