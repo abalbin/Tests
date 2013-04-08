@@ -1263,7 +1263,7 @@ body .ui-tooltip
 .ui-widget-content
 {
     border: 1px solid #dddddd;
-    background: white url('../images/jquery-ui/ui-bg_highlight-soft_50_ffffff_1x100.png') 50% top repeat-x;
+    background: white url('images/jquery-ui/ui-bg_highlight-soft_50_ffffff_1x100.png') 50% top repeat-x;
     color: #333333;
 }
 
@@ -1277,7 +1277,7 @@ body .ui-tooltip
 .ui-widget-header
 {
     border: 1px solid #cccccc;
-    background: #67a0be url('../images/jquery-ui/ui-bg_highlight-soft_35_67a0be_1x100.png') 50% 50% repeat-x;
+    background: #67a0be url('images/jquery-ui/ui-bg_highlight-soft_35_67a0be_1x100.png') 50% 50% repeat-x;
     color: #444444;
     font-weight: bold;
 }
@@ -1294,7 +1294,7 @@ body .ui-tooltip
     .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
     {
         border: 1px solid #cccccc;
-        background: #dddddd url('../images/jquery-ui/ui-bg_highlight-hard_60_dddddd_1x100.png') 50% 50% repeat-x;
+        background: #dddddd url('images/jquery-ui/ui-bg_highlight-hard_60_dddddd_1x100.png') 50% 50% repeat-x;
         font-weight: bold;
         color: #50769b;
     }
@@ -1310,7 +1310,7 @@ body .ui-tooltip
     .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus
     {
         border: 1px solid #bbbbbb;
-        background: #dddddd url('../images/jquery-ui/ui-bg_highlight-hard_100_dddddd_1x100.png') 50% 50% repeat-x;
+        background: #dddddd url('images/jquery-ui/ui-bg_highlight-hard_100_dddddd_1x100.png') 50% 50% repeat-x;
         font-weight: bold;
         color: #599fcf;
     }
@@ -1326,7 +1326,7 @@ body .ui-tooltip
     .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active
     {
         border: 1px solid #cdcdcd;
-        background: #dddddd url('../images/jquery-ui/ui-bg_inset-hard_75_dddddd_1x100.png') 50% 50% repeat-x;
+        background: #dddddd url('images/jquery-ui/ui-bg_inset-hard_75_dddddd_1x100.png') 50% 50% repeat-x;
         font-weight: bold;
         color: #333333;
     }
@@ -1344,7 +1344,7 @@ body .ui-tooltip
     .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight
     {
         border: 1px solid #ffffff;
-        background: #67a0be url('../images/jquery-ui/ui-bg_flat_55_67a0be_40x100.png') 50% 50% repeat-x;
+        background: #67a0be url('images/jquery-ui/ui-bg_flat_55_67a0be_40x100.png') 50% 50% repeat-x;
         color: #444444;
     }
 
@@ -1358,7 +1358,7 @@ body .ui-tooltip
     .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error
     {
         border: 1px solid #db3535;
-        background: #db3535 url('../images/jquery-ui/ui-bg_flat_55_db3535_40x100.png') 50% 50% repeat-x;
+        background: #db3535 url('images/jquery-ui/ui-bg_flat_55_db3535_40x100.png') 50% 50% repeat-x;
         color: #ffffff;
     }
 
@@ -1411,49 +1411,49 @@ body .ui-tooltip
 {
     width: 16px;
     height: 16px;
-    background-image: url('../images/jquery-ui/ui-icons_999999_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_999999_256x240.png');
 }
 
 /* line 266, jquery-ui.css.scss */
 .ui-widget-content .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_999999_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_999999_256x240.png');
 }
 
 /* line 267, jquery-ui.css.scss */
 .ui-widget-header .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_999999_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_999999_256x240.png');
 }
 
 /* line 268, jquery-ui.css.scss */
 .ui-state-default .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_67a0be_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_67a0be_256x240.png');
 }
 
 /* line 269, jquery-ui.css.scss */
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_3383bb_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_3383bb_256x240.png');
 }
 
 /* line 270, jquery-ui.css.scss */
 .ui-state-active .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_454545_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_454545_256x240.png');
 }
 
 /* line 271, jquery-ui.css.scss */
 .ui-state-highlight .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_3383bb_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_3383bb_256x240.png');
 }
 
 /* line 272, jquery-ui.css.scss */
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon
 {
-    background-image: url('../images/jquery-ui/ui-icons_ffec9e_256x240.png');
+    background-image: url('images/jquery-ui/ui-icons_ffec9e_256x240.png');
 }
 
 /* positioning */
@@ -2545,7 +2545,7 @@ body .ui-tooltip
 /* line 462, jquery-ui.css.scss */
 .ui-widget-overlay
 {
-    background: #eeeeee url('../images/jquery-ui/ui-bg_flat_0_eeeeee_40x100.png') 50% 50% repeat-x;
+    background: #eeeeee url('images/jquery-ui/ui-bg_flat_0_eeeeee_40x100.png') 50% 50% repeat-x;
     opacity: .8;
     filter: Alpha(Opacity=80);
 }
@@ -2555,7 +2555,7 @@ body .ui-tooltip
 {
     margin: 1px 0 0 1px;
     padding: 2px;
-    background: #aaaaaa url('../images/jquery-ui/ui-bg_flat_100_aaaaaa_40x100.png') 50% 50% repeat-x;
+    background: #aaaaaa url('images/jquery-ui/ui-bg_flat_100_aaaaaa_40x100.png') 50% 50% repeat-x;
     opacity: .8;
     filter: Alpha(Opacity=80);
     -moz-border-radius: 0px;
@@ -15548,7 +15548,7 @@ div.uploader span.action,
 div.button,
 div.button span
 {
-    background-image: url('../images/sprite.png');
+    background-image: url('images/sprite.png');
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
 }
@@ -15581,8 +15581,8 @@ textarea.uniform
     font-weight: normal;
     padding: 3px;
     color: #777;
-    background: url('../images/bg-input-focus.png') repeat-x 0px 0px;
-    background: url('../images/bg-input.png') repeat-x 0px 0px;
+    background: url('images/bg-input-focus.png') repeat-x 0px 0px;
+    background: url('images/bg-input.png') repeat-x 0px 0px;
     border-top: solid 1px #aaa;
     border-left: solid 1px #aaa;
     border-bottom: solid 1px #ccc;
@@ -15603,7 +15603,7 @@ textarea.uniform
         -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
         border-color: #999;
-        background: url('../images/bg-input-focus.png') repeat-x 0px 0px;
+        background: url('images/bg-input-focus.png') repeat-x 0px 0px;
     }
 
 /* SPRITES */
@@ -16796,7 +16796,7 @@ div.uploader
     position: absolute;
     top: -15px;
     left: -10px;
-    background: url('../images/gritter/gritter.png') no-repeat left top;
+    background: url('images/gritter/gritter.png') no-repeat left top;
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -19872,7 +19872,7 @@ body
     width: 100%;
     height: 100%;
     margin: 0px;
-    background-image: url('../images/patterns/whitey_light.png');
+    background-image: url('images/patterns/whitey_light.png');
     -webkit-font-smoothing: antialiased;
 }
 
@@ -22748,37 +22748,37 @@ nav.main-nav > ul > li
         /* line 25, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user1
         {
-            background-image: url('../images/users/user1.png');
+            background-image: url('images/users/user1.png');
         }
         /* line 26, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user2
         {
-            background-image: url('../images/users/user2.png');
+            background-image: url('images/users/user2.png');
         }
         /* line 27, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user3
         {
-            background-image: url('../images/users/user3.png');
+            background-image: url('images/users/user3.png');
         }
         /* line 28, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user4
         {
-            background-image: url('../images/users/user4.png');
+            background-image: url('images/users/user4.png');
         }
         /* line 29, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user5
         {
-            background-image: url('../images/users/user5.png');
+            background-image: url('images/users/user5.png');
         }
         /* line 30, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user6
         {
-            background-image: url('../images/users/user6.png');
+            background-image: url('images/users/user6.png');
         }
         /* line 31, ui/_sidebar.scss */
         nav.main-nav > ul > li.profile img.avatar.user7
         {
-            background-image: url('../images/users/user7.png');
+            background-image: url('images/users/user7.png');
         }
     /* line 33, ui/_sidebar.scss */
     nav.main-nav > ul > li.profile .text
@@ -22822,7 +22822,7 @@ nav.main-nav > ul > li
 nav#primary
 {
     background-color: #333;
-    background: url('../images/patterns/low_linen.png');
+    background: url('images/patterns/low_linen.png');
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 3px 0px 5px 0px;
     -moz-box-shadow: rgba(0, 0, 0, 0.2) 3px 0px 5px 0px;
     box-shadow: rgba(0, 0, 0, 0.2) 3px 0px 5px 0px;
@@ -22885,7 +22885,7 @@ ul.secondary
 {
     width: 100%;
     background: #333;
-    background-image: url('../images/patterns/low_linen.png');
+    background-image: url('images/patterns/low_linen.png');
 }
     /* line 125, ui/_sidebar.scss */
     ul.secondary li.active > a
@@ -22953,7 +22953,7 @@ ul.secondary
     -moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.3);
     background-color: #333;
-    background: url('../images/patterns/low_linen.png');
+    background: url('images/patterns/low_linen.png');
     border-bottom: 1px solid #292929;
 }
     /* line 173, ui/_sidebar.scss */
@@ -23015,7 +23015,7 @@ ul.top-bar-list
     width: 100%;
     margin-top: -2px;
     background: rgba(0, 0, 0, 0.2);
-    background-image: url('../images/patterns/low_linen.png');
+    background-image: url('images/patterns/low_linen.png');
     border: 1px solid #1D1E21;
     border-top: 0;
     border-bottom: 0;
@@ -23603,7 +23603,7 @@ ul.breadcrumbs
     width: 12px;
     height: 13px;
     font-size: 1px;
-    background: url('../images/chosen/chosen-sprite.png') right top no-repeat;
+    background: url('images/chosen/chosen-sprite.png') right top no-repeat;
 }
 
     /* line 75, chosen/_chosen.css.scss */
@@ -23632,7 +23632,7 @@ ul.breadcrumbs
     /* line 89, chosen/_chosen.css.scss */
     .chzn-container-single .chzn-single div b
     {
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 0 0;
+        background: url('images/chosen/chosen-sprite.png') no-repeat 0 0;
         display: block;
         width: 100%;
         height: 100%;
@@ -23651,12 +23651,12 @@ ul.breadcrumbs
     /* line 102, chosen/_chosen.css.scss */
     .chzn-container-single .chzn-search input
     {
-        background: white url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px;
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat 100% -22px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+        background: white url('images/chosen/chosen-sprite.png') no-repeat 100% -22px;
+        background: url('images/chosen/chosen-sprite.png') no-repeat 100% -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+        background: url('images/chosen/chosen-sprite.png') no-repeat 100% -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat 100% -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat 100% -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat 100% -22px, linear-gradient(#eeeeee 1%, #ffffff 15%);
         margin: 1px 0;
         padding: 4px 20px 4px 5px;
         outline: 0;
@@ -23802,7 +23802,7 @@ ul.breadcrumbs
         width: 12px;
         height: 12px;
         font-size: 1px;
-        background: url('../images/chosen/chosen-sprite.png') right top no-repeat;
+        background: url('images/chosen/chosen-sprite.png') right top no-repeat;
     }
 
         /* line 225, chosen/_chosen.css.scss */
@@ -23938,13 +23938,13 @@ ul.breadcrumbs
     /* line 309, chosen/_chosen.css.scss */
     .chzn-container .chzn-results-scroll-down span
     {
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -4px -3px;
+        background: url('images/chosen/chosen-sprite.png') no-repeat -4px -3px;
     }
 
 /* line 312, chosen/_chosen.css.scss */
 .chzn-container .chzn-results-scroll-up span
 {
-    background: url('../images/chosen/chosen-sprite.png') no-repeat -22px -3px;
+    background: url('images/chosen/chosen-sprite.png') no-repeat -22px -3px;
 }
 
 /* @end */
@@ -24115,12 +24115,12 @@ ul.breadcrumbs
     /* line 390, chosen/_chosen.css.scss */
     .chzn-rtl .chzn-search input
     {
-        background: white url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px;
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
-        background: url('../images/chosen/chosen-sprite.png') no-repeat -38px -22px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+        background: white url('images/chosen/chosen-sprite.png') no-repeat -38px -22px;
+        background: url('images/chosen/chosen-sprite.png') no-repeat -38px -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+        background: url('images/chosen/chosen-sprite.png') no-repeat -38px -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat -38px -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat -38px -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%);
+        background: url('images/chosen/chosen-sprite.png') no-repeat -38px -22px, linear-gradient(#eeeeee 1%, #ffffff 15%);
         padding: 4px 5px 4px 20px;
         direction: rtl;
     }
@@ -24302,31 +24302,31 @@ table.dataTable
     /* line 37, dataTables/jquery.dataTables.bootstrap.css.scss */
     table.dataTable thead .sorting
     {
-        background: url('../images/dataTables/sort_both.png') no-repeat center right;
+        background: url('images/dataTables/sort_both.png') no-repeat center right;
     }
 
     /* line 38, dataTables/jquery.dataTables.bootstrap.css.scss */
     table.dataTable thead .sorting_asc
     {
-        background: url('../images/dataTables/sort_asc.png') no-repeat center right;
+        background: url('images/dataTables/sort_asc.png') no-repeat center right;
     }
 
     /* line 39, dataTables/jquery.dataTables.bootstrap.css.scss */
     table.dataTable thead .sorting_desc
     {
-        background: url('../images/dataTables/sort_desc.png') no-repeat center right;
+        background: url('images/dataTables/sort_desc.png') no-repeat center right;
     }
 
     /* line 41, dataTables/jquery.dataTables.bootstrap.css.scss */
     table.dataTable thead .sorting_asc_disabled
     {
-        background: url('../images/dataTables/sort_asc_disabled.png') no-repeat center right;
+        background: url('images/dataTables/sort_asc_disabled.png') no-repeat center right;
     }
 
     /* line 42, dataTables/jquery.dataTables.bootstrap.css.scss */
     table.dataTable thead .sorting_desc_disabled
     {
-        background: url('../images/dataTables/sort_desc_disabled.png') no-repeat center right;
+        background: url('images/dataTables/sort_desc_disabled.png') no-repeat center right;
     }
 
     /* line 44, dataTables/jquery.dataTables.bootstrap.css.scss */
@@ -32995,37 +32995,37 @@ ul.audience-alt
             /* line 23, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user1
             {
-                background-image: url('../images/users/user1.png');
+                background-image: url('images/users/user1.png');
             }
             /* line 24, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user2
             {
-                background-image: url('../images/users/user2.png');
+                background-image: url('images/users/user2.png');
             }
             /* line 25, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user3
             {
-                background-image: url('../images/users/user3.png');
+                background-image: url('images/users/user3.png');
             }
             /* line 26, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user4
             {
-                background-image: url('../images/users/user4.png');
+                background-image: url('images/users/user4.png');
             }
             /* line 27, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user5
             {
-                background-image: url('../images/users/user5.png');
+                background-image: url('images/users/user5.png');
             }
             /* line 28, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user6
             {
-                background-image: url('../images/users/user6.png');
+                background-image: url('images/users/user6.png');
             }
             /* line 29, components/_widgets.scss */
             .recent-comments .comment-box .avatar.user7
             {
-                background-image: url('../images/users/user7.png');
+                background-image: url('images/users/user7.png');
             }
         /* line 35, components/_widgets.scss */
         .recent-comments .comment-box .article .post-info
@@ -33107,37 +33107,37 @@ ul.audience-alt
             /* line 89, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user1
             {
-                background-image: url('../images/users/user1.png');
+                background-image: url('images/users/user1.png');
             }
             /* line 90, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user2
             {
-                background-image: url('../images/users/user2.png');
+                background-image: url('images/users/user2.png');
             }
             /* line 91, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user3
             {
-                background-image: url('../images/users/user3.png');
+                background-image: url('images/users/user3.png');
             }
             /* line 92, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user4
             {
-                background-image: url('../images/users/user4.png');
+                background-image: url('images/users/user4.png');
             }
             /* line 93, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user5
             {
-                background-image: url('../images/users/user5.png');
+                background-image: url('images/users/user5.png');
             }
             /* line 94, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user6
             {
-                background-image: url('../images/users/user6.png');
+                background-image: url('images/users/user6.png');
             }
             /* line 95, components/_widgets.scss */
             .recent-activity .event-box .user-avatar.user7
             {
-                background-image: url('../images/users/user7.png');
+                background-image: url('images/users/user7.png');
             }
         /* line 98, components/_widgets.scss */
         .recent-activity .event-box .event
@@ -35077,7 +35077,7 @@ Copyright (c) 2012 Dan Eden*/
         height: 40px;
         margin-top: 0px;
         background-color: #333;
-        background: url('../images/patterns/low_linen.png');
+        background: url('images/patterns/low_linen.png');
         border-bottom: 1px solid #333;
     }
         /* line 17, _responsive-max1024.scss */
@@ -35097,7 +35097,7 @@ Copyright (c) 2012 Dan Eden*/
     .top-bar
     {
         background-color: #333;
-        background: url('../images/patterns/low_linen.png');
+        background: url('images/patterns/low_linen.png');
         position: relative;
     }
         /* line 26, _responsive-max1024.scss */
@@ -35166,7 +35166,7 @@ Copyright (c) 2012 Dan Eden*/
         {
             width: 100%;
             background: #333;
-            background-image: url('../images/patterns/low_linen.png');
+            background-image: url('images/patterns/low_linen.png');
         }
         /* line 72, _responsive-max1024.scss */
         nav#primary .dropdown

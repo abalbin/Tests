@@ -14,6 +14,12 @@ namespace TestsApp.Models
     
     public partial class ExamenUsuario
     {
+        public ExamenUsuario()
+        {
+            this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
+            this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> IdUsuario { get; set; }
         public Nullable<int> IdExamen { get; set; }
@@ -22,8 +28,14 @@ namespace TestsApp.Models
         public Nullable<int> Estado { get; set; }
         public Nullable<System.DateTime> FechaTermino { get; set; }
         public Nullable<System.DateTime> FechaInicio { get; set; }
+        public Nullable<int> IdEjecutivo { get; set; }
+        public Nullable<int> IdAster { get; set; }
     
         public virtual Examen Examen { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual UserProfile UserProfile1 { get; set; }
+        public virtual UserProfile UserProfile2 { get; set; }
+        public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
+        public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
     }
 }

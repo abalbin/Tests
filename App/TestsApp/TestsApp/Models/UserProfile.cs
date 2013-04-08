@@ -20,6 +20,9 @@ namespace TestsApp.Models
             this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
             this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
+            this.ExamenUsuario1 = new HashSet<ExamenUsuario>();
+            this.ExamenUsuario2 = new HashSet<ExamenUsuario>();
+            this.webpages_Roles = new HashSet<webpages_Roles>();
         }
 
         [Key]
@@ -38,5 +41,8 @@ namespace TestsApp.Models
         public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario1 { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario2 { get; set; }
+        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

@@ -11,7 +11,6 @@ namespace TestsApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Examen
     {
@@ -28,12 +27,11 @@ namespace TestsApp.Models
         public int Id { get; set; }
         public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
-        public System.DateTime FechaEjecucion { get; set; }
-        public System.TimeSpan TiempoMaximo { get; set; }
+        public Nullable<System.DateTime> FechaEjecucion { get; set; }
+        public Nullable<System.TimeSpan> TiempoMaximo { get; set; }
         public int IdEstado { get; set; }
         public Nullable<int> PuntajeMaximo { get; set; }
         public Nullable<System.TimeSpan> TiempoTranscurrido { get; set; }
-        [Required]
         public Nullable<int> IdProducto { get; set; }
         public Nullable<int> IdTipo { get; set; }
     

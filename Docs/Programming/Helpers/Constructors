@@ -1,4 +1,4 @@
-public Examen()
+﻿public Examen()
         {
             this.Titulo = "Título del Examen";
             this.TiempoMaximo = new TimeSpan(0, 30, 0);
@@ -17,3 +17,6 @@ public Examen()
         [Display(Name = "Apellidos")]
         public string LastName { get; set; }
         public string UrlImagen { get; set; }
+
+	[Key]
+        public int RoleId { get; set; }

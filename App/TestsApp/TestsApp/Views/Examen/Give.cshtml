@@ -9,37 +9,63 @@
 <div class="box-header">
     <i class="icon-th-list"></i>Dar Examen 
 </div>
-<input type="hidden" id="hdn-Minutos" value="@Model.TiempoMaximo.Minutes" />
-<input type="hidden" id="hdn-Segundos" value="@Model.TiempoMaximo.Seconds" />
-<input type="hidden" id="hdn-FechaInicioEjecucion" value="@Model.FechaEjecucion.ToString("yyyy,MM,dd,H,mm,ss")" />
+@if (Model.IdTipo != 2)
+{
+    <input type="hidden" id="hdn-Minutos" value="@Model.TiempoMaximo.Value.Minutes" />
+    <input type="hidden" id="hdn-Segundos" value="@Model.TiempoMaximo.Value.Seconds" />
+}
+<input type="hidden" id="hdn-FechaInicioEjecucion" value="@Model.FechaEjecucion.Value.ToString("yyyy,MM,dd,H,mm,ss")" />
 
 <div class="row-fluid">
     <div class="span10 center-div">
         <div class="padded">
-            <div class="row-fluid">
-                <div class="span6">
-                    <div class="input full-width">
-                        <h1>
-                            @Model.Titulo
-                        </h1>
-                    </div>
-                    <div class="input full-width">
-                        <h4>Línea: @Model.Producto.Linea.Nombre
-                        </h4>
+            @if (Model.IdTipo == 2)
+            {
+                List<TestsApp.Models.UserProfile> listaAster = new TestsApp.Models.TestsAppBDEntities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="input full-width">
+                            <h1>
+                                @Model.Titulo
+                            </h1>
+                        </div>
+                        <label data-type="editable" data-for="#ddlAster">Aster:</label>
+                        @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}",u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span3" },
+                                                           { "id", "ddlAster"}
+                                                       })
                     </div>
                 </div>
-                <div class="span6">
-                    <div class="row-fluid input full-width">
-                        <div class="span3">
-                            Tiempo Restante:
+            }
+            else
+            {
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="input full-width">
+                            <h1>
+                                @Model.Titulo
+                            </h1>
                         </div>
-                        <div class="span4">
-                            <div id="tiempoRestante">
+                        <div class="input full-width">
+                            <h4>Línea: @Model.Producto.Linea.Nombre
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="row-fluid input full-width">
+                            <div class="span3">
+                                Tiempo Restante:
+                            </div>
+                            <div class="span4">
+                                <div id="tiempoRestante">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
             <div class="section-title"></div>
             <div class="row-fluid" id="PreguntasRow">
                 <div class="span3" id="loading-div">
@@ -50,6 +76,7 @@
                 @using (Html.BeginForm("Give", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
                 {
                     @Html.HiddenFor(m => m.TiempoTranscurrido, new { id = "hdn-TiempoTranscurrido" })
+                    <input type="hidden" id="IdAster" name="IdAster" />
                     <div id="PreguntasContainer">
                         @Html.Partial("GivePreguntaPartial", Model.Pregunta.ElementAt(0))
                     </div>
@@ -110,6 +137,11 @@
     }
 
     $(function () {
+        $("#ddlAster").change(
+        function () {
+            var idAster = $(this).val();
+            $("#IdAster").val(idAster);
+        });
         var austDay = new Date();
         austDay = new Date(2013, 03, 05);
         var minutos = parseInt($('#hdn-Minutos').val());

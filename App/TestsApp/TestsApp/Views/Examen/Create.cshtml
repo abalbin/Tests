@@ -76,7 +76,7 @@
                             <p style="font-weight: normal;">
                                 Tiempo Máximo (hh:mm):
                                 <span>
-                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">@Model.TiempoMaximo.ToString(@"hh\:mm")</label>
+                                    <label data-type="editable" data-for="#Tiempo" style="display: inline;">@Model.TiempoMaximo.Value.ToString(@"hh\:mm")</label>
                                     @Html.TextBoxFor(model => model.TiempoMaximo, new Dictionary<string, object> { { "id", "Tiempo" }, { "class", "masked-time" }, { "data-meiomask", "fixed.time" } })
                                 </span>
                             </p>

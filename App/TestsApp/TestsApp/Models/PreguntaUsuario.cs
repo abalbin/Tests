@@ -18,8 +18,10 @@ namespace TestsApp.Models
         public Nullable<int> IdPregunta { get; set; }
         public Nullable<int> IdUsuario { get; set; }
         public Nullable<decimal> Puntaje { get; set; }
+        public Nullable<int> IdExamenUsuario { get; set; }
     
         public virtual Pregunta Pregunta { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual ExamenUsuario ExamenUsuario { get; set; }
     }
 }

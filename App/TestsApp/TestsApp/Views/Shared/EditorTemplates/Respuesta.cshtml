@@ -1,7 +1,12 @@
 ﻿@model TestsApp.Models.Respuesta
 @Html.HiddenFor(m => m.Id)
 @{TestsApp.Models.UserProfile user = new TestsApp.Models.TestsAppBDEntities().UserProfile.First(r => r.UserName == User.Identity.Name);
-  TestsApp.Models.ExamenUsuario exUsuario = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.Pregunta.IdExamen && r.IdUsuario == user.UserId);}
+  int idExamenUsuario = Convert.ToInt32(Session["sIdExamenUsuario"]);
+  TestsApp.Models.ExamenUsuario exUsuario = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == idExamenUsuario);
+  //TestsApp.Models.ExamenUsuario exUsuario = Model.Pregunta.Examen.IdTipo == 2 ?
+  //    new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == fAsesoriaExUsua) : 
+  //    new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.Pregunta.IdExamen && r.IdUsuario == user.UserId);
+  }
 @if (exUsuario.Estado < 2)
 {
     <li>

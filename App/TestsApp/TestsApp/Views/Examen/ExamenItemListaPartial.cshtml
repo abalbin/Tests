@@ -9,27 +9,37 @@
         <h3>
             @Model.Titulo
         </h3>
-        <p>Línea: @Model.Producto.Linea.Nombre</p>
-        <p>Producto: @Model.Producto.Nombre</p>
-        <p>
-            Fecha de ejecución: @Model.FechaEjecucion.Day de @Model.FechaEjecucion.ToString("MMMM") del @Model.FechaEjecucion.Year
-        </p>
+        @if (Model.IdTipo != 2)
+        {
+            <p>Línea: @Model.Producto.Linea.Nombre</p>
+            <p>Producto: @Model.Producto.Nombre</p>
+            <p>
+                Fecha de ejecución: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year
+            </p>
+        }
     </div>
 
     <div class="article-actions">
-        @if (User.IsInRole("Administrador"))
+        @if (Model.IdTipo != 2)
         {
-            //@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            if (User.IsInRole("Administrador"))
+            {
+                //@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
-            //@Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
-        }
-        @if (Model.FechaEjecucion.Date == DateTime.Now.Date)
-        {
-            @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+                //@Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            }
+            if (Model.FechaEjecucion.Value.Date == DateTime.Now.Date)
+            {
+                @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            }
+            else
+            {
+            <button type="button" class="btn btn-mini btn-dar-disabled" disabled title="ASDasdasd">Dar</button>
+            }
         }
         else
         {
-            <button type="button" class="btn btn-mini btn-dar-disabled" disabled title="ASDasdasd" >Dar</button>
+            @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
         }
     </div>
 </div>

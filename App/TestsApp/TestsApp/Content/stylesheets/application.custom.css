@@ -5,8 +5,8 @@
 
 #loading-div
 {
-    display: none;
     position: absolute;
+    display: none;
 }
 
 .centered
@@ -36,20 +36,22 @@
 
 .rotate
 {
-    /* Safari */
-    -webkit-transform: rotate(-10deg);
-    /* Firefox */
-    -moz-transform: rotate(-10deg);
-    /* IE */
-    -ms-transform: rotate(-10deg);
-    /* Opera */
-    -o-transform: rotate(-10deg);
-    /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    /* Firefox */
+    /* IE */
+    /* Internet Explorer */
+    /* Opera */
+    /* Safari */
 }
 
-.score{
+.score
+{
     color: #FC4B42;
+    font-style: italic;
     font-size: 22px;
-    font-style:italic;
 }
