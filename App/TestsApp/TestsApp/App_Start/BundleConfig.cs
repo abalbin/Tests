@@ -9,9 +9,20 @@ namespace TestsApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Content/javascripts/jquery*"));
-            bundles.Add(new ScriptBundle("~/bundles/dtcf").Include(
-                         "~/Content/javascripts/dataTables/jquery.dataTables.columnFilter.js"));
+                        "~/Content/javascripts/jquery-1.8.3.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Content/javascripts/jquery-ui-1.9.2.custom.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Content/javascripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/chozn").Include(
+                        "~/Content/javascripts/chosen.jquery.js"));
+            bundles.Add(new ScriptBundle("~/bundles/uniform").Include(
+                        "~/Content/javascripts/jquery.uniform.js"));
+            bundles.Add(new ScriptBundle("~/bundles/pagination").Include(
+                        "~/Content/javascripts/jquery.simplePagination.js"));
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                         "~/Content/javascripts/dataTables/jquery.dataTables.js",
+                         "~/Content/javascripts/dataTables/extras/*.js"));
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Content/javascripts/application.js"));
             bundles.Add(new ScriptBundle("~/bundles/validate").Include(
@@ -42,6 +53,10 @@ namespace TestsApp
             bundles.Add(new ScriptBundle("~/bundles/countdown").Include(
                         "~/Content/javascripts/jquery.countdown.js",
                         "~/Content/javascripts/jquery.countdown-es.js"));
+            bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
+                        "~/Content/javascripts/highcharts/highcharts.js"));
+            bundles.Add(new ScriptBundle("~/bundles/highchartsmodules").Include(
+                        "~/Content/javascripts/highcharts/modules/exporting.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",

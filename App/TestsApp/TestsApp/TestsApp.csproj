@@ -237,13 +237,41 @@
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Models\ViewModels\HighChartAxis.cs" />
+    <Compile Include="Models\ViewModels\HighChartsPoint.cs" />
+    <Compile Include="Models\ViewModels\HighChartsSeries.cs" />
+    <Compile Include="Models\ViewModels\HighChartTitle.cs" />
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.columnFilter.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.columnFilter.js" />
+    <Content Include="Content\javascripts\highcharts\adapters\mootools-adapter.js" />
+    <Content Include="Content\javascripts\highcharts\adapters\mootools-adapter.src.js" />
+    <Content Include="Content\javascripts\highcharts\adapters\prototype-adapter.js" />
+    <Content Include="Content\javascripts\highcharts\adapters\prototype-adapter.src.js" />
+    <Content Include="Content\javascripts\highcharts\highcharts-more.js" />
+    <Content Include="Content\javascripts\highcharts\highcharts.js" />
+    <Content Include="Content\javascripts\highcharts\highcharts.src.js" />
+    <Content Include="Content\javascripts\highcharts\modules\canvas-tools.js" />
+    <Content Include="Content\javascripts\highcharts\modules\canvas-tools.src.js" />
+    <Content Include="Content\javascripts\highcharts\modules\data.js" />
+    <Content Include="Content\javascripts\highcharts\modules\data.src.js" />
+    <Content Include="Content\javascripts\highcharts\modules\exporting.js" />
+    <Content Include="Content\javascripts\highcharts\modules\exporting.src.js" />
+    <Content Include="Content\javascripts\highcharts\modules\funnel.js" />
+    <Content Include="Content\javascripts\highcharts\modules\funnel.src.js" />
+    <Content Include="Content\javascripts\highcharts\themes\dark-blue.js" />
+    <Content Include="Content\javascripts\highcharts\themes\dark-green.js" />
+    <Content Include="Content\javascripts\highcharts\themes\gray.js" />
+    <Content Include="Content\javascripts\highcharts\themes\grid.js" />
+    <Content Include="Content\javascripts\highcharts\themes\skies.js" />
+    <Content Include="Content\javascripts\jquery-1.8.3.js" />
+    <Content Include="Content\javascripts\jquery-ui-1.9.2.custom.js" />
+    <Content Include="Content\javascripts\jqueryui192.js" />
     <Content Include="Content\stylesheets\font\fontawesome-webfont.svg" />
     <Content Include="Content\stylesheets\font\openwebicons.svg" />
     <Content Include="Content\stylesheets\images\bg-input-focus.png" />
@@ -472,14 +500,14 @@
     <Content Include="Content\javascripts\dataTables\extras\TableTools.js" />
     <Content Include="Content\javascripts\dataTables\extras\TableTools.min.js" />
     <Content Include="Content\javascripts\dataTables\extras\ZeroClipboard.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.api.fnFilterOnReturn.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.api.fnGetColumnData.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.api.fnReloadAjax.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.api.fnSetFilteringDelay.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.bootstrap.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.api.fnFilterOnReturn.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.api.fnGetColumnData.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.api.fnReloadAjax.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.api.fnSetFilteringDelay.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.bootstrap.js" />
     <Content Include="Content\javascripts\dataTables\jquery.dataTables.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.sorting.numbersHtml.js" />
-    <Content Include="Content\javascripts\dataTables\jquery.dataTables.typeDetection.numbersHtml.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.sorting.numbersHtml.js" />
+    <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.typeDetection.numbersHtml.js" />
     <Content Include="Content\javascripts\docs.js" />
     <Content Include="Content\javascripts\excanvas.js" />
     <Content Include="Content\javascripts\extensions\bootstrap-datepicker.js" />
@@ -626,11 +654,12 @@
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\SiscomeFTP.pubxml" />
     <Content Include="Views\Report\AsesoriaTerreno.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrueba.cshtml" />
+    <Content Include="Views\Report\ReportChartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -6,9 +6,15 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/chozn")
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/uniform")
+    @Scripts.Render("~/bundles/pagination")
     @Scripts.Render("~/bundles/validate")
-
+    
 </head>
 <body>
     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
@@ -120,7 +126,7 @@
                     </a>
                     <ul id="reportes-list" class="collapse secondary">
                         <li class="">
-                            <a href="Report/AsesoriaTerreno">Asesoría En Terreno</a>
+                            @Html.ActionLink("Asesoría en Terreno", "AsesoriaTerreno", "Report")
                         </li>
                     </ul>
                 </li>

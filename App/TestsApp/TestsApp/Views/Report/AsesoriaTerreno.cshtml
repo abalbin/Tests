@@ -2,32 +2,33 @@
 
 @{
     ViewBag.Title = "Reporte";
+    //Layout = "~/Views/Shared/_LayoutPrueba.cshtml";
 }
 
 
 <h2>Reporte de Asesoría en Terreno</h2>
 
-<table class="table table-striped data-table" id="rptAsesoriaTerreno">
+@Scripts.Render("~/bundles/highcharts")
+@Scripts.Render("~/bundles/highchartsmodules")
+<table class="table table-striped" id="rptAsesoriaTerreno">
     <thead>
         <tr>
-            <th>
-                Ejecutivo
+            <th>Ejecutivo
             </th>
-            <th>
-                Aster
+            <th>Aster
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Puntaje)
             </th>
-            <th>
-                Fecha
+            <th>Fecha
             </th>
-
+            <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         string fecha = item.FechaInicio.Value.ToShortDateString();
+        string onClick = string.Format("showChart({0}, {1})", item.IdEjecutivo, item.IdAster);
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserProfile1.FirstName) @Html.DisplayFor(modelItem => item.UserProfile1.LastName)
@@ -41,27 +42,76 @@
             <td>
                 @fecha
             </td>
+            <td>
+                <input type="button" class="btn btn-mini" value="Ver Historial" onclick="@onClick" />
+            </td>
         </tr>
     }
 
     <tfoot>
-		<tr>
-			<th>Buscar Ejecutivo</th>
-			<th>Buscar Aster</th>
-			<th>Buscar Puntaje</th>
-			<th>Buscar Fecha</th>
-		</tr>
-	</tfoot>
+        <tr>
+            <th>Buscar Ejecutivo</th>
+            <th>Buscar Aster</th>
+            <th>Buscar Puntaje</th>
+            <th>Buscar Fecha</th>
+        </tr>
+    </tfoot>
 
 </table>
-@Scripts.Render("~/bundles/dtcf")
+<div id="chart" style="height: 300px;">
+</div>
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        // Setup JQuery UI date picker format to dd/mm/yy
-        $.datepicker.regional[""].dateFormat = 'dd/mm/yy';
-        $.datepicker.setDefaults($.datepicker.regional['']);
-        $('#rptAsesoriaTerreno').dataTable()
+    function showChart(IdEjecutivo, IdAster) {
+        var options = {
+            title: {},
+            subtitle: {},
+            chart: {
+                renderTo: 'chart',
+                type: 'line'
+            },
+            series: [{}],
+            xAxis: [{}],
+            yAxis: [{}]
+        };
+        $.getJSON('@Url.Action("DrawChart")', { idEjecutivo: IdEjecutivo, idAster: IdAster }, function (data) {
+            options.series = data.allSeries;
+            options.xAxis = data.xAxis;
+            options.yAxis = data.yAxis;
+            options.title = data.title;
+            options.subtitle = data.subtitle;
+            var chart = new Highcharts.Chart(options);
+        });
+    }
+    $(function () {
+        $('#rptAsesoriaTerreno').dataTable({
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<""l>t<"F"p>'
+        })
              .columnFilter({
                  aoColumns: [{ type: "text" },
                              { type: "text" },
