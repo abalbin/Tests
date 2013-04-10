@@ -81,7 +81,9 @@
                     <span class="icon">
                         <i class="icon-list-ol"></i>
                     </span>
-                    <span class="text">Exámenes <b class="caret"></b></span>
+                    @{bool esGerente = false;
+                      Roles.GetRolesForUser().ToList().ForEach((string s)=>{esGerente = s.Contains("Gerente");});}
+                    <span class="text">@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías" : "Exámenes") <b class="caret"></b></span>
                 </a>
                 <ul id="examenes-list" class="collapse secondary">
                     <li class="">
@@ -113,7 +115,7 @@
                     </li>
                 </ul>
             </li>
-            @if (Roles.IsUserInRole("Administrador"))
+            @if (Roles.IsUserInRole("Administrador") || esGerente)
             {
                 <!-- Reportes -->
                 <li class="">

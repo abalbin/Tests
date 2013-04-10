@@ -27,10 +27,17 @@ namespace TestsApp.Controllers
             Session.RemoveAll();
             UserProfile us = db.UserProfile.First(r => r.UserName == User.Identity.Name);
             List<Examen> examenes = new List<Examen>();
+            bool esGerente = false;
+            Roles.GetRolesForUser().ToList().ForEach((string s) => { esGerente = s.Contains("Gerente"); });
             if (Roles.IsUserInRole("Administrador"))
                 examenes = db.Examen.ToList();
             else
-                examenes = db.ExamenUsuario.Where(e => e.IdUsuario == us.UserId).Select(e => e.Examen).ToList();
+            {
+                if (esGerente)
+                    examenes = db.Examen.Where(e => e.IdTipo == 2).ToList();
+                else
+                    examenes = db.ExamenUsuario.Where(e => e.IdUsuario == us.UserId && e.Examen.IdTipo == 1).Select(e => e.Examen).ToList();
+            }
             return View(examenes);
         }
 
@@ -368,8 +375,11 @@ namespace TestsApp.Controllers
 
             //build JSON.  
             var modelResult = from m in result
-                                 select new { value = m.Id,
-                                                text = m.Nombre };
+                              select new
+                              {
+                                  value = m.Id,
+                                  text = m.Nombre
+                              };
 
             return Json(modelResult, JsonRequestBehavior.AllowGet);
         }

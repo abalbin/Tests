@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
+
+@if (Model != null || Model.Count() == 0)
+{
+    <ul class="audience-alt">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            decimal p = Model.ElementAt(i).Puntaje.Value / 2800 * 100;
+            string porc = string.Format("{0}%", p);
+            <li>
+                
+
+                <div class="value">@(i + 1)</div>
+                <div class="stat-name">@string.Format("{0} {1}", Model.ElementAt(i).UserProfile2.FirstName, Model.ElementAt(i).UserProfile2.LastName)</div>
+
+                <div class="percent">@Model.ElementAt(i).Puntaje</div>
+                <div class="progress-bar audience-progress">
+                    <div class="progress progress-medium-blue">
+                        <div class="bar" style="width: @porc"></div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}

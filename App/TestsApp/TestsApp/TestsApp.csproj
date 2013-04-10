@@ -656,6 +656,7 @@
     <Content Include="Views\Report\AsesoriaTerreno.cshtml" />
     <Content Include="Views\Shared\_LayoutPrueba.cshtml" />
     <Content Include="Views\Report\ReportChartPartial.cshtml" />
+    <Content Include="Views\Report\ReportRankingAsesoriaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

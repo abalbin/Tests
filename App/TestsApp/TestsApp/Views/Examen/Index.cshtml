@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Exámenes";
+    bool esGerente = false;
+    Roles.GetRolesForUser().ToList().ForEach((string s) => { esGerente = s.Contains("Gerente"); });
 }
-
-<h2>Exámenes Disponibles</h2>
+<h2>@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías en Terreno" : "Exámenes Disponibles")</h2>
 @if (Roles.IsUserInRole("Administrador"))
 {
     <p>

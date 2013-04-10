@@ -55,3 +55,11 @@
     font-style: italic;
     font-size: 22px;
 }
+
+.table-striped tbody tr.DTTT_selected td, .table-striped tbody tr.DTTT_selected th {
+background-color: #bde993;
+}
+
+.DTTT_selectable tbody tr {
+cursor:pointer;
+}

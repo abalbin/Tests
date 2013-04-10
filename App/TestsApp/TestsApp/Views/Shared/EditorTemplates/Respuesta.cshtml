@@ -14,7 +14,7 @@
         @switch (Model.Pregunta.TipoPregunta.NombreControl)
         {
             case "Checkbox":
-            @Html.CheckBoxFor(m => m.Marcada)
+            @Html.CheckBoxFor(m => m.Marcada, new { @class="chkRespuesta" })
             @Html.DisplayFor(m => m.Texto)
                 break;
             case "Textarea":
