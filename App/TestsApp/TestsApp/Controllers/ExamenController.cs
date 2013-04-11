@@ -384,6 +384,20 @@ namespace TestsApp.Controllers
             return Json(modelResult, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetAstersByLine(int id)
+        {
+            var result = db.UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).Where(r => r.IdLinea == id);
+
+            var modelResult = (from m in result
+                              select m).AsEnumerable().Select(x=> new
+                              {
+                                  value = x.UserId,
+                                  text = string.Format("{0} {1}", x.FirstName, x.LastName)
+                              });
+
+            return Json(modelResult, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // POST: /Examen/Create
 

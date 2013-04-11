@@ -140,6 +140,13 @@ namespace TestsApp.Controllers
                     li.Add(u.RoleId.ToString());
                     rm.IdRol = li.ToArray();
                     RegisterUser(rm);
+                    UserProfile up = db.UserProfile.FirstOrDefault(r => r.UserName == rm.UserName);
+                    if (up != null)
+                    {
+                        up.IdLinea = Convert.ToInt32(u.IdLinea);
+                        up.Mail = u.Mail;
+                        db.SaveChanges();
+                    }
                 }
                 //RegisterUser(model);
                 return RedirectToAction("ManageUsers");

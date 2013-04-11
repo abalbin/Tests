@@ -43,12 +43,16 @@ namespace TestsApp.Controllers
             for (int i = 0; i < listaAsesorias.Count; i++)
             {
                 allCategories.Add(listaAsesorias[i].FechaInicio.ToString());
-                allPoint.Add(new HighChartsPoint { x = i, y = Convert.ToDouble(listaAsesorias[i].Puntaje.Value) });
+                allPoint.Add(new HighChartsPoint { x = i, y = Convert.ToDouble(listaAsesorias[i].Puntaje.Value), name = string.Format("{0} {1}", ejecutivo.FirstName, ejecutivo.LastName) });
             }
 
             allSeries.Add(new HighChartsSeries
             {
                 data = new List<HighChartsPoint>(allPoint),
+                dataLabels = new HighChartDataLabel()
+                {
+                    enabled = true
+                },
                 name = string.Format("{0} {1}", aster.FirstName, aster.LastName),
                 type = "line"
             });
@@ -95,16 +99,21 @@ namespace TestsApp.Controllers
             {
                 var listaAsesorias = db.ExamenUsuario.Where(r => r.IdAster == exusua.IdAster && r.Examen.IdTipo == 2 && r.Estado == 2).ToList();
                 var aster = db.UserProfile.First(r => r.UserId == exusua.IdAster);
+                var ejecutivo = db.UserProfile.First(r => r.UserId == exusua.IdEjecutivo);
                 allPoint = new List<HighChartsPoint>();
                 for (int i = 0; i < listaAsesorias.Count; i++)
                 {
                     int ind = allCategories.IndexOf(listaAsesorias[i].FechaInicio.ToString());
-                    allPoint.Add(new HighChartsPoint { x = ind, y = Convert.ToDouble(listaAsesorias[i].Puntaje.Value) });
+                    allPoint.Add(new HighChartsPoint { x = ind, y = Convert.ToDouble(listaAsesorias[i].Puntaje.Value), name = string.Format("{0} {1}", ejecutivo.FirstName, ejecutivo.LastName) });
                 }
 
                 allSeries.Add(new HighChartsSeries
                 {
                     data = new List<HighChartsPoint>(allPoint),
+                    dataLabels = new HighChartDataLabel()
+                    {
+                        enabled = true
+                    },
                     name = string.Format("{0} {1}", aster.FirstName, aster.LastName),
                     type = "line"
                 });
@@ -132,8 +141,8 @@ namespace TestsApp.Controllers
                         registros.Add(e);
                     else
                     {
-                        ExamenUsuario current = registros.First(r=>r.IdAster == e.IdAster);
-                        if(e.Puntaje > current.Puntaje)
+                        ExamenUsuario current = registros.First(r => r.IdAster == e.IdAster);
+                        if (e.Puntaje > current.Puntaje)
                         {
                             registros.Remove(current);
                             registros.Add(e);

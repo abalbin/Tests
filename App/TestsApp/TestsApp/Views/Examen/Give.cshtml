@@ -21,7 +21,9 @@
         <div class="padded">
             @if (Model.IdTipo == 2)
             {
-                List<TestsApp.Models.UserProfile> listaAster = new TestsApp.Models.TestsAppBDEntities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
+                //List<TestsApp.Models.UserProfile> listaAster = new TestsApp.Models.TestsAppBDEntities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
+                List<TestsApp.Models.UserProfile> listaAster = new List<TestsApp.Models.UserProfile>();
+                List<TestsApp.Models.Linea> listaLineas = new TestsApp.Models.TestsAppBDEntities().Linea.ToList();
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="input full-width">
@@ -29,13 +31,26 @@
                                 @Model.Titulo
                             </h1>
                         </div>
-                        <label data-type="editable" data-for="#ddlAster">Aster:</label>
-                        @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}",u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label data-type="editable" data-for="#ddlAster">Línea:</label>
+                                @Html.DropDownList("IdLinea", new SelectList(listaLineas, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span3" },
+                                                           { "id", "ddlLinea"}
+                                                       })
+                            </div>
+                            <div class="span6">
+                                <label data-type="editable" data-for="#ddlAster">Aster:</label>
+                                @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}", u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },
                                                            { "id", "ddlAster"}
                                                        })
+                            </div>
+                        </div>
                     </div>
                 </div>
             }
@@ -136,7 +151,31 @@
         $('#loading-div').hide();
     }
 
+    function loadAster(selectList) {
+        var selectedId = $(selectList).val();
+        if (selectedId != null && selectedId != '') {
+            $.getJSON('@Url.Action("GetAstersByLine")', { id: selectedId }, function (asters) {
+                var asterSelect = $('#ddlAster');
+                asterSelect.empty();
+                $.each(asters, function (index, aster) {
+                    asterSelect.append($('<option/>', {
+                        value: aster.value,
+                        text: aster.text
+                    }));
+                });
+                $("#ddlAster").trigger("liszt:updated");
+                $("#ddlAster").change();
+            });
+        }
+
+    }
+
     $(function () {
+        $("#ddlLinea").change(
+        function () {
+            loadAster(this);
+        });
+
         $("#ddlAster").change(
         function () {
             var idAster = $(this).val();

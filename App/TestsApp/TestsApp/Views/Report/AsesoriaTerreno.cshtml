@@ -123,6 +123,8 @@
                 options.yAxis = data.yAxis;
                 options.title = data.title;
                 options.subtitle = data.subtitle;
+                var obj = function () { return this.point.name; }
+                options.series.dataLabels.formatter = obj;
                 var chart = new Highcharts.Chart(options);
             },
             dataType: "json",
@@ -138,6 +140,7 @@
             var chart = new Highcharts.Chart(options);
         });*@
     }
+
     function showChart(IdEjecutivo, IdAster) {
 
         $.getJSON('@Url.Action("DrawChart")', { idEjecutivo: IdEjecutivo, idAster: IdAster }, function (data) {
@@ -146,6 +149,11 @@
             options.yAxis = data.yAxis;
             options.title = data.title;
             options.subtitle = data.subtitle;
+            var obj = function () { return this.point.name; }
+            $.each(options.series, function () {
+                this.dataLabels.formatter = obj;
+            });
+            var chart = new Highcharts.Chart(options);
             var chart = new Highcharts.Chart(options);
         });
     }

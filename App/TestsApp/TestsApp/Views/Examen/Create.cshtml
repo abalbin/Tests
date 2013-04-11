@@ -188,31 +188,7 @@
                 $("#ddlProducto").change();
             });
         }
-        @*$.ajax(
-        {
-            url: "@Url.Action("GetProductsByLine", "Examen")",
-            type: "GET",
-            data: { id: selectedId },
-            error: function (xhr) {
-                alert("Something went wrong, please try again");
-            }
-        }).done(function (data) {
-            $("#ddlProducto").children().each(function (index, option) {
-                $(option).remove();
-            });
-
-            //blank option
-            var items = "<option selected value=\"\"></option>";
-
-            $.each(data,
-                function () {
-                    items += "<option value=\"" + this[0] + "\">" + this[1] + "</option>";
-                });
-
-            $("#ddlProducto").html(items)
-            $("#ddlProducto").trigger("liszt:updated");
-            $("#ddlProducto").change();
-        });*@
+       
     }
 </script>
 
