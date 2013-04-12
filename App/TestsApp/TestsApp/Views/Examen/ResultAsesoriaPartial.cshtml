@@ -1,0 +1,63 @@
+﻿@model TestsApp.Models.ExamenUsuario
+
+@{
+    int cantD = Model.RespuestaUsuario.Where(r => r.Marcada && r.Respuesta.Texto == "D").Count();
+    int cantA = Model.RespuestaUsuario.Where(r => r.Marcada && r.Respuesta.Texto == "A").Count();
+    int cantB = Model.RespuestaUsuario.Where(r => r.Marcada && r.Respuesta.Texto == "B").Count();
+    int cantS = Model.RespuestaUsuario.Where(r => r.Marcada && r.Respuesta.Texto == "S").Count();
+    int cantTotal = Model.PreguntaUsuario.Count;
+    int cantNR = cantTotal - (cantD + cantA + cantB + cantS);
+}
+
+<script type="text/javascript">
+    var options = {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Cantidad de Respuestas por alternativa'
+        },
+        subtitle: {
+            text: '@string.Format("Aster: {0} {1}", Model.UserProfile2.FirstName, Model.UserProfile2.LastName)'
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.point.name + '</b>: ' + parseInt(this.point.percentage * parseFloat('@cantTotal') / 100);
+            },
+            shared: true
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + parseInt(this.point.percentage * parseFloat('@cantTotal') / 100);
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                {
+                    name: 'Deficiente',
+                    y: parseFloat('@cantD') * 100 / parseFloat('@cantTotal'),
+
+                    sliced: true,
+                    selected: true
+                },
+                ['Aceptable', parseFloat('@cantA') * 100 / parseFloat('@cantTotal')],
+                ['Buena', parseFloat('@cantB') * 100 / parseFloat('@cantTotal')],
+                ['Sobresaliente', parseFloat('@cantS') * 100 / parseFloat('@cantTotal')],
+                ['No respondida', parseFloat('@cantNR') * 100 / parseFloat('@cantTotal')],
+            ]
+        }]
+    };
+</script>

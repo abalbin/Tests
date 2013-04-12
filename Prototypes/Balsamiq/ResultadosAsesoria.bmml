@@ -1,0 +1,15 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1084" measuredH="446" mockupW="854" mockupH="381">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::PieChart" x="462" y="129" w="308" h="276" measuredW="180" measuredH="180" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="230" y="65" w="-1" h="-1" measuredW="854" measuredH="43" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Resumen%20de%20Asesor%EDa%20para%20%3C%3CNombreAster%3E%3E</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Link" x="326" y="427" w="-1" h="-1" measuredW="136" measuredH="19" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Exportar%20datos%20a%20excel</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

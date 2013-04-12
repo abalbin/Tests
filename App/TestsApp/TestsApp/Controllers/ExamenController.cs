@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -389,7 +390,7 @@ namespace TestsApp.Controllers
             var result = db.UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).Where(r => r.IdLinea == id);
 
             var modelResult = (from m in result
-                              select m).AsEnumerable().Select(x=> new
+                               select m).AsEnumerable().Select(x => new
                               {
                                   value = x.UserId,
                                   text = string.Format("{0} {1}", x.FirstName, x.LastName)

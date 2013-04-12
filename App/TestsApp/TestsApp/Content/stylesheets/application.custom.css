@@ -63,3 +63,7 @@ background-color: #bde993;
 .DTTT_selectable tbody tr {
 cursor:pointer;
 }
+
+.datepicker {
+    z-index: 1060 !important;
+}
