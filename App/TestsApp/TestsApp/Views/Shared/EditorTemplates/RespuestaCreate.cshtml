@@ -1,0 +1,15 @@
+﻿@model TestsApp.Models.Respuesta
+    <li>
+
+        @switch (Model.Pregunta.TipoPregunta.NombreControl)
+        {
+            case "Checkbox":
+            @Html.CheckBoxFor(m => m.Marcada, new { @class="chkRespuesta" })
+            @Html.DisplayFor(m => m.Texto)
+                break;
+            case "Textarea":
+                Model.Texto = string.Empty;
+            @Html.TextAreaFor(m => m.Texto)
+                break;
+        }
+    </li>

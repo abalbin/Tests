@@ -1,0 +1,26 @@
+﻿@model TestsApp.Models.Pregunta
+
+<div class="row-fluid">
+        <div class="padded">
+            <div class="span12">
+                <div class="box-header">
+                    @Model.Orden. @Model.Texto
+                    <div class="pull-right">
+                        Puntaje: @Model.Puntaje/@Model.Puntaje
+                        &nbsp
+                            <div class="btn-group">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-left">
+                                    <li><a class="open-modal-respuesta" href="#modal-respuesta" data-toggle="modal">Agregar Respuesta</a></li>
+                                    <li><a class="open-modal-pregunta" href="#modal-pregunta" data-toggle="modal">Editar Pregunta</a></li>
+                                    <li><a href="#">Eliminar Pregunta</a></li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>

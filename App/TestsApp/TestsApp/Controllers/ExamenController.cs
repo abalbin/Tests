@@ -353,6 +353,11 @@ namespace TestsApp.Controllers
         //
         // GET: /Examen/Create
 
+        public ActionResult CreateTesting()
+        {
+            return View(new Examen());
+        }
+
         public ActionResult Create(int id = 0)
         {
             if (id != 0)

@@ -666,6 +666,9 @@
     <Content Include="Views\Report\ReportRankingAsesoriaPartial.cshtml" />
     <Content Include="Views\Examen\ResultAsesoriaPartial.cshtml" />
     <Content Include="Views\Examen\PreguntaErrorPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RespuestaCreate.cshtml" />
+    <Content Include="Views\Examen\CreateTesting.cshtml" />
+    <Content Include="Views\Examen\PreguntaItemPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
