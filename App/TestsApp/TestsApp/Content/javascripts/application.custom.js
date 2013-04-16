@@ -20,8 +20,7 @@ $(function () {
         $('.datepicker').datepicker();
     }
     $('.data-table').dataTable({
-        "bProcessing": true,
-        "bDeferRender": true,
+        
         "oLanguage": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",

@@ -146,7 +146,7 @@ namespace TestsApp.Controllers
 
             cvm.allSeries = allSeries.Count > 0 ? allSeries : allSeriesEmpty;
             cvm.title = new HighChartTitle() { text = "Comparativo de Puntajes" };
-            cvm.xAxis = new HighChartAxis { categories = new List<string>(allCategories), title = new HighChartTitle() { text = "Fecha de Asesoría" } };
+            cvm.xAxis = new HighChartAxis { categories = new List<string>(allCategories), title = new HighChartTitle() { text = "Fecha de Asesoría" }, min = 4 };
             cvm.yAxis = new HighChartAxis { title = new HighChartTitle() { text = "Puntaje" } };
             return Json(cvm, JsonRequestBehavior.AllowGet);
         }

@@ -420,7 +420,7 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePregunta(Pregunta preg)
+        public ActionResult CreatePregunta(Pregunta preg, int puntajeExamen)
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
@@ -428,13 +428,21 @@ namespace TestsApp.Controllers
             //TipoPregunta nuevoTipoPregunta = new TipoPregunta() { Id = tipoPreguntaTemp.Id, Nombre = tipoPreguntaTemp.Nombre, NombreControl = tipoPreguntaTemp.NombreControl };
             ////preg.TipoPregunta = nuevoTipoPregunta;
             //preg.TipoPregunta = db.TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
-            var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
-            if (preg.CantidadRespuesta == null)
-                preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
-            preg.Orden = ListaPreguntas.Count + 1;
-            ListaPreguntas.Add(preg);
-            ViewBag.ListaPreguntas = ListaPreguntas;
-            return PartialView("PreguntaPartial", ListaPreguntas);
+            decimal puntajePrev = 0;
+            foreach (Pregunta p in ListaPreguntas)
+                puntajePrev += p.Puntaje.Value;
+            if (puntajePrev + preg.Puntaje <= puntajeExamen)
+            {
+                var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
+                if (preg.CantidadRespuesta == null)
+                    preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+                preg.Orden = ListaPreguntas.Count + 1;
+                ListaPreguntas.Add(preg);
+                ViewBag.ListaPreguntas = ListaPreguntas;
+                return PartialView("PreguntaPartial", ListaPreguntas);
+            }
+            else
+                return HttpNotFound();
         }
 
         public ActionResult EditarPreguntaPrev(int id)

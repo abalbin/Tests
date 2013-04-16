@@ -55,6 +55,8 @@ namespace TestsApp
                         "~/Content/javascripts/jquery.countdown-es.js"));
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
                         "~/Content/javascripts/highcharts/highcharts.js"));
+            bundles.Add(new ScriptBundle("~/bundles/highstocks").Include(
+                        "~/Content/javascripts/highcharts/highstock.js"));
             bundles.Add(new ScriptBundle("~/bundles/highchartsmodules").Include(
                         "~/Content/javascripts/highcharts/modules/exporting.js"));
             

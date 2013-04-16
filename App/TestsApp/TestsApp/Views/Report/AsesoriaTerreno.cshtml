@@ -8,7 +8,7 @@
 
 <h2>Reporte de Asesoría en Terreno</h2>
 
-@Scripts.Render("~/bundles/highcharts")
+@Scripts.Render("~/bundles/highstocks")
 @Scripts.Render("~/bundles/highchartsmodules")
 
 <ul class="nav nav-tabs" id="myTab">
@@ -16,35 +16,35 @@
     <li><a href="#rptRanking">Ránking</a></li>
 </ul>
 <div id="modal-fechasComparativo" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3>Elegir Tipo de Examen</h3>
-            </div>
-            <div class="modal-body">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Elegir Tipo de Examen</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+            <div class="span12">
                 <div class="row-fluid">
-                    <div class="span12">
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                                    @Html.TextBox("txtDesde", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde" })
-                                    <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
-                                </div>
-                            </div>
-                            <div class="span6">
-                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                                    @Html.TextBox("txtHasta", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoHasta" })
-                                    <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
-                                </div>
-                            </div>
+                    <div class="span6">
+                        <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                            @Html.TextBox("txtDesde", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde" })
+                            <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                            @Html.TextBox("txtHasta", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoHasta" })
+                            <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
-                <input type="button" class="btn btn btn-small medium-blue" value="Comparar" onclick="showComparativeChart()" />
-            </div>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+        <input type="button" class="btn btn btn-small medium-blue" value="Comparar" onclick="showComparativeChart()" />
+    </div>
+</div>
 <div class="tab-content">
     <div class="tab-pane active" id="rptHistorial">
         <table class="table table-striped" id="rptAsesoriaTerreno">
@@ -100,9 +100,9 @@
 
         </table>
 
-        <div id="chart" style="height: 300px;">
+        <div id="chart" style="height: 300px; overflow: hidden;">
         </div>
-        
+
 
     </div>
     <div class="tab-pane" id="rptRanking">
@@ -132,6 +132,9 @@
     }
     var options = {
         title: {},
+        scrollbar: {
+            enabled: true
+        },
         subtitle: {},
         chart: {
             renderTo: 'chart',
@@ -144,14 +147,14 @@
     function showComparativeChart() {
         var fDesde = $("#txtComparativoDesde").val();
         var fHasta = $("#txtComparativoHasta").val();
-        var getData = { arrayIds: comparativeArray, sDesde: fDesde, sHasta: fHasta};
+        var getData = { arrayIds: comparativeArray, sDesde: fDesde, sHasta: fHasta };
 
         $.ajax({
             type: "GET",
             url: "@Url.Action("DrawComparativeChart")",
             data: getData,
             success: function (data) {
-                //$('#modal-fechasComparativo').modal('hide');
+                $('#modal-fechasComparativo').modal('hide');
                 options.series = data.allSeries;
                 options.xAxis = data.xAxis;
                 options.yAxis = data.yAxis;
@@ -201,8 +204,7 @@
         })
 
         var rctable = $('#rptAsesoriaTerreno').dataTable({
-            "bProcessing": true,
-            "bDeferRender": true,
+
             "aoColumns": [
                      { 'sname': 'idExamenUsuario', 'sType': 'string', 'bVisible': false },
                      { 'sName': 'nombreEjecutivo', 'sType': 'string', 'bVisible': true },

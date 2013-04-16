@@ -12,6 +12,7 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
+    @Html.HiddenFor(r => r.IdTipo);
     <div class="row-fluid">
         <div class="padded">
             <div class="row-fluid">
@@ -20,7 +21,7 @@
                         @Html.ValidationMessageFor(model => model.Titulo)
                         <h1 id="TituloExamen">
                             <span>
-                                <label data-type="editable" data-for="#Titulo">@Model.Titulo</label>
+                                <label id="lblTitulo" data-type="editable" data-for="#Titulo">@Model.Titulo</label>
                                 @Html.TextBoxFor(model => model.Titulo, new { @id = "Titulo" })
                             </span>
                         </h1>
@@ -107,6 +108,10 @@
                 <div id="modal-pregunta" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
                     @Html.Partial("PreguntaPopUpPartial", new TestsApp.Models.Pregunta())
                 </div>
+
+                <div id="modal-prueba" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+                    
+                </div>
             </div>
             <div class="row-fluid">
                 <button type="button" class="btn btn-small">Cancelar</button>
@@ -171,7 +176,21 @@
         function () {
             loadProducts(this);
         });
+        $("#ddlProducto").change(
+        function () {
+            setTitle(this);
+        });
     });
+
+    function setTitle(selectList) {
+        var selectedText = $('#ddlProducto option:selected').text();
+        if (selectedText != null && selectedText != '') {
+            $("#lblTitulo").text(selectedText);
+            $("#Titulo").text(selectedText);
+        }
+
+    }
+
     function loadProducts(selectList) {
         var selectedId = $(selectList).val();
         if (selectedId != null && selectedId != '') {
@@ -188,7 +207,7 @@
                 $("#ddlProducto").change();
             });
         }
-       
+
     }
 </script>
 

@@ -25,6 +25,9 @@
                 @Html.LabelFor(model => model.Puntaje, "Puntaje")
                 @Html.TextBoxFor(m => m.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })
             </div>
+            <div class="input full-width">
+                <a href="#modal-prueba" data-toggle="modal">Prueba</a>
+            </div>
         </div>
     </div>
 </div>
@@ -45,13 +48,14 @@
         var textoPregunta = $('#txtPregunta').val();
         var puntajePregunta = $('#txtPuntaje').val();
         var tipoPregunta = $('#ddlTipoPregunta').val();
+        var puntajeEx = $('#Puntaje').text()
         var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta };
         
         $.ajax({
             type: 'POST',
             url: '@Url.Action("CreatePregunta", "Examen")',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(preg),
+            data: {pregunta : JSON.stringify(preg), puntajeExamen: puntajeEx},
             success: function (data) {
                 $("#PreguntasContainer").html(data);
                 $('#modal-pregunta').modal('hide');
