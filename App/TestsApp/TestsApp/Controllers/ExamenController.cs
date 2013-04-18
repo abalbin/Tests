@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TestsApp.Filters;
 using TestsApp.Models;
+using TestsApp.Models.ViewModels;
 
 namespace TestsApp.Controllers
 {
@@ -360,19 +361,18 @@ namespace TestsApp.Controllers
 
         public ActionResult Create(int id = 0)
         {
-            if (id != 0)
-            {
-                ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
-                Session.Remove("ListaPreguntas");
-                ListaPreguntas = new List<Pregunta>();
-                ViewBag.ListaPreguntas = ListaPreguntas;
-                Examen ex = new Examen();
-                ex.IdTipo = id;
-                ex.Titulo = db.TipoExamen.First(r => r.Id == id).Nombre;
-                return View(ex);
-            }
-            else
-                return HttpNotFound();
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
+            Session.Remove("ListaPreguntas");
+            Examen ex = db.Examen.Find(id) != null ? db.Examen.Find(id) : new Examen();
+            //Hack para bindear---------------------
+            foreach (var item in ex.Pregunta)
+                item.Respuesta.ToList();
+            //-------------------------------------------
+            ListaPreguntas = db.Examen.Find(id) != null ? db.Examen.Find(id).Pregunta.ToList() : new List<Pregunta>();
+            ViewBag.ListaPreguntas = ListaPreguntas;
+            ex.IdTipo = id == 0 ? 1 : ex.IdTipo;
+            ex.Titulo = id == 0 ? db.TipoExamen.First(r => r.Id == 1).Nombre : ex.Titulo;
+            return View(ex);
         }
 
         public ActionResult GetProductsByLine(int id)
@@ -425,7 +425,7 @@ namespace TestsApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePregunta(Pregunta preg, int puntajeExamen)
+        public ActionResult CreatePregunta(CreatePreguntaViewModel createPregunta)
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
@@ -434,29 +434,52 @@ namespace TestsApp.Controllers
             ////preg.TipoPregunta = nuevoTipoPregunta;
             //preg.TipoPregunta = db.TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
             decimal puntajePrev = 0;
+            Pregunta preg = createPregunta.pregunta;
+            int puntajeExamen = createPregunta.puntajeExamen;
             foreach (Pregunta p in ListaPreguntas)
                 puntajePrev += p.Puntaje.Value;
+            Pregunta pregActualizar = null;
+            if (preg.Orden != null)
+                pregActualizar = ListaPreguntas.Where(r => r.Orden == preg.Orden).Single();
+            if (pregActualizar != null)
+                puntajePrev -= pregActualizar.Puntaje.Value;
             if (puntajePrev + preg.Puntaje <= puntajeExamen)
             {
-                var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
-                if (preg.CantidadRespuesta == null)
-                    preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
-                preg.Orden = ListaPreguntas.Count + 1;
-                ListaPreguntas.Add(preg);
+                if (pregActualizar == null)
+                {
+                    var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
+                    if (preg.CantidadRespuesta == null)
+                        preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+                    preg.Orden = ListaPreguntas.Count + 1;
+                    ListaPreguntas.Add(preg);
+                }
+                else
+                {
+                    pregActualizar.Texto = preg.Texto;
+                    pregActualizar.Puntaje = preg.Puntaje;
+                }
                 ViewBag.ListaPreguntas = ListaPreguntas;
                 return PartialView("PreguntaPartial", ListaPreguntas);
             }
             else
-                return HttpNotFound();
+            {
+                string msg = "Puntaje inválido";
+                return Json(new { errorMsg = msg });
+            }
         }
 
         public ActionResult EditarPreguntaPrev(int id)
         {
-            var pregunta = ListaPreguntas[id];
-            if (pregunta != null)
-                return PartialView("PreguntaPopUpPartial", ListaPreguntas);
+            if (id >= 0)
+            {
+                var pregunta = ListaPreguntas[id];
+                if (pregunta != null)
+                    return PartialView("PreguntaPopUpPartial", pregunta);
+                else
+                    return PartialView("PreguntaPopUpPartial", null);
+            }
             else
-                return PartialView("PreguntaPopUpPartial", null);
+                return PartialView("PreguntaPopUpPartial", new Pregunta());
         }
 
         [HttpPost]

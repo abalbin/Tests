@@ -241,6 +241,7 @@
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreatePreguntaViewModel.cs" />
     <Compile Include="Models\ViewModels\ErrorViewModel.cs" />
     <Compile Include="Models\ViewModels\HighChartAxis.cs" />
     <Compile Include="Models\ViewModels\HighChartDataLabel.cs" />

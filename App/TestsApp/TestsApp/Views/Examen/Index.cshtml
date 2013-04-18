@@ -9,13 +9,10 @@
 @if (Roles.IsUserInRole("Administrador"))
 {
     <p>
-        @*@Html.ActionLink("Crear Examen", "Create")*@
-        <a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Nuevo Examen</a>
+        @Html.ActionLink("Nuevo Examen", "Create")
+        @*<a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Nuevo Examen</a>*@
     </p>
 }
-<p>
-    <a class="btn btn-mini medium-blue" href="Examen/CreateTesting">Nuevo Examen de Prueba</a>
-</p>
 <div class="row-fluid">
     <div class="padded10">
         @if (Model.Count() > 0)

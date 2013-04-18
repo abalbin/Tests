@@ -10,9 +10,42 @@
 }
 else
 {
+    int i = 1;
     foreach (var item in Model)
     {
-        Html.Partial("PreguntaItemPartial", item);
+        item.Id = i - 1;
+    <div class="row-fluid">
+        <div class="padded">
+            <div class="span12">
+                <div class="box-header">
+                    @i. @item.Texto
+                    <div class="pull-right">
+                        Puntaje: @item.Puntaje/@item.Puntaje
+                        &nbsp
+                            <div class="btn-group">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-left">
+                                    <li><a class="open-modal-pregunta" data-id="@(i - 1)" href="#modal-pregunta" data-toggle="modal">Editar</a></li>
+                                    <li><a href="#">Eliminar</a></li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="padded">
+                            <div id="@("RespuestasContainer" + (i - 1).ToString())">
+                                @Html.Partial("RespuestaPartial", item)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        i++;
     }
 
 }
@@ -27,9 +60,11 @@ else
 
         var preguntaId = $(this).data('id');
         $.ajax({
-            url: "PreguntaEditarPrev?id=" + preguntaId,
+            url: '@Url.Action("EditarPreguntaPrev", "Examen")',
+            data: { id: preguntaId },
             success: function (html) {
                 $('#modal-pregunta').html(html);
+                $("#ddlTipoPregunta").chosen();
             }
         });
     });

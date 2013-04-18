@@ -96,7 +96,7 @@
                                       <i class="icon-cog"></i>
                                   </a>
                                   <ul class="dropdown-menu dropdown-left">
-                                      <li><a href="#modal-pregunta" data-toggle="modal">Agregar</a></li>
+                                      <li><a href="#modal-pregunta" data-toggle="modal" onclick="agregarPregunta()">Agregar</a></li>
                                   </ul>
                               </div>
                           </div>
@@ -110,7 +110,6 @@
                 </div>
 
                 <div id="modal-prueba" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
-                    
                 </div>
             </div>
             <div class="row-fluid">
@@ -126,6 +125,53 @@
 </div>
 
 <script type="text/javascript">
+
+    function GuardarPregunta_Click() {
+        var anchor = "Examen";
+        var textoPregunta = $('#txtPregunta').val();
+        var puntajePregunta = $('#txtPuntaje').val();
+        var tipoPregunta = $('#ddlTipoPregunta').val();
+        var ordenPregunta = $('#hdnOrdenPregunta').val();
+        var puntajeEx = $('#Puntaje').val()
+        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta, "Orden": ordenPregunta };
+        var createPregunta = { pregunta: preg, puntajeExamen: puntajeEx };
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreatePregunta", "Examen")',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(createPregunta),
+            success: function (data) {
+                if (data.errorMsg == null) {
+                    $("#PreguntasContainer").html(data);
+                    $('#modal-pregunta').modal('hide');
+                    $("#PreguntasContainer").find('input:checkbox').uniform();
+                }
+                else
+                    $("#msgErrorPregunta").html(data.errorMsg);
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function agregarPregunta() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("EditarPreguntaPrev", "Examen")',
+            data: { id: -1 },
+            success: function (data) {
+                $("#modal-pregunta").html(data);
+                $("#ddlTipoPregunta").chosen();
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+    }
 
     function ChkRespuesta_Click(indexRespuesta, chk) {
 

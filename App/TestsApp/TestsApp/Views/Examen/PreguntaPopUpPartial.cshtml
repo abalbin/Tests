@@ -1,5 +1,5 @@
 ﻿@model TestsApp.Models.Pregunta
-
+@Html.HiddenFor(m => m.Orden, new { @id = "hdnOrdenPregunta" })
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Agregar Pregunta</h3>
@@ -13,7 +13,7 @@
             </div>
             <div class="input full-width">
                 @Html.LabelFor(model => model.TipoPregunta, "Tipo de Pregunta")
-                @Html.DropDownListFor(m => m.TipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                @Html.DropDownListFor(m => m.IdTipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },
@@ -25,8 +25,7 @@
                 @Html.LabelFor(model => model.Puntaje, "Puntaje")
                 @Html.TextBoxFor(m => m.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })
             </div>
-            <div class="input full-width">
-                <a href="#modal-prueba" data-toggle="modal">Prueba</a>
+            <div class="input full-width" id="msgErrorPregunta">
             </div>
         </div>
     </div>
@@ -43,29 +42,5 @@
         //$('#GuardarPregunta').unbind("click", GuardarPregunta_Click).click(GuardarPregunta_Click);
     }
 
-    function GuardarPregunta_Click() {
-        var anchor = "Examen";
-        var textoPregunta = $('#txtPregunta').val();
-        var puntajePregunta = $('#txtPuntaje').val();
-        var tipoPregunta = $('#ddlTipoPregunta').val();
-        var puntajeEx = $('#Puntaje').text()
-        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta };
-        
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("CreatePregunta", "Examen")',
-            contentType: 'application/json; charset=utf-8',
-            data: {pregunta : JSON.stringify(preg), puntajeExamen: puntajeEx},
-            success: function (data) {
-                $("#PreguntasContainer").html(data);
-                $('#modal-pregunta').modal('hide');
-                $("#PreguntasContainer").find('input:checkbox').uniform();
-                return false;
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                return false;
-            }
-        });
-        return false;
-    }
+
 </script>

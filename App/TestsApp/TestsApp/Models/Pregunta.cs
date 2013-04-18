@@ -27,7 +27,6 @@ namespace TestsApp.Models
         public Nullable<int> CantidadRespuesta { get; set; }
         public Nullable<decimal> Puntaje { get; set; }
         public Nullable<int> Orden { get; set; }
-        public Nullable<bool> Habilitada { get; set; }
     
         public virtual Examen Examen { get; set; }
         public virtual TipoPregunta TipoPregunta { get; set; }
