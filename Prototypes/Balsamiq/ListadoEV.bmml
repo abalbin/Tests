@@ -1,0 +1,39 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="909" measuredH="359" mockupW="602" mockupH="280">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="307" y="134" w="602" h="183" measuredW="530" measuredH="171" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha%20%5Ev%2C%20Elemento%20Vial%20%5Ev%2C%20Datos%20Generales%20%5E%2C%20GPS%20%5Ev%2C%20Fotograf%EDas%20v%2C%20%0A01/01/2012%2C%20Alcantarilla%2C%20Carretera1%20-%20Estado1%2C%2036%2C%204%2C%20Ver%0A01/01/2012%2C%20Alcantarilla%2C%20Carretera2%20-%20Estado2%2C%2034%2C%205%2C%20Ver%0A01/01/2012%2C%20Faja%2C%20Carretera3%20-%20Estado3%2C%2037%2C%206%2C%20Ver%0A01/01/2012%2C%20Puente%2C%20Carretera4%20-%20Estado4%2C%20%3A%29%2C%201%2C%20Ver%0A01/01/2012%2C%20Se%F1alizaci%F3n%20Vertical%2C%20Carretera5%20-%20Estado5%2C%206%2C%202%2C%20Ver</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::ComboBox" x="426" y="80" w="-1" h="-1" measuredW="97" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Alcantarilla</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::DateChooser" x="636" y="80" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="814" y="79" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Buscar</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="330" y="82" w="-1" h="-1" measuredW="84" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Elemento%20Vial%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="589" y="82" w="-1" h="-1" measuredW="38" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::ButtonBar" x="561" y="332" w="-1" h="-1" measuredW="95" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1%2C%202%2C%203</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

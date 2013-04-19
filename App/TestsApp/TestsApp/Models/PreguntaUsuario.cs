@@ -20,8 +20,8 @@ namespace TestsApp.Models
         public Nullable<decimal> Puntaje { get; set; }
         public Nullable<int> IdExamenUsuario { get; set; }
     
-        public virtual Pregunta Pregunta { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual ExamenUsuario ExamenUsuario { get; set; }
+        public virtual Pregunta Pregunta { get; set; }
     }
 }

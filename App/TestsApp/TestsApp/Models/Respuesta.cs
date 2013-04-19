@@ -27,7 +27,7 @@ namespace TestsApp.Models
         public bool Marcada { get; set; }
         public Nullable<decimal> Puntaje { get; set; }
     
-        public virtual Pregunta Pregunta { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
+        public virtual Pregunta Pregunta { get; set; }
     }
 }

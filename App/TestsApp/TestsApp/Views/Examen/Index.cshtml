@@ -48,7 +48,15 @@
     @Html.Partial("ElegirTipoExamenPopUpPartial", new TestsApp.Models.TestsAppBDEntities().TipoExamen.ToList())
 </div>
 
+<div id="modal-publicar-examen" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("PublishExamenPartial", new TestsApp.Models.Examen())
+</div>
+
 <script type="text/javascript">
+    function showModalPublish() {
+        $("#modal-publicar-examen").modal('show');
+    }
+
     $(function () {
         $(".btn-dar-disabled").tooltip();
         $("#ddlTipoExamen").change(function () {

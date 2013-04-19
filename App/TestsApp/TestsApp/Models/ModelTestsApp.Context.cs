@@ -29,7 +29,6 @@ namespace TestsApp.Models
         public DbSet<Examen> Examen { get; set; }
         public DbSet<ExamenUsuario> ExamenUsuario { get; set; }
         public DbSet<Linea> Linea { get; set; }
-        public DbSet<Pregunta> Pregunta { get; set; }
         public DbSet<PreguntaUsuario> PreguntaUsuario { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<RespuestaUsuario> RespuestaUsuario { get; set; }
@@ -39,5 +38,6 @@ namespace TestsApp.Models
         public DbSet<Producto> Producto { get; set; }
         public DbSet<UserMigration> UserMigration { get; set; }
         public DbSet<TipoExamen> TipoExamen { get; set; }
+        public DbSet<Pregunta> Pregunta { get; set; }
     }
 }

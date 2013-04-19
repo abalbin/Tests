@@ -28,7 +28,7 @@ else
                                 </a>
                                 <ul class="dropdown-menu dropdown-left">
                                     <li><a class="open-modal-pregunta" data-id="@(i - 1)" href="#modal-pregunta" data-toggle="modal">Editar</a></li>
-                                    <li><a href="#">Eliminar</a></li>
+                                    <li>@Ajax.ActionLink("Eliminar", "DeletePregunta", new { orden = item.Orden }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "PreguntasContainer", OnSuccess = "updateCheckboxes" })</li>
                                 </ul>
                             </div>
                     </div>

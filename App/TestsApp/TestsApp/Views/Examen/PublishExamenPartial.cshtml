@@ -1,16 +1,16 @@
-﻿@model TestsApp.Models.UserProfile
-@using (Html.BeginForm("Delete", "Account", new { id = Model.UserId }, FormMethod.Post))
+﻿@model TestsApp.Models.Examen
+@using (Html.BeginForm("PublishFinal", "Examen", new { id = Model.Id }, FormMethod.Post))
 {
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>¿Esta seguro de elminar este usuario?</h3>
+        <h3>Publicar Examen</h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
-                <h4>
-                    @Model.FirstName @Model.LastName
-                </h4>
+                <p>
+                    ¿Está seguro que desea publicar el examen <em>@Model.Titulo</em>? Si decide proceder, ya no podrá editar el examen y se enviará una alerta a todos los Aster de la solución <em>@(Model.Producto == null ? "" : Model.Producto.Linea.Nombre)</em>
+                </p>
             </div>
         </div>
     </div>

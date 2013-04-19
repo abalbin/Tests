@@ -126,6 +126,10 @@
 
 <script type="text/javascript">
 
+    function updateCheckboxes() {
+        $("#PreguntasContainer").find('input:checkbox').uniform();
+    }
+
     function GuardarPregunta_Click() {
         var anchor = "Examen";
         var textoPregunta = $('#txtPregunta').val();
@@ -233,6 +237,7 @@
         if (selectedText != null && selectedText != '') {
             $("#lblTitulo").text(selectedText);
             $("#Titulo").text(selectedText);
+            $("#Titulo").val(selectedText);
         }
 
     }

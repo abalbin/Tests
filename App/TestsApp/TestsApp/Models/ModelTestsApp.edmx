@@ -157,7 +157,6 @@
           <Property Name="CantidadRespuesta" Type="int" />
           <Property Name="Puntaje" Type="decimal" />
           <Property Name="Orden" Type="int" />
-          <Property Name="Habilitada" Type="bit" />
         </EntityType>
         <EntityType Name="PreguntaUsuario">
           <Key>
@@ -502,7 +501,6 @@
           <EntitySet Name="Examen" EntityType="TestsAppBDModel.Examen" />
           <EntitySet Name="ExamenUsuario" EntityType="TestsAppBDModel.ExamenUsuario" />
           <EntitySet Name="Linea" EntityType="TestsAppBDModel.Linea" />
-          <EntitySet Name="Pregunta" EntityType="TestsAppBDModel.Pregunta" />
           <EntitySet Name="PreguntaUsuario" EntityType="TestsAppBDModel.PreguntaUsuario" />
           <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Respuesta" />
           <EntitySet Name="RespuestaUsuario" EntityType="TestsAppBDModel.RespuestaUsuario" />
@@ -514,22 +512,6 @@
           <AssociationSet Name="FK_ExamenUsuario_Examen" Association="TestsAppBDModel.FK_ExamenUsuario_Examen">
             <End Role="Examen" EntitySet="Examen" />
             <End Role="ExamenUsuario" EntitySet="ExamenUsuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pregunta_Examen" Association="TestsAppBDModel.FK_Pregunta_Examen">
-            <End Role="Examen" EntitySet="Examen" />
-            <End Role="Pregunta" EntitySet="Pregunta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pregunta_TipoPregunta" Association="TestsAppBDModel.FK_Pregunta_TipoPregunta">
-            <End Role="TipoPregunta" EntitySet="TipoPregunta" />
-            <End Role="Pregunta" EntitySet="Pregunta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PreguntaUsuario_Pregunta" Association="TestsAppBDModel.FK_PreguntaUsuario_Pregunta">
-            <End Role="Pregunta" EntitySet="Pregunta" />
-            <End Role="PreguntaUsuario" EntitySet="PreguntaUsuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Respuesta_Pregunta" Association="TestsAppBDModel.FK_Respuesta_Pregunta">
-            <End Role="Pregunta" EntitySet="Pregunta" />
-            <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
           <AssociationSet Name="FK_RespuestaUsuario_Respuesta" Association="TestsAppBDModel.FK_RespuestaUsuario_Respuesta">
             <End Role="Respuesta" EntitySet="Respuesta" />
@@ -588,6 +570,23 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
+          <EntitySet Name="Pregunta" EntityType="TestsAppBDModel.Pregunta" />
+          <AssociationSet Name="FK_Pregunta_Examen" Association="TestsAppBDModel.FK_Pregunta_Examen">
+            <End Role="Examen" EntitySet="Examen" />
+            <End Role="Pregunta" EntitySet="Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pregunta_TipoPregunta" Association="TestsAppBDModel.FK_Pregunta_TipoPregunta">
+            <End Role="TipoPregunta" EntitySet="TipoPregunta" />
+            <End Role="Pregunta" EntitySet="Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreguntaUsuario_Pregunta" Association="TestsAppBDModel.FK_PreguntaUsuario_Pregunta">
+            <End Role="Pregunta" EntitySet="Pregunta" />
+            <End Role="PreguntaUsuario" EntitySet="PreguntaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta" Association="TestsAppBDModel.FK_Respuesta_Pregunta">
+            <End Role="Pregunta" EntitySet="Pregunta" />
+            <End Role="Respuesta" EntitySet="Respuesta" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -610,12 +609,12 @@
           <Property Type="Int32" Name="PuntajeMaximo" />
           <NavigationProperty Name="Estado" Relationship="TestsAppBDModel.FK_Examen_Estado" FromRole="Examen" ToRole="Estado" />
           <NavigationProperty Name="ExamenUsuario" Relationship="TestsAppBDModel.FK_ExamenUsuario_Examen" FromRole="Examen" ToRole="ExamenUsuario" />
-          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Examen" ToRole="Pregunta" />
           <Property Type="Time" Name="TiempoTranscurrido" Precision="7" />
           <Property Type="Int32" Name="IdProducto" />
           <NavigationProperty Name="Producto" Relationship="TestsAppBDModel.FK_Examen_Producto" FromRole="Examen" ToRole="Producto" />
           <Property Type="Int32" Name="IdTipo" />
           <NavigationProperty Name="TipoExamen" Relationship="TestsAppBDModel.FK_Examen_TipoExamen" FromRole="Examen" ToRole="TipoExamen" />
+          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Examen" ToRole="Pregunta" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -647,22 +646,6 @@
           <NavigationProperty Name="UserProfile" Relationship="TestsAppBDModel.FK_UserProfile_Linea" FromRole="Linea" ToRole="UserProfile" />
           <NavigationProperty Name="Producto" Relationship="TestsAppBDModel.FK_Producto_Linea" FromRole="Linea" ToRole="Producto" />
         </EntityType>
-        <EntityType Name="Pregunta">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Texto" MaxLength="400" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="IdTipoPregunta" />
-          <Property Type="Int32" Name="IdExamen" />
-          <Property Type="Int32" Name="CantidadRespuesta" />
-          <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="0" />
-          <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Pregunta" ToRole="Examen" />
-          <NavigationProperty Name="TipoPregunta" Relationship="TestsAppBDModel.FK_Pregunta_TipoPregunta" FromRole="Pregunta" ToRole="TipoPregunta" />
-          <NavigationProperty Name="PreguntaUsuario" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="Pregunta" ToRole="PreguntaUsuario" />
-          <NavigationProperty Name="Respuesta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Pregunta" ToRole="Respuesta" />
-          <Property Type="Int32" Name="Orden" />
-        </EntityType>
         <EntityType Name="PreguntaUsuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -671,10 +654,10 @@
           <Property Type="Int32" Name="IdPregunta" />
           <Property Type="Int32" Name="IdUsuario" />
           <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="2" />
-          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="PreguntaUsuario" ToRole="Pregunta" />
           <NavigationProperty Name="UserProfile" Relationship="TestsAppBDModel.FK_PreguntaUsuario_UserProfile" FromRole="PreguntaUsuario" ToRole="UserProfile" />
           <Property Type="Int32" Name="IdExamenUsuario" />
           <NavigationProperty Name="ExamenUsuario" Relationship="TestsAppBDModel.FK_PreguntaUsuario_ExamenUsuario" FromRole="PreguntaUsuario" ToRole="ExamenUsuario" />
+          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="PreguntaUsuario" ToRole="Pregunta" />
         </EntityType>
         <EntityType Name="Respuesta">
           <Key>
@@ -685,10 +668,10 @@
           <Property Type="Int32" Name="Orden" />
           <Property Type="Int32" Name="IdPregunta" />
           <Property Type="Int32" Name="EsCorrecta" />
-          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Respuesta" ToRole="Pregunta" />
           <NavigationProperty Name="RespuestaUsuario" Relationship="TestsAppBDModel.FK_RespuestaUsuario_Respuesta" FromRole="Respuesta" ToRole="RespuestaUsuario" />
           <Property Type="Boolean" Name="Marcada" Nullable="false" />
           <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="2" />
+          <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Respuesta" ToRole="Pregunta" />
         </EntityType>
         <EntityType Name="RespuestaUsuario">
           <Key>
@@ -734,54 +717,6 @@
             </Principal>
             <Dependent Role="ExamenUsuario">
               <PropertyRef Name="IdExamen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pregunta_Examen">
-          <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="0..1" />
-          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Examen">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pregunta">
-              <PropertyRef Name="IdExamen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pregunta_TipoPregunta">
-          <End Type="TestsAppBDModel.TipoPregunta" Role="TipoPregunta" Multiplicity="0..1" />
-          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoPregunta">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pregunta">
-              <PropertyRef Name="IdTipoPregunta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PreguntaUsuario_Pregunta">
-          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="0..1" />
-          <End Type="TestsAppBDModel.PreguntaUsuario" Role="PreguntaUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pregunta">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PreguntaUsuario">
-              <PropertyRef Name="IdPregunta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Respuesta_Pregunta">
-          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="0..1" />
-          <End Type="TestsAppBDModel.Respuesta" Role="Respuesta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pregunta">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Respuesta">
-              <PropertyRef Name="IdPregunta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -989,6 +924,70 @@
           <End Type="TestsAppBDModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="TestsAppBDModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
+        <EntityType Name="Pregunta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Texto" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdTipoPregunta" />
+          <Property Type="Int32" Name="IdExamen" />
+          <Property Type="Int32" Name="CantidadRespuesta" />
+          <Property Type="Decimal" Name="Puntaje" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Orden" />
+          <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Pregunta" ToRole="Examen" />
+          <NavigationProperty Name="TipoPregunta" Relationship="TestsAppBDModel.FK_Pregunta_TipoPregunta" FromRole="Pregunta" ToRole="TipoPregunta" />
+          <NavigationProperty Name="PreguntaUsuario" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="Pregunta" ToRole="PreguntaUsuario" />
+          <NavigationProperty Name="Respuesta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Pregunta" ToRole="Respuesta" />
+        </EntityType>
+        <Association Name="FK_Pregunta_Examen">
+          <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Examen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregunta">
+              <PropertyRef Name="IdExamen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pregunta_TipoPregunta">
+          <End Type="TestsAppBDModel.TipoPregunta" Role="TipoPregunta" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPregunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregunta">
+              <PropertyRef Name="IdTipoPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreguntaUsuario_Pregunta">
+          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.PreguntaUsuario" Role="PreguntaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreguntaUsuario">
+              <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta">
+          <End Type="TestsAppBDModel.Pregunta" Role="Pregunta" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.Respuesta" Role="Respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Respuesta">
+              <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1039,19 +1038,6 @@
             <EntityTypeMapping TypeName="TestsAppBDModel.Linea">
               <MappingFragment StoreEntitySet="Linea">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pregunta">
-            <EntityTypeMapping TypeName="TestsAppBDModel.Pregunta">
-              <MappingFragment StoreEntitySet="Pregunta">
-                <ScalarProperty Name="Orden" ColumnName="Orden" />
-                <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
-                <ScalarProperty Name="CantidadRespuesta" ColumnName="CantidadRespuesta" />
-                <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
-                <ScalarProperty Name="IdTipoPregunta" ColumnName="IdTipoPregunta" />
-                <ScalarProperty Name="Texto" ColumnName="Texto" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1159,6 +1145,19 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Pregunta">
+            <EntityTypeMapping TypeName="TestsAppBDModel.Pregunta">
+              <MappingFragment StoreEntitySet="Pregunta">
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
+                <ScalarProperty Name="CantidadRespuesta" ColumnName="CantidadRespuesta" />
+                <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
+                <ScalarProperty Name="IdTipoPregunta" ColumnName="IdTipoPregunta" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

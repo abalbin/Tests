@@ -22,25 +22,35 @@
     <div class="article-actions">
         @if (Model.IdTipo != 2)
         {
+
             if (User.IsInRole("Administrador"))
             {
-                //@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+                if (Model.IdEstado == 1)
+                {
+            @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class="btn btn-mini dark-blue"})
+                }
+                if (Model.IdEstado == 3)
+                {
             <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
-                //@Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+                }
             }
-            if (Model.FechaEjecucion.Value.Date == DateTime.Now.Date)
+            if (Model.IdEstado == 3)
             {
-                @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
-            }
-            else
-            {
+                if (Model.FechaEjecucion.Value.Date == DateTime.Now.Date)
+                {
+            @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+                }
+                else
+                {
             <button type="button" class="btn btn-mini btn-dar-disabled" disabled title="ASDasdasd">Dar</button>
+                }
             }
-            @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+
         }
         else
         {
-            @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
         }
     </div>
 </div>

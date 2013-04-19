@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -354,21 +356,100 @@ namespace TestsApp.Controllers
         //
         // GET: /Examen/Create
 
-        public ActionResult CreateTesting()
+        public ActionResult Publish(int id = 0)
         {
-            return View(new Examen());
+            Examen ex = db.Examen.Find(id);
+            if (ex != null)
+                return PartialView("PublishExamenPartial", ex);
+            else
+                return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult PublishFinal(int id = 0)
+        {
+            Examen examen = db.Examen.Find(id);
+            if (examen != null)
+            {
+                List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.IdLinea == examen.Producto.IdLinea).ToList();
+                foreach (UserProfile u in usuariosSolucion)
+                {
+                    ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0 };
+                    db.ExamenUsuario.Add(nuevoExamenUsuario);  
+                }
+                examen.IdEstado = 3;
+                db.SaveChanges();
+                enviarAlertaPublicacion(usuariosSolucion, examen);
+            }
+            return RedirectToAction("Index");
+        }
+
+        private void enviarAlertaPublicacion(List<UserProfile> users, Examen examen)
+        {
+            var msg = new MailMessage();
+            msg.From = new MailAddress("unimed.learning@gmail.com");
+            foreach (UserProfile user in users)
+            {
+                if (user.Mail != null)
+                {
+                    msg.To.Add(new MailAddress(user.Mail));
+                }
+            }
+            msg.Subject = string.Format("Examen {0} disponible", examen.Titulo);
+            msg.Body = string.Format("Le comunicamos que el examen {0} se encuentra disponible para su ejecución el día {1}.", examen.Titulo, examen.FechaEjecucion.Value.ToShortDateString());
+            var client = new System.Net.Mail.SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("unimed.learning@gmail.com", "learningapp")
+            };
+            client.Send(msg);
         }
 
         public ActionResult Create(int id = 0)
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             Session.Remove("ListaPreguntas");
-            Examen ex = db.Examen.Find(id) != null ? db.Examen.Find(id) : new Examen();
+            Examen ex = db.Examen.Find(id) != null ? db.Examen.First(r => r.Id == id) : new Examen();
             //Hack para bindear---------------------
             foreach (var item in ex.Pregunta)
                 item.Respuesta.ToList();
             //-------------------------------------------
-            ListaPreguntas = db.Examen.Find(id) != null ? db.Examen.Find(id).Pregunta.ToList() : new List<Pregunta>();
+            ListaPreguntas = new List<Pregunta>();
+            Examen ex2 = db.Examen.Find(id);
+            if (ex2 != null)
+            {
+                List<Pregunta> listaPreguntasTemp = ex2.Pregunta.ToList();
+                for (int i = 0; i < listaPreguntasTemp.Count; i++)
+                {
+                    Pregunta prg = new Pregunta()
+                    {
+                        IdTipoPregunta = listaPreguntasTemp[i].IdTipoPregunta,
+                        Orden = listaPreguntasTemp[i].Orden,
+                        Puntaje = listaPreguntasTemp[i].Puntaje,
+                        Texto = listaPreguntasTemp[i].Texto,
+                        CantidadRespuesta = listaPreguntasTemp[i].CantidadRespuesta
+                    };
+
+                    List<Respuesta> listaRespuestasTemp = listaPreguntasTemp[i].Respuesta.ToList();
+                    for (int j = 0; j < listaRespuestasTemp.Count; j++)
+                    {
+                        Respuesta rpta = new Respuesta()
+                        {
+                            EsCorrecta = listaRespuestasTemp[j].EsCorrecta,
+                            Orden = listaRespuestasTemp[j].Orden,
+                            Marcada = listaRespuestasTemp[j].Marcada,
+                            Puntaje = listaRespuestasTemp[j].Puntaje,
+                            Texto = listaRespuestasTemp[j].Texto
+                        };
+                        prg.Respuesta.Add(rpta);
+                    }
+                    ListaPreguntas.Add(prg);
+                }
+            }
+
             ViewBag.ListaPreguntas = ListaPreguntas;
             ex.IdTipo = id == 0 ? 1 : ex.IdTipo;
             ex.Titulo = id == 0 ? db.TipoExamen.First(r => r.Id == 1).Nombre : ex.Titulo;
@@ -415,6 +496,21 @@ namespace TestsApp.Controllers
             {
                 examen.FechaCreacion = DateTime.Now;
                 examen.IdEstado = 1;
+
+                if (examen.Id > 0)
+                {
+
+                    Examen exOriginal = db.Examen.Find(examen.Id);
+                    List<Pregunta> preguntasOriginal = exOriginal.Pregunta.ToList();
+                    foreach (Pregunta p in preguntasOriginal)
+                    {
+                        List<Respuesta> respuestasOriginal = p.Respuesta.ToList();
+                        foreach (Respuesta r in respuestasOriginal)
+                            db.Respuesta.Remove(r);
+                        db.Pregunta.Remove(p);
+                    }
+                    db.Examen.Remove(exOriginal);
+                }
                 db.Examen.Add(examen);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -422,6 +518,17 @@ namespace TestsApp.Controllers
 
             //ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", examen.IdEstado);
             return View(examen);
+        }
+
+        [HttpPost]
+        public ActionResult DeletePregunta(int orden = 0)
+        {
+            if (orden == 0)
+            {
+                return HttpNotFound();
+            }
+            ListaPreguntas.Remove(ListaPreguntas.First(r=>r.Orden == orden));
+            return PartialView("PreguntaPartial", ListaPreguntas);
         }
 
         [HttpPost]
