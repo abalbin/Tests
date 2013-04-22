@@ -59,9 +59,10 @@ else
     $(document).on("click", ".open-modal-pregunta", function () {
 
         var preguntaId = $(this).data('id');
+        var tipoExamen = $("#hdnIdTipoExamen").val();
         $.ajax({
             url: '@Url.Action("EditarPreguntaPrev", "Examen")',
-            data: { id: preguntaId },
+            data: { id: preguntaId, idTipoExamen : tipoExamen },
             success: function (html) {
                 $('#modal-pregunta').html(html);
                 $("#ddlTipoPregunta").chosen();

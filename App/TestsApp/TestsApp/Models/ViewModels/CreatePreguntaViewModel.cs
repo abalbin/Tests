@@ -9,5 +9,6 @@ namespace TestsApp.Models.ViewModels
     {
         public Pregunta pregunta { get; set; }
         public int puntajeExamen { get; set; }
+        public int idTipoExamen { get; set; }
     }
 }

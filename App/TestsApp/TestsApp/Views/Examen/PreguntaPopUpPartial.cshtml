@@ -1,5 +1,5 @@
-﻿@model TestsApp.Models.Pregunta
-@Html.HiddenFor(m => m.Orden, new { @id = "hdnOrdenPregunta" })
+﻿@model TestsApp.Models.ViewModels.CreatePreguntaViewModel
+@Html.HiddenFor(m => m.pregunta.Orden, new { @id = "hdnOrdenPregunta" })
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Agregar Pregunta</h3>
@@ -9,22 +9,25 @@
         <div class="span6">
             <div class="input full-width">
                 <input id="hdnIndexPregunta" type="hidden" />
-                @Html.TextBoxFor(m => m.Texto, new { @id = "txtPregunta", @placeholder = "Texto de la Pregunta" })
+                @Html.TextBoxFor(m => m.pregunta.Texto, new { @id = "txtPregunta", @placeholder = "Texto de la Pregunta" })
             </div>
-            <div class="input full-width">
-                @Html.LabelFor(model => model.TipoPregunta, "Tipo de Pregunta")
-                @Html.DropDownListFor(m => m.IdTipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+            @if (Model.idTipoExamen != 2)
+            { 
+                <div class="input full-width">
+                    @Html.LabelFor(model => model.pregunta.TipoPregunta, "Tipo de Pregunta")
+                    @Html.DropDownListFor(m => m.pregunta.IdTipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },
                                                            { "id", "ddlTipoPregunta"}
                                                        })
 
-            </div>
-            <div class="input full-width">
-                @Html.LabelFor(model => model.Puntaje, "Puntaje")
-                @Html.TextBoxFor(m => m.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })
-            </div>
+                </div>
+                <div class="input full-width">
+                    @Html.LabelFor(model => model.pregunta.Puntaje, "Puntaje")
+                    @Html.TextBoxFor(m => m.pregunta.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })
+                </div>
+            }
             <div class="input full-width" id="msgErrorPregunta">
             </div>
         </div>

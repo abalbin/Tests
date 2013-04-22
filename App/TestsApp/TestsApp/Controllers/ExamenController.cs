@@ -544,19 +544,32 @@ namespace TestsApp.Controllers
             Pregunta preg = createPregunta.pregunta;
             int puntajeExamen = createPregunta.puntajeExamen;
             foreach (Pregunta p in ListaPreguntas)
-                puntajePrev += p.Puntaje.Value;
+                puntajePrev += p.Puntaje == null ? 0 : p.Puntaje.Value;
             Pregunta pregActualizar = null;
             if (preg.Orden != null)
                 pregActualizar = ListaPreguntas.Where(r => r.Orden == preg.Orden).Single();
             if (pregActualizar != null)
-                puntajePrev -= pregActualizar.Puntaje.Value;
-            if (puntajePrev + preg.Puntaje <= puntajeExamen)
+                puntajePrev -= pregActualizar.Puntaje == null ? 0 : pregActualizar.Puntaje.Value;
+            if (puntajePrev + (preg.Puntaje == null ? 0 : preg.Puntaje) <= puntajeExamen || createPregunta.idTipoExamen == 2)
             {
                 if (pregActualizar == null)
                 {
-                    var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
-                    if (preg.CantidadRespuesta == null)
-                        preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+                    if (createPregunta.idTipoExamen != 2)
+                    {
+                        var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
+                        if (preg.CantidadRespuesta == null)
+                            preg.CantidadRespuesta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+                    }
+                    else
+                    {
+                        preg.IdTipoPregunta = 1;
+                        preg.CantidadRespuesta = 1;
+                        preg.Puntaje = 100;
+                        preg.Respuesta.Add(new Respuesta() { Texto = "D", EsCorrecta = 0, Marcada = false, Puntaje = 60 });
+                        preg.Respuesta.Add(new Respuesta() { Texto = "A", EsCorrecta = 0, Marcada = false, Puntaje = 70 });
+                        preg.Respuesta.Add(new Respuesta() { Texto = "B", EsCorrecta = 0, Marcada = false, Puntaje = 85 });
+                        preg.Respuesta.Add(new Respuesta() { Texto = "S", EsCorrecta = 0, Marcada = false, Puntaje = 100 });
+                    }
                     preg.Orden = ListaPreguntas.Count + 1;
                     ListaPreguntas.Add(preg);
                 }
@@ -575,18 +588,18 @@ namespace TestsApp.Controllers
             }
         }
 
-        public ActionResult EditarPreguntaPrev(int id)
+        public ActionResult EditarPreguntaPrev(int id, int idTipoExamen)
         {
             if (id >= 0)
             {
                 var pregunta = ListaPreguntas[id];
                 if (pregunta != null)
-                    return PartialView("PreguntaPopUpPartial", pregunta);
+                    return PartialView("PreguntaPopUpPartial", new CreatePreguntaViewModel() { pregunta = pregunta, idTipoExamen = idTipoExamen });
                 else
                     return PartialView("PreguntaPopUpPartial", null);
             }
             else
-                return PartialView("PreguntaPopUpPartial", new Pregunta());
+                return PartialView("PreguntaPopUpPartial", new CreatePreguntaViewModel() { pregunta = new Pregunta(), idTipoExamen = idTipoExamen });
         }
 
         [HttpPost]

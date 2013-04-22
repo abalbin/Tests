@@ -28,7 +28,7 @@
                 if (Model.IdEstado == 1)
                 {
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
-            @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class="btn btn-mini dark-blue"})
+            @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class = "btn btn-mini dark-blue" })
                 }
                 if (Model.IdEstado == 3)
                 {
@@ -51,6 +51,10 @@
         else
         {
             @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            if (User.IsInRole("Administrador") && Model.IdEstado == 1)
+            {
+            @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            }
         }
     </div>
 </div>

@@ -285,6 +285,134 @@ namespace TestsApp.Controllers
                 return null;
         }
 
+        public FileResult ExportReportExamen(int id = 0)
+        {
+            Examen examen = db.Examen.Find(id);
+            if (examen != null)
+            {
+                string filename = string.Format("Reporte_Examen_{0}_{2}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    xlPackage.Workbook.Properties.Title = "Reporte de Examen";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(examen.Titulo);
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, 4);
+
+                    var SeRealizo = ws.Cells[2, 2];
+                    var Nombre = ws.Cells[2, 3];
+                    var Linea = ws.Cells[2, 4];
+                    var Nota = ws.Cells[2, 5];
+
+                    SetRichText(SeRealizo, "Se realizó");
+                    SetRichText(Nombre, "Nombre");
+                    SetRichText(Linea, "Línea");
+                    SetRichText(Nota, "Nota");
+
+                    //Write data
+                    List<ExamenUsuario> listaExamenes = examen.ExamenUsuario.ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, 4, listaExamenes.Count);
+
+                    int colSeRealizo = 2;
+                    int colNombre = 3;
+                    int colLinea = 4;
+                    int colNota = 5;
+
+                    for (int i = 3; i < listaExamenes.Count + 3; i++)
+                    {
+                        // Se realizó
+                        var seRealizoCell = ws.Cells[i, colSeRealizo];
+                        seRealizoCell.Value = listaExamenes[i - 3].FechaInicio;
+                        // Nombre
+                        var nombreCell = ws.Cells[i, colNombre];
+                        nombreCell.Value = string.Format("{0} {1}", listaExamenes[i - 3].UserProfile2.FirstName, listaExamenes[i - 3].UserProfile2.LastName);
+                        // Línea
+                        var lineaCell = ws.Cells[i, colLinea];
+                        lineaCell.Value = listaExamenes[i - 3].UserProfile2.Linea.Nombre;
+                        // Nota
+                        var notaCell = ws.Cells[i, colNota];
+                        notaCell.Value = listaExamenes[i - 3].Puntaje;
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
+
+        public FileResult ExportReportExamenRptaPorPregunta(int id = 0)
+        {
+            Examen examen = db.Examen.Find(id);
+            if (examen != null)
+            {
+                string filename = string.Format("Reporte_Examen_RespuestaPregunta_{0}_{2}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    xlPackage.Workbook.Properties.Title = "Reporte de Examen de Respuesta por Pregunta";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(string.Format("Reporte {0}", examen.Titulo));
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, 4);
+
+                    var aster = ws.Cells[2, 2];
+                    var pregunta = ws.Cells[2, 3];
+                    var respuesta = ws.Cells[2, 4];
+                    var puntaje = ws.Cells[2, 5];
+
+                    SetRichText(aster, "Nombre de Aster");
+                    SetRichText(pregunta, "Pregunta");
+                    SetRichText(respuesta, "Respuesta");
+                    SetRichText(puntaje, "Puntaje");
+
+                    //Write data      
+
+                    List<RespuestaUsuario> listaRespuestas = db.RespuestaUsuario.Where(r => r.ExamenUsuario.Examen.Id == examen.Id && r.Marcada).ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, 4, listaRespuestas.Count);
+
+                    int colAster = 2;
+                    int colPregunta = 3;
+                    int colRespuesta = 4;
+                    int colPuntaje = 5;
+
+                    for (int i = 3; i < listaRespuestas.Count + 3; i++)
+                    {
+                        // Aster
+                        var aterCell = ws.Cells[i, colAster];
+                        aterCell.Value = string.Format("{0} {1}", listaRespuestas[i - 3].ExamenUsuario.UserProfile2.FirstName, listaRespuestas[i - 3].ExamenUsuario.UserProfile2.LastName);
+                        // Pregunta
+                        var preguntaCell = ws.Cells[i, colPregunta];
+                        preguntaCell.Value = listaRespuestas[i - 3].Respuesta.Pregunta.Texto;
+                        // Respuesta
+                        var respuestaCell = ws.Cells[i, colRespuesta];
+                        respuestaCell.Value = listaRespuestas[i - 3].Respuesta.Texto;
+                        // Puntaje
+                        var puntajeCell = ws.Cells[i, colPuntaje];
+                        var currentPregunta = listaRespuestas[i - 3].Respuesta.Pregunta;
+                        puntajeCell.Value = (listaRespuestas[i - 3].Respuesta.EsCorrecta == 1 ? currentPregunta.Puntaje / currentPregunta.CantidadRespuesta : 0);
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
+
         private void StyleSimpleFooterReport(ExcelWorksheet ws, int x, int y, int cols)
         {
             for (int i = x; i < x + cols; i++)
