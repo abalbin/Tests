@@ -1,0 +1,22 @@
+﻿@model TestsApp.Models.Linea
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>¿Estás seguro que deseas eliminar este registro?</h3>
+<fieldset>
+    <legend>Linea</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre):
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class="btn btn-small red" /> |
+        @Html.ActionLink("Regresar a la lista", "Index")
+    </p>
+}

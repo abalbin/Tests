@@ -89,18 +89,13 @@
                     <li class="">
                         @Html.ActionLink("Ver", "Index", "Examen")
                     </li>
-                    @if (Roles.IsUserInRole("Administrador"))
-                    {
-                        <li class="li-disabled">
-                            <a href="pages/components/forms.html">Alertas</a>
-                        </li>
-                    }
+                    
                 </ul>
             </li>
 
             <!-- Documentos -->
-            <li class="li-disabled">
-                <a href="#documentos-list" class="accordion-toggle">
+            <li>
+                <a href="#documentos-list" class="accordion-toggle" data-toggle="collapse">
                     <span class="icon">
                         <i class="icon-file"></i>
                     </span>
@@ -108,11 +103,11 @@
                 </a>
                 <ul id="documentos-list" class="collapse secondary">
                     <li class="">
-                        <a href="pages/components/buttons.html">Manuales</a>
+                        @Html.ActionLink("Ver", "Index", "Documento")
                     </li>
-                    <li class="">
+                    @*<li class="">
                         <a href="pages/components/forms.html">Otros</a>
-                    </li>
+                    </li>*@
                 </ul>
             </li>
             @if (Roles.IsUserInRole("Administrador") || esGerente)

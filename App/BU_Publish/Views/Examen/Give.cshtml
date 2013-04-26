@@ -1,0 +1,221 @@
+﻿@model TestsApp.Models.Examen
+
+@{
+    ViewBag.Title = "Give";
+}
+
+@Scripts.Render("~/bundles/countdown")
+
+<div class="box-header">
+    <i class="icon-th-list"></i>Dar Examen 
+</div>
+@if (Model.IdTipo != 2)
+{
+    <input type="hidden" id="hdn-Minutos" value="@Model.TiempoMaximo.Value.Minutes" />
+    <input type="hidden" id="hdn-Segundos" value="@Model.TiempoMaximo.Value.Seconds" />
+}
+<input type="hidden" id="hdn-FechaInicioEjecucion" value="@Model.FechaEjecucion.Value.ToString("yyyy,MM,dd,H,mm,ss")" />
+
+<div class="row-fluid">
+    <div class="span10 center-div">
+        <div class="padded">
+            @if (Model.IdTipo == 2)
+            {
+                //List<TestsApp.Models.UserProfile> listaAster = new TestsApp.Models.TestsAppBDEntities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
+                List<TestsApp.Models.UserProfile> listaAster = new List<TestsApp.Models.UserProfile>();
+                List<TestsApp.Models.Linea> listaLineas = new TestsApp.Models.TestsAppBDEntities().Linea.ToList();
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="input full-width">
+                            <h1>
+                                @Model.Titulo
+                            </h1>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label data-type="editable" data-for="#ddlAster">Línea:</label>
+                                @Html.DropDownList("IdLinea", new SelectList(listaLineas, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span3" },
+                                                           { "id", "ddlLinea"}
+                                                       })
+                            </div>
+                            <div class="span6">
+                                <label data-type="editable" data-for="#ddlAster">Aster:</label>
+                                @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}", u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span3" },
+                                                           { "id", "ddlAster"}
+                                                       })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="input full-width">
+                            <h1>
+                                @Model.Titulo
+                            </h1>
+                        </div>
+                        <div class="input full-width">
+                            <h4>Línea: @Model.Producto.Linea.Nombre
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="row-fluid input full-width">
+                            <div class="span3">
+                                Tiempo Restante:
+                            </div>
+                            <div class="span4">
+                                <div id="tiempoRestante">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="section-title"></div>
+            <div class="row-fluid" id="PreguntasRow">
+                <div class="span3" id="loading-div">
+                    <div class="well well-large well-transparent lead centered">
+                        <i class="icon-spinner icon-spin icon-2x pull-left"></i>Guardando...
+                    </div>
+                </div>
+                @using (Html.BeginForm("Give", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
+                {
+                    @Html.HiddenFor(m => m.TiempoTranscurrido, new { id = "hdn-TiempoTranscurrido" })
+                    <input type="hidden" id="IdAster" name="IdAster" />
+                    <div id="PreguntasContainer">
+                        @Html.Partial("GivePreguntaPartial", Model.Pregunta.ElementAt(0))
+                    </div>
+                    <input type="submit" value="Terminar" class="hidden btn-terminar-examen-hidden" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function NextQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("NextQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize(),
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
+        });
+    }
+
+    function PreviousQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PreviousQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize(),
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            },
+            beforeSend: startingAjax,
+            complete: ajaxCompleted
+        });
+    }
+    function FinishTest() {
+        $('.btn-terminar-examen-hidden').click();
+    }
+    function startingAjax() {
+        //$('#loading-div').css("left", 100);
+        //$('#loading-div').css("top", 5);
+        var divWidth = $("#loading-div").width();
+        $("#loading-div").css({ "margin-left": -divWidth / 2, "top": "50%", "left": "50%" });
+        $('#loading-div').show();
+    }
+    function ajaxCompleted() {
+        $('#loading-div').hide();
+    }
+
+    function loadAster(selectList) {
+        var selectedId = $(selectList).val();
+        if (selectedId != null && selectedId != '') {
+            $.getJSON('@Url.Action("GetAstersByLine")', { id: selectedId }, function (asters) {
+                var asterSelect = $('#ddlAster');
+                asterSelect.empty();
+                $.each(asters, function (index, aster) {
+                    asterSelect.append($('<option/>', {
+                        value: aster.value,
+                        text: aster.text
+                    }));
+                });
+                $("#ddlAster").trigger("liszt:updated");
+                $("#ddlAster").change();
+            });
+        }
+
+    }
+
+    $(function () {
+        $("#ddlLinea").change(
+        function () {
+            loadAster(this);
+        });
+
+        $("#ddlAster").change(
+        function () {
+            var idAster = $(this).val();
+            $("#IdAster").val(idAster);
+        });
+        var austDay = new Date();
+        austDay = new Date(2013, 03, 05);
+        var minutos = parseInt($('#hdn-Minutos').val());
+        var segundos = parseInt($('#hdn-Segundos').val());
+        var untilStr = "+" + minutos + "m " + "+" + segundos + "s";
+        var strDate = $('#hdn-FechaInicioEjecucion').val().split(',');
+        var d = new Date(parseInt(strDate[0]), parseInt(strDate[1]) - 1, parseInt(strDate[2]), parseInt(strDate[3]), parseInt(strDate[4]), parseInt(strDate[5]), 0);
+        var dInicio = new Date(parseInt(strDate[0]), parseInt(strDate[1]) - 1, parseInt(strDate[2]), parseInt(strDate[3]), parseInt(strDate[4]), parseInt(strDate[5]), 0);
+        //d = new Date();
+        d.setSeconds(d.getSeconds() + segundos);
+        d.setMinutes(d.getMinutes() + minutos);
+        $('#tiempoRestante').countdown({ until: d, format: 'MS', onExpiry: liftOff });
+
+        function liftOff() {
+            setTiempoTranscurrido();
+            $('.btn-terminar-examen-hidden').click();
+        }
+
+        $('.btn-terminar-examen-hidden').click(function () {
+            setTiempoTranscurrido();
+        });
+
+        function setTiempoTranscurrido() {
+            var dActual = new Date();
+            var diff = dActual - dInicio;
+            var xHelper = diff / 1000;
+            var numhours = Math.floor(((xHelper % 31536000) % 86400) / 3600);
+            var numminutes = Math.floor((((xHelper % 31536000) % 86400) % 3600) / 60);
+            var numseconds = Math.floor((((xHelper % 31536000) % 86400) % 3600) % 60);
+            var strTime = numhours.toString() + ':' + numminutes.toString() + ':' + numseconds.toString();
+            $("#hdn-TiempoTranscurrido").val(strTime);
+        }
+    });
+
+
+
+
+</script>

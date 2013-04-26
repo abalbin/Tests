@@ -1,0 +1,273 @@
+﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
+
+@{
+    ViewBag.Title = "Reporte";
+    //Layout = "~/Views/Shared/_LayoutPrueba.cshtml";
+}
+
+
+<h2>Reporte de Asesoría en Terreno</h2>
+
+@Scripts.Render("~/bundles/highcharts")
+@Scripts.Render("~/bundles/highchartsmodules")
+
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#rptHistorial">Historial</a></li>
+    <li><a href="#rptRanking">Ránking</a></li>
+</ul>
+<div id="modal-fechasComparativo" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Elegir Tipo de Examen</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                                    @Html.TextBox("txtDesde", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde" })
+                                    <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                                    @Html.TextBox("txtHasta", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoHasta" })
+                                    <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+                <input type="button" class="btn btn btn-small medium-blue" value="Comparar" onclick="showComparativeChart()" />
+            </div>
+        </div>
+<div class="tab-content">
+    <div class="tab-pane active" id="rptHistorial">
+        <table class="table table-striped" id="rptAsesoriaTerreno">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Ejecutivo
+                    </th>
+                    <th>Aster
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Puntaje)
+                    </th>
+                    <th>Fecha
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                string fecha = item.FechaInicio.Value.ToShortDateString();
+                string onClick = string.Format("showChart({0}, {1})", item.IdEjecutivo, item.IdAster);
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserProfile1.FirstName) @Html.DisplayFor(modelItem => item.UserProfile1.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserProfile2.FirstName) @Html.DisplayFor(modelItem => item.UserProfile2.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Puntaje)
+                    </td>
+                    <td>
+                        @fecha
+                    </td>
+                    <td>
+                        <input type="button" class="btn btn-mini historial" value="Ver Historial" onclick="@onClick" />
+                    </td>
+                </tr>
+            }
+
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Buscar Ejecutivo</th>
+                    <th>Buscar Aster</th>
+                    <th>Buscar Puntaje</th>
+                    <th>Buscar Fecha</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+
+        </table>
+
+        <div id="chart" style="height: 300px;">
+        </div>
+        
+
+    </div>
+    <div class="tab-pane" id="rptRanking">
+        <div class="padded">
+            <div class="input-prepend input-append">
+                <span class="add-on">Top</span>
+                <input class="span1" id="txtTop" type="text" placeholder="##">
+                <button class="btn" type="button" onclick="showRanking()">Ver</button>
+
+            </div>
+            <div id="ranking">
+                @Html.Partial("ReportRankingAsesoriaPartial", new List<TestsApp.Models.ExamenUsuario>())
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function showRanking() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("DrawRankingAsesoria")",
+            data: { top: $("#txtTop").val() },
+            success: function (data) {
+                $("#ranking").html(data);
+            }
+        });
+    }
+    var options = {
+        title: {},
+        subtitle: {},
+        chart: {
+            renderTo: 'chart',
+            type: 'line'
+        },
+        series: [{}],
+        xAxis: [{}],
+        yAxis: [{}]
+    };
+    function showComparativeChart() {
+        var fDesde = $("#txtComparativoDesde").val();
+        var fHasta = $("#txtComparativoHasta").val();
+        var getData = { arrayIds: comparativeArray, sDesde: fDesde, sHasta: fHasta};
+
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("DrawComparativeChart")",
+            data: getData,
+            success: function (data) {
+                //$('#modal-fechasComparativo').modal('hide');
+                options.series = data.allSeries;
+                options.xAxis = data.xAxis;
+                options.yAxis = data.yAxis;
+                options.title = data.title;
+                options.subtitle = data.subtitle;
+                var obj = function () { return this.point.name; }
+                $.each(options.series, function () {
+                    this.dataLabels.formatter = obj;
+                });
+                var chart = new Highcharts.Chart(options);
+            },
+            dataType: "json",
+            traditional: true
+        });
+
+        @*$.getJSON('@Url.Action("DrawComparativeChart")', { arrayIds: comparativeArray }, function (data) {
+            options.series = data.allSeries;
+            options.xAxis = data.xAxis;
+            options.yAxis = data.yAxis;
+            options.title = data.title;
+            options.subtitle = data.subtitle;
+            var chart = new Highcharts.Chart(options);
+        });*@
+    }
+
+    function showChart(IdEjecutivo, IdAster) {
+
+        $.getJSON('@Url.Action("DrawChart")', { idEjecutivo: IdEjecutivo, idAster: IdAster }, function (data) {
+            options.series = data.allSeries;
+            options.xAxis = data.xAxis;
+            options.yAxis = data.yAxis;
+            options.title = data.title;
+            options.subtitle = data.subtitle;
+            var obj = function () { return this.point.name; }
+            $.each(options.series, function () {
+                this.dataLabels.formatter = obj;
+            });
+            var chart = new Highcharts.Chart(options);
+            var chart = new Highcharts.Chart(options);
+        });
+    }
+    var comparativeArray = new Array();
+    $(function () {
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+
+        var rctable = $('#rptAsesoriaTerreno').dataTable({
+            
+            "aoColumns": [
+                     { 'sname': 'idExamenUsuario', 'sType': 'string', 'bVisible': false },
+                     { 'sName': 'nombreEjecutivo', 'sType': 'string', 'bVisible': true },
+                     { 'sName': 'nombreAster', 'sType': 'string', 'bVisible': true },
+                     { 'sName': 'puntaje', 'sType': 'numeric', 'bVisible': true },
+                     { 'sName': 'fecha', 'sType': 'date', 'bVisible': true },
+                     { 'sName': 'btn', 'sType': 'html', 'bVisible': true, "bSortable": false }
+            ],
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<"divComparativo">T<"clear"><""l>t<"F"p>',
+            "oTableTools": {
+                "sRowSelect": "multi",
+                "aButtons": [],
+                "fnRowSelected": function (node) {
+                    aData = rctable.fnGetData(node); //nice array of cell values
+                    comparativeArray.push(aData[0]);
+                },
+                "fnRowDeselected": function (node) {
+                    aData = rctable.fnGetData(node); //nice array of cell values
+                    var indexElement = comparativeArray.indexOf(aData[0]);
+                    comparativeArray.splice(indexElement, 1);
+                },
+                "fnPreRowSelect": function (e, nodes) {
+                    if ($(e.target).hasClass('historial')) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+        })
+             .columnFilter({
+                 aoColumns: [{ type: "text" },
+                             { type: "text" },
+                             { type: "text" },
+                             { type: "text" },
+                             { type: "text" }
+                 ],
+                 bUseColVis: true
+             });
+        //$("div.divComparativo").html('<input type="button" class="btn btn-mini" value="Comparativo" onclick="showComparativeChart()" />');
+        $("div.divComparativo").html('<a class="btn btn-mini" href="#modal-fechasComparativo" data-toggle="modal">Comparativo</a>');
+    });
+
+</script>

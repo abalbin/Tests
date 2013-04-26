@@ -1,0 +1,36 @@
+﻿@model TestsApp.Models.UserProfile
+@using (Html.BeginForm("Delete", "Account", new { id = Model.UserId }, FormMethod.Post))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>¿Esta seguro de elminiar este usuario?</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+            <div class="span12">
+                <h4>
+                    @Model.FirstName @Model.LastName
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-small">No</button>
+        @*@Ajax.ActionLink("Sí", "Delete", new { id = Model.UserId }, new AjaxOptions { HttpMethod = "Post" }, new { @class = "btn btn-small medium-blue" })*@
+        <input type="submit" class="btn btn-small medium-blue" value="Sí" />
+    </div>
+}
+@*<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>UserProfile</legend>
+
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}*@

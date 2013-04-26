@@ -8,9 +8,9 @@
 <p>
     @Html.ActionLink("Crear nuevo usuario", "Register")
 </p>
-<p>
+@*<p>
     @Html.ActionLink("Carga Masiva", "RegisterMassive")
-</p>
+</p>*@
 <table class="table table-striped data-table">
     <thead>
         <tr>
@@ -24,6 +24,8 @@
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>Roles
+            </th>
+            <th>Línea
             </th>
             <th></th>
         </tr>
@@ -52,6 +54,9 @@
             </td>
             <td>
                 @s
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Linea.Nombre)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |

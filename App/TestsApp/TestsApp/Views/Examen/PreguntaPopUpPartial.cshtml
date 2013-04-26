@@ -9,11 +9,12 @@
         <div class="span6">
             <div class="input full-width">
                 <input id="hdnIndexPregunta" type="hidden" />
+                Pregunta
                 @Html.TextBoxFor(m => m.pregunta.Texto, new { @id = "txtPregunta", @placeholder = "Texto de la Pregunta" })
             </div>
             @if (Model.idTipoExamen != 2)
             { 
-                <div class="input full-width">
+                @*<div class="input full-width">
                     @Html.LabelFor(model => model.pregunta.TipoPregunta, "Tipo de Pregunta")
                     @Html.DropDownListFor(m => m.pregunta.IdTipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
@@ -22,7 +23,7 @@
                                                            { "id", "ddlTipoPregunta"}
                                                        })
 
-                </div>
+                </div>*@
                 <div class="input full-width">
                     @Html.LabelFor(model => model.pregunta.Puntaje, "Puntaje")
                     @Html.TextBoxFor(m => m.pregunta.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })

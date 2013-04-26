@@ -1,0 +1,46 @@
+﻿@model TestsApp.Models.Examen
+@{DateTime fechaActual = DateTime.Now;
+  TestsApp.App_Code.Helper helperObj = new TestsApp.App_Code.Helper();}
+<div class="article">
+    <div class="post-info">
+        @helperObj.ReturnTextDifferenceNow(Model.FechaCreacion)
+    </div>
+    <div class="post-content-preview">
+        <h3>
+            @Model.Titulo
+        </h3>
+        @if (Model.IdTipo != 2)
+        {
+            <p>Línea: @Model.Producto.Linea.Nombre</p>
+            <p>Producto: @Model.Producto.Nombre</p>
+            <p>
+                Fecha de ejecución: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year
+            </p>
+        }
+    </div>
+
+    <div class="article-actions">
+        @if (Model.IdTipo != 2)
+        {
+            if (User.IsInRole("Administrador"))
+            {
+                //@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
+                //@Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            }
+            if (Model.FechaEjecucion.Value.Date == DateTime.Now.Date)
+            {
+                @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+            }
+            else
+            {
+            <button type="button" class="btn btn-mini btn-dar-disabled" disabled title="ASDasdasd">Dar</button>
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini dark-blue" })
+        }
+    </div>
+</div>
+

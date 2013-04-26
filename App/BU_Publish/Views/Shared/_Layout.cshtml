@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Elearning</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/chozn")
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/uniform")
+    @Scripts.Render("~/bundles/pagination")
+    @Scripts.Render("~/bundles/validate")
+    
+</head>
+<body>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <nav id="primary" class="main-nav collapsible-nav">
+        <!-- Brand -->
+        <a id="sidebar-brand" href="../pages/dashboard.html">Exámenes
+        </a>
+        <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
+            <i class="icon-reorder"></i>
+        </button>
+
+        <ul class="nav-collapse collapse">
+
+            <!-- Profile -->
+            <li class="profile">
+                <a href="#profile-opts" class="accordion-toggle" data-toggle="collapse">
+                    <img class="avatar">
+                    <span class="text" id="profile-text">@User.Identity.Name <b class="caret"></b>
+                    </span>
+                </a>
+
+                <ul id="profile-opts" class="collapse secondary">
+                    <li class="">
+                        <a href="#">Cambiar Contraseña
+                        </a>
+                    </li>
+                    <li class="">
+
+
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+
+                    </li>
+                </ul>
+            </li>
+            @if (Roles.IsUserInRole("Administrador"))
+            {
+                <!-- Administración -->
+                <li class="">
+                    <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-group"></i>
+                        </span>
+                        <span class="text">Administración <b class="caret"></b></span>
+                    </a>
+                    <ul id="seguridad-list" class="collapse secondary">
+                        <li class="">
+                            @Html.ActionLink("Usuarios", "ManageUsers", "Account")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Roles", "Index", "Rol")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Líneas", "Index", "Linea")
+                        </li>
+                    </ul>
+                </li>
+            }
+            <!-- Exámenes -->
+            <li class="">
+                <a href="#examenes-list" class="accordion-toggle" data-toggle="collapse">
+                    <span class="icon">
+                        <i class="icon-list-ol"></i>
+                    </span>
+                    @{bool esGerente = false;
+                      Roles.GetRolesForUser().ToList().ForEach((string s)=>{esGerente = s.Contains("Gerente");});}
+                    <span class="text">@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías" : "Exámenes") <b class="caret"></b></span>
+                </a>
+                <ul id="examenes-list" class="collapse secondary">
+                    <li class="">
+                        @Html.ActionLink("Ver", "Index", "Examen")
+                    </li>
+                    @if (Roles.IsUserInRole("Administrador"))
+                    {
+                        <li class="li-disabled">
+                            <a href="pages/components/forms.html">Alertas</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+
+            <!-- Documentos -->
+            <li class="li-disabled">
+                <a href="#documentos-list" class="accordion-toggle">
+                    <span class="icon">
+                        <i class="icon-file"></i>
+                    </span>
+                    <span class="text">Documentos <b class="caret"></b></span>
+                </a>
+                <ul id="documentos-list" class="collapse secondary">
+                    <li class="">
+                        <a href="pages/components/buttons.html">Manuales</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Otros</a>
+                    </li>
+                </ul>
+            </li>
+            @if (Roles.IsUserInRole("Administrador") || esGerente)
+            {
+                <!-- Reportes -->
+                <li class="">
+                    <a href="#reportes-list" class="accordion-toggle" data-toggle="collapse">
+                        <span class="icon">
+                            <i class="icon-odata"></i>
+                        </span>
+                        <span class="text">Reportes <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul id="reportes-list" class="collapse secondary">
+                        <li class="">
+                            @Html.ActionLink("Asesoría en Terreno", "AsesoriaTerreno", "Report")
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+
+    </nav>
+
+    <div class="top-bar">
+        <a id="topbar-brand" class="brand" href="../dashboard.html">Elearning
+        </a>
+
+
+    </div>
+    <section id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box bordered">
+                        <div class="padded">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box footer">
+                        <div class="copyright text-transparent center">
+                            <div>2013 &copy; Zuku Studios</div>
+                            <div>Created by r2d2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal dialog used for the image gallery -->
+    <div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3 class="modal-title"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="modal-image"></div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn modal-download light-blue inverse" target="_blank"><i class="icon-download"></i>Download</a>
+            <a class="btn modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i>Slideshow</a>
+            <a class="btn modal-prev medium-blue"><i class="icon-arrow-left icon-white"></i>Previous</a>
+            <a class="btn modal-next medium-blue">Next <i class="icon-arrow-right icon-white"></i></a>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/moo")
+    @Scripts.Render("~/bundles/meio")
+    @Scripts.Render("~/bundles/custom")
+
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $('.li-disabled').live('click', function (e) {
+            e.preventDefault();
+            alert('Esta opción aun no está habilitada. Disculpe la molestia.');
+        });
+
+
+    </script>
+</body>
+</html>

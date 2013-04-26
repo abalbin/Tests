@@ -191,9 +191,9 @@ namespace TestsApp.Controllers
                     if (exUsua.Estado == 1)
                         FechaInicioEjecucion = exUsua.FechaInicio;
                     else
-                        FechaInicioEjecucion = DateTime.Now;
+                        FechaInicioEjecucion = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
                 }
-                examen.FechaEjecucion = FechaInicioEjecucion.Value;
+                
                 //Hack para bindear---------------------
                 foreach (var item in examen.Pregunta)
                     item.Respuesta.ToList();
@@ -222,6 +222,7 @@ namespace TestsApp.Controllers
                     }
                     Session.Add("sIdExamenUsuario", exUsua.Id);
                     ModelState.Clear();
+                    examen.FechaEjecucion = FechaInicioEjecucion.Value;
                     return View(examen);
                 }
                 else
@@ -254,7 +255,7 @@ namespace TestsApp.Controllers
                     foreach (var preg in preguntas)
                         puntajeTotal += Convert.ToDecimal(preg.Puntaje);
                     exUsuario.Puntaje = puntajeTotal;
-                    exUsuario.FechaTermino = DateTime.Now;
+                    exUsuario.FechaTermino = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")); ;
                     exUsuario.Tiempo = TiempoTranscurrido;
                     exUsuario.Estado = 2;
                     if (examenHelp.IdTipo == 2)
@@ -371,15 +372,18 @@ namespace TestsApp.Controllers
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
-                List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.IdLinea == examen.Producto.IdLinea).ToList();
-                foreach (UserProfile u in usuariosSolucion)
+                if (examen.IdTipo == 1)
                 {
-                    ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0 };
-                    db.ExamenUsuario.Add(nuevoExamenUsuario);  
+                    List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.IdLinea == examen.Producto.IdLinea).ToList();
+                    foreach (UserProfile u in usuariosSolucion)
+                    {
+                        ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0 };
+                        db.ExamenUsuario.Add(nuevoExamenUsuario);
+                    }
+                    //enviarAlertaPublicacion(usuariosSolucion, examen);
                 }
                 examen.IdEstado = 3;
                 db.SaveChanges();
-                enviarAlertaPublicacion(usuariosSolucion, examen);
             }
             return RedirectToAction("Index");
         }
@@ -494,7 +498,7 @@ namespace TestsApp.Controllers
             examen.Pregunta = ListaPreguntas;
             if (ModelState.IsValid)
             {
-                examen.FechaCreacion = DateTime.Now;
+                examen.FechaCreacion = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
                 examen.IdEstado = 1;
 
                 if (examen.Id > 0)
@@ -554,6 +558,7 @@ namespace TestsApp.Controllers
             {
                 if (pregActualizar == null)
                 {
+                    preg.IdTipoPregunta = 1;
                     if (createPregunta.idTipoExamen != 2)
                     {
                         var tipoPreg = db.TipoPregunta.First(r => r.Id == preg.IdTipoPregunta);
@@ -562,7 +567,7 @@ namespace TestsApp.Controllers
                     }
                     else
                     {
-                        preg.IdTipoPregunta = 1;
+                        
                         preg.CantidadRespuesta = 1;
                         preg.Puntaje = 100;
                         preg.Respuesta.Add(new Respuesta() { Texto = "D", EsCorrecta = 0, Marcada = false, Puntaje = 60 });

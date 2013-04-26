@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -186,6 +187,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Documento.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Estado.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
@@ -255,6 +259,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.columnFilter.js" />
+    <Content Include="Content\javascripts\fileupload\jquery.fileupload-fp.js" />
+    <Content Include="Content\javascripts\fileupload\jquery.fileupload-ui.js" />
+    <Content Include="Content\javascripts\fileupload\jquery.fileupload.js" />
+    <Content Include="Content\javascripts\fileupload\jquery.iframe-transport.js" />
+    <Content Include="Content\javascripts\fileupload\main.js" />
     <Content Include="Content\javascripts\highcharts\adapters\mootools-adapter.js" />
     <Content Include="Content\javascripts\highcharts\adapters\mootools-adapter.src.js" />
     <Content Include="Content\javascripts\highcharts\adapters\prototype-adapter.js" />
@@ -670,9 +679,16 @@
     <Content Include="Views\Shared\EditorTemplates\RespuestaCreate.cshtml" />
     <Content Include="Views\Examen\PreguntaItemPartial.cshtml" />
     <Content Include="Views\Examen\PublishExamenPartial.cshtml" />
+    <Content Include="Views\Documento\Index.cshtml" />
+    <Content Include="Views\Documento\Details.cshtml" />
+    <Content Include="Views\Documento\Create.cshtml" />
+    <Content Include="Views\Documento\Edit.cshtml" />
+    <Content Include="Views\Documento\Delete.cshtml" />
+    <Content Include="Views\Report\Examen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Documentos\" />
     <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>

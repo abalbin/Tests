@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TestsApp.Models.Examen>
+
+@{
+    ViewBag.Title = "Examen";
+}
+
+<h2>Reportes de Exámenes</h2>
+
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.ActionLink("Puntaje por Aster", "ExportReportExamen", new { id = item.Id }) |
+            @Html.ActionLink("Respuesta por pregunta", "ExportReportExamenRptaPorPregunta", new { id = item.Id }) |
+            </td>
+        </tr>
+    }
+
+</table>

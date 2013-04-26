@@ -1,0 +1,23 @@
+﻿@model TestsApp.Models.webpages_Roles
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>¿Estás seguro que deseas eliminar este registro?</h3>
+<fieldset>
+    <legend>Rol</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RoleName):
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoleName)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class="btn btn-small red" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

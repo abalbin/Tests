@@ -14,7 +14,7 @@
             <p>Línea: @Model.Producto.Linea.Nombre</p>
             <p>Producto: @Model.Producto.Nombre</p>
             <p>
-                Fecha de ejecución: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year
+                Fecha de ejecución programada: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year
             </p>
         }
     </div>
@@ -30,16 +30,30 @@
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class = "btn btn-mini dark-blue" })
                 }
-                if (Model.IdEstado == 3)
-                {
-            <a class="btn btn-mini medium-blue open-modal-asignarAster" data-id="@Model.Id">Aprobar</a>
-                }
             }
             if (Model.IdEstado == 3)
             {
                 if (Model.FechaEjecucion.Value.Date == DateTime.Now.Date)
                 {
+                    TestsApp.Models.UserProfile user = new TestsApp.Models.TestsAppBDEntities().UserProfile.First(r => r.UserName == User.Identity.Name);
+                    TestsApp.Models.ExamenUsuario exusua = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.SingleOrDefault(r => r.IdExamen == Model.Id && r.IdUsuario == user.UserId);
+                    if (exusua == null || exusua.Estado == 0)
+                    {
             @Html.ActionLink("Dar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+                    }
+                    else
+                    {
+                        if (exusua.Estado == 1)
+                        {
+            @Html.ActionLink("En ejecución", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+                        }
+                        if (exusua.Estado == 2)
+                        {
+            <p>
+                Fecha de ejecución real: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year a las @exusua.FechaInicio.Value.ToString("HH:mm")
+            </p>
+                        }
+                    }
                 }
                 else
                 {
@@ -50,9 +64,13 @@
         }
         else
         {
+            if (Model.IdEstado == 3)
+            {
             @Html.ActionLink("Tomar", "Give", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
+            }
             if (User.IsInRole("Administrador") && Model.IdEstado == 1)
             {
+            @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class = "btn btn-mini dark-blue" })
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             }
         }

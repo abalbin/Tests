@@ -1,0 +1,47 @@
+﻿@model TestsApp.Models.Documento
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+
+@using (Html.BeginForm("Create", "Documento", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Documento</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nombre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nombre)
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Descripcion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Descripcion)
+            @Html.ValidationMessageFor(model => model.Descripcion)
+        </div>
+
+        <div class="editor-label">
+            Archivo:
+        </div>
+        <div class="editor-field">
+            <input type="file" id="file" name="file" />
+        </div>
+
+        <p>
+            <input type="submit" value="Guardar" name="file" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar a la lista", "Index")
+</div>

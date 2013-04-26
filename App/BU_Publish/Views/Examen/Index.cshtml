@@ -1,0 +1,119 @@
+﻿@model IEnumerable<TestsApp.Models.Examen>
+
+@{
+    ViewBag.Title = "Exámenes";
+    bool esGerente = false;
+    Roles.GetRolesForUser().ToList().ForEach((string s) => { esGerente = s.Contains("Gerente"); });
+}
+<h2>@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías en Terreno" : "Exámenes Disponibles")</h2>
+@if (Roles.IsUserInRole("Administrador"))
+{
+    <p>
+        @*@Html.ActionLink("Crear Examen", "Create")*@
+        <a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Nuevo Examen</a>
+    </p>
+}
+<div class="row-fluid">
+    <div class="padded10">
+        @if (Model.Count() > 0)
+        {
+            <ul class="recent-comments span12">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <li class="comment-box span6">
+                        @Html.Partial("ExamenItemListaPartial", Model.ToList()[i])
+                    </li>
+                }
+                @if (Model.Count() > 8)
+                {
+                    <li class="comment-box view-more span12" style="text-align: center">
+                        <a href="#">Ver más</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>
+                No tiene ningún examen asignado.
+            </p>
+        }
+    </div>
+</div>
+<div id="modal-asignarAster" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("AsignarAsterPopUpPartial", new List<TestsApp.Models.ExamenUsuario>())
+</div>
+
+<div id="modal-elegirTipoExamen" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("ElegirTipoExamenPopUpPartial", new TestsApp.Models.TestsAppBDEntities().TipoExamen.ToList())
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".btn-dar-disabled").tooltip();
+        $("#ddlTipoExamen").change(function () {
+            $("#lnkContinueCreate").attr("href", "Examen/Create/" + $("#ddlTipoExamen").val());
+            $("#lnkContinueCreate").removeClass("disabled");
+        });
+    });
+    $(document).on("click", ".open-modal-asignarAster", function () {
+
+        var examenId = $(this).data('id');
+        $.ajax({
+            url: "Examen/Aprobar?id=" + examenId,
+            success: function (html) {
+                $('#modal-asignarAster').modal('show')
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+
+    $(document).on("click", ".asignar-usuario", function () {
+
+        var usuarioId = $(this).data('id');
+        $.ajax({
+            url: "Examen/AsignarUsuario?idUsuario=" + usuarioId,
+            success: function (html) {
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+
+    $(document).on("click", ".no-asignar-usuario", function () {
+
+        var usuarioId = $(this).data('id');
+        $.ajax({
+            url: "Examen/NoAsignarUsuario?idUsuario=" + usuarioId,
+            success: function (html) {
+                $('#modal-asignarAster').html(html);
+                $('.data-table').dataTable({
+                    "sDom": "<'row-fluid'<'span12'f>r>t",
+                    "aoColumns": [
+                        { "sWidth": "90%" },
+                        { "sWidth": "10%", "sClass": "center", "bSortable": false }
+                    ],
+                    "bJQueryUI": true,
+                    "bAutoWidth": false,
+                })
+            }
+        });
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model TestsApp.Models.Pregunta
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Agregar Pregunta</h3>
+</div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="input full-width">
+                <input id="hdnIndexPregunta" type="hidden" />
+                @Html.TextBoxFor(m => m.Texto, new { @id = "txtPregunta", @placeholder = "Texto de la Pregunta" })
+            </div>
+            <div class="input full-width">
+                @Html.LabelFor(model => model.TipoPregunta, "Tipo de Pregunta")
+                @Html.DropDownListFor(m => m.TipoPregunta, new SelectList(new TestsApp.Models.TestsAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlTipoPregunta"}
+                                                       })
+
+            </div>
+            <div class="input full-width">
+                @Html.LabelFor(model => model.Puntaje, "Puntaje")
+                @Html.TextBoxFor(m => m.Puntaje, new { @id = "txtPuntaje", @placeholder = "Puntaje de la Pregunta" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+    <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue" onclick="GuardarPregunta_Click()">Guardar</button>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(OnDocumentReady);
+    function OnDocumentReady() {
+        //$('#GuardarPregunta').unbind("click", GuardarPregunta_Click).click(GuardarPregunta_Click);
+    }
+
+    function GuardarPregunta_Click() {
+        var anchor = "Examen";
+        var textoPregunta = $('#txtPregunta').val();
+        var puntajePregunta = $('#txtPuntaje').val();
+        var tipoPregunta = $('#ddlTipoPregunta').val();
+        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta };
+        
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreatePregunta", "Examen")',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(preg),
+            success: function (data) {
+                $("#PreguntasContainer").html(data);
+                $('#modal-pregunta').modal('hide');
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+</script>

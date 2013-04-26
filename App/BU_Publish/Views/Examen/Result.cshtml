@@ -1,0 +1,109 @@
+﻿@model TestsApp.Models.ExamenUsuario
+@{TestsApp.Models.Examen examen = new TestsApp.Models.TestsAppBDEntities().Examen.First(r => r.Id == Model.IdExamen);}
+
+@{
+    ViewBag.Title = "Resultados";
+}
+
+<div class="box-header">
+    <i class="icon-th-list"></i>Resultados 
+</div>
+
+<div class="row-fluid">
+    <div class="padded">
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="input full-width">
+                    <h1>
+                        @examen.Titulo
+                    </h1>
+                </div>
+                <div class="input full-width">
+                    Puntaje obtenido: @Model.Puntaje
+                </div>
+            </div>
+            <div class="span6">
+
+                <div class="row-fluid input full-width">
+                    Tiempo Máximo: @examen.TiempoMaximo
+
+                </div>
+                <div class="row-fluid input full-width">
+                    Tiempo Transcurrido: @Model.Tiempo
+                </div>
+
+            </div>
+        </div>
+        <div class="section-title"></div>
+        @if (Model.Examen.IdTipo == 1)
+        {
+            <div class="row-fluid" id="PreguntasRow">
+                <div class="span3" id="loading-div">
+                    <div class="well well-large well-transparent lead centered">
+                        <i class="icon-spinner icon-spin icon-2x pull-left"></i>Guardando...
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("Result", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
+                {
+                    <div id="PreguntasContainer">
+                        @Html.Partial("GivePreguntaPartial", Model.Examen.Pregunta.ElementAt(0))
+                    </div>  
+                }
+
+            </div>
+        }
+        else
+        {
+            @Scripts.Render("~/bundles/highcharts")
+            @Scripts.Render("~/bundles/highchartsmodules")
+            <div class="row-fluid">
+                @Html.Partial("ResultAsesoriaPartial", Model)
+            </div>
+            <div id="pie">
+            </div>
+            @Html.ActionLink("Ver detalle en Excel", "ExportResultAsesoria", "Report", new { id = Model.Id }, null)
+            <script type="text/javascript">
+                $(function () {
+                    $('#pie').highcharts(options);
+                });
+            </script>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function FinishTest() {
+        window.location.href = "Index";
+    }
+
+    function NextQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("NextQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize() + "&estadoExamen=2",
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function PreviousQuestion() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PreviousQuestion", "Examen")',
+            data: $('#frmPreguntas').serialize() + "&estadoExamen=2",
+            success: function (result) {
+                $("#PreguntasContainer").html(result);
+                $("#PreguntasContainer").find('input:checkbox').uniform();
+            },
+            error: function () {
+
+            }
+        });
+    }
+</script>

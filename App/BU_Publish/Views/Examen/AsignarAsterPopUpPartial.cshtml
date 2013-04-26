@@ -1,0 +1,57 @@
+﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
+@{List<TestsApp.Models.UserProfile> listaUsuarios = new TestsApp.Models.TestsAppBDEntities().UserProfile.ToList();}
+<input type="hidden" id="hdnIdExamen" />
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Asignar Aster a Examen</h3>
+</div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Aster</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in listaUsuarios)
+                {
+                    <tr>
+                        <td>@string.Format("{0} {1}", item.FirstName, item.LastName)</td>
+                        <td class="td-actions">
+                            @if (Model.FirstOrDefault(r => r.IdUsuario == item.UserId) != null)
+                            {
+                                <a data-id="@item.UserId" class="btn btn-mini light-blue inverse no-asignar-usuario">
+                                    <i class=" icon-remove"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a data-id="@item.UserId" class="btn btn-mini dark-blue asignar-usuario">
+                                    <i class=" icon-ok"></i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+    <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue btn-aprobar-examen">Guardar</button>
+</div>
+
+<script type="text/javascript"> 
+    $(document).on("click", ".btn-aprobar-examen", function () {
+        $.ajax({
+            url: "Examen/Aprobar",
+            type: 'POST',
+            success: function (html) {
+                $("#modal-asignarAster").modal('hide');
+            }
+        });
+    });
+</script>

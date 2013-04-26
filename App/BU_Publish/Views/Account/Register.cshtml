@@ -1,0 +1,51 @@
+﻿@model TestsApp.Models.RegisterModel
+@{
+    //Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Registrar";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Registrar una nueva cuenta</h2>
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.IdRol)
+                @Html.DropDownList("IdRol", new SelectList(new TestsApp.Models.TestsAppBDEntities().webpages_Roles, "RoleId", "RoleName"), String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
+                                                       })
+            </li>
+        </ol>
+        <input type="submit" value="Registrar" class="btn" />
+    </fieldset>
+}

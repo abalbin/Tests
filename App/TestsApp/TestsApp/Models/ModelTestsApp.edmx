@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="TestsAppBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TestsAppBDModelStoreContainer">
+          <EntitySet Name="Documento" EntityType="TestsAppBDModel.Store.Documento" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Estado" EntityType="TestsAppBDModel.Store.Estado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Examen" EntityType="TestsAppBDModel.Store.Examen" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ExamenUsuario" EntityType="TestsAppBDModel.Store.ExamenUsuario" store:Type="Tables" Schema="dbo" />
@@ -102,6 +103,15 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="Ruta" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Estado">
           <Key>
             <PropertyRef Name="Id" />
@@ -587,6 +597,7 @@
             <End Role="Pregunta" EntitySet="Pregunta" />
             <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
+          <EntitySet Name="Documento" EntityType="TestsAppBDModel.Documento" />
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -988,6 +999,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Descripcion" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ruta" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1154,6 +1174,16 @@
                 <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
                 <ScalarProperty Name="IdTipoPregunta" ColumnName="IdTipoPregunta" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documento">
+            <EntityTypeMapping TypeName="TestsAppBDModel.Documento">
+              <MappingFragment StoreEntitySet="Documento">
+                <ScalarProperty Name="Ruta" ColumnName="Ruta" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

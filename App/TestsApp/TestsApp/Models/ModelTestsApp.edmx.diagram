@@ -38,6 +38,7 @@
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_TipoPregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_Respuesta_Pregunta" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Documento" Width="1.5" PointX="8.1041224170961055" PointY="22.678626428674267" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -151,10 +151,10 @@
         var anchor = "Examen";
         var textoPregunta = $('#txtPregunta').val();
         var puntajePregunta = $('#txtPuntaje').val();
-        var tipoPregunta = $('#ddlTipoPregunta').val();
+        //var tipoPregunta = $('#ddlTipoPregunta').val();
         var ordenPregunta = $('#hdnOrdenPregunta').val();
         var puntajeEx = $('#Puntaje').val()
-        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": tipoPregunta, "IdExamen": "-1", "Puntaje": puntajePregunta, "Orden": ordenPregunta };
+        var preg = { "Id": "-1", "Texto": textoPregunta, "IdTipoPregunta": 1, "IdExamen": "-1", "Puntaje": puntajePregunta, "Orden": ordenPregunta };
         var createPregunta = { pregunta: preg, puntajeExamen: puntajeEx, idTipoExamen : parseInt("@Model.IdTipo") };
         $.ajax({
             type: 'POST',

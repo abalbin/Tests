@@ -59,6 +59,11 @@ namespace TestsApp
                         "~/Content/javascripts/highcharts/highstock.js"));
             bundles.Add(new ScriptBundle("~/bundles/highchartsmodules").Include(
                         "~/Content/javascripts/highcharts/modules/exporting.js"));
+            bundles.Add(new ScriptBundle("~/bundles/fileupload").Include(
+                        "~/Content/javascripts/fileupload/jquery.fileupload.js"));
+            bundles.Add(new ScriptBundle("~/bundles/fileuploadextras").Include(
+                        "~/Content/javascripts/fileupload/jquery.fileupload-fp.js",
+                        "~/Content/javascripts/fileupload/jquery.fileupload-ui.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",

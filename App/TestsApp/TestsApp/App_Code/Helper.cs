@@ -11,13 +11,13 @@ namespace TestsApp.App_Code
         public string ReturnTextDifferenceNow(DateTime dt)
         {
             string texto = "Creado hace ";
-            int diferenciaDias = DaysBetween(dt, DateTime.Now);
+            int diferenciaDias = DaysBetween(dt, TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")));
             if (diferenciaDias == 0)
             {
-                int diferenciaHoras = HoursBetween(dt, DateTime.Now);
+                int diferenciaHoras = HoursBetween(dt, TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")));
                 if (diferenciaHoras == 0)
                 {
-                    int diferenciaMinutos = MinutesBetween(dt, DateTime.Now);
+                    int diferenciaMinutos = MinutesBetween(dt, TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")));
                     texto += string.Format("{0} minuto{1}", diferenciaMinutos.ToString(), diferenciaMinutos <= 1 ? string.Empty : "s");
                 }
                 else

@@ -36,6 +36,12 @@ namespace TestsApp.Controllers
             return View(exUsua);
         }
 
+        public ActionResult Examen()
+        {
+            var q = db.Examen.Where(r=>r.ExamenUsuario.Count > 0).ToList();
+            return View(q.ToList());
+        }
+
         public ActionResult DrawChart(int idEjecutivo, int idAster)
         {
             ChartViewModel cvm = new ChartViewModel();
@@ -290,7 +296,7 @@ namespace TestsApp.Controllers
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
-                string filename = string.Format("Reporte_Examen_{0}_{2}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
+                string filename = string.Format("Reporte_Examen_{0}_{1}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
                 filename = filename.Replace(" ", string.Empty);
                 using (var xlPackage = new ExcelPackage())
                 {
@@ -325,13 +331,13 @@ namespace TestsApp.Controllers
                     {
                         // Se realizó
                         var seRealizoCell = ws.Cells[i, colSeRealizo];
-                        seRealizoCell.Value = listaExamenes[i - 3].FechaInicio;
+                        seRealizoCell.Value = listaExamenes[i - 3].FechaInicio == null ? "" : listaExamenes[i - 3].FechaInicio.Value.ToString("dd/MM/yyyy HH:mm");
                         // Nombre
                         var nombreCell = ws.Cells[i, colNombre];
-                        nombreCell.Value = string.Format("{0} {1}", listaExamenes[i - 3].UserProfile2.FirstName, listaExamenes[i - 3].UserProfile2.LastName);
+                        nombreCell.Value = string.Format("{0} {1}", listaExamenes[i - 3].UserProfile.FirstName, listaExamenes[i - 3].UserProfile.LastName);
                         // Línea
                         var lineaCell = ws.Cells[i, colLinea];
-                        lineaCell.Value = listaExamenes[i - 3].UserProfile2.Linea.Nombre;
+                        lineaCell.Value = listaExamenes[i - 3].UserProfile.Linea.Nombre;
                         // Nota
                         var notaCell = ws.Cells[i, colNota];
                         notaCell.Value = listaExamenes[i - 3].Puntaje;
@@ -353,7 +359,7 @@ namespace TestsApp.Controllers
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
-                string filename = string.Format("Reporte_Examen_RespuestaPregunta_{0}_{2}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
+                string filename = string.Format("Reporte_Examen_RespuestaPregunta_{0}_{1}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
                 filename = filename.Replace(" ", string.Empty);
                 using (var xlPackage = new ExcelPackage())
                 {
@@ -389,7 +395,7 @@ namespace TestsApp.Controllers
                     {
                         // Aster
                         var aterCell = ws.Cells[i, colAster];
-                        aterCell.Value = string.Format("{0} {1}", listaRespuestas[i - 3].ExamenUsuario.UserProfile2.FirstName, listaRespuestas[i - 3].ExamenUsuario.UserProfile2.LastName);
+                        aterCell.Value = string.Format("{0} {1}", listaRespuestas[i - 3].ExamenUsuario.UserProfile.FirstName, listaRespuestas[i - 3].ExamenUsuario.UserProfile.LastName);
                         // Pregunta
                         var preguntaCell = ws.Cells[i, colPregunta];
                         preguntaCell.Value = listaRespuestas[i - 3].Respuesta.Pregunta.Texto;

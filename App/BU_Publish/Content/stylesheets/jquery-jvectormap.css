@@ -1,0 +1,37 @@
+/* line 1, jquery-jvectormap.css.scss */
+.jvectormap-label {
+  position: absolute;
+  display: none;
+  border: solid 1px #CDCDCD;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #292929;
+  color: white;
+  font-family: sans-serif, Verdana;
+  font-size: smaller;
+  padding: 3px; }
+
+/* line 15, jquery-jvectormap.css.scss */
+.jvectormap-zoomin, .jvectormap-zoomout {
+  position: absolute;
+  left: 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #292929;
+  padding: 3px;
+  color: white;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  line-height: 10px;
+  text-align: center; }
+
+/* line 31, jquery-jvectormap.css.scss */
+.jvectormap-zoomin {
+  top: 10px; }
+
+/* line 35, jquery-jvectormap.css.scss */
+.jvectormap-zoomout {
+  top: 30px; }

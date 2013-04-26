@@ -39,5 +39,6 @@ namespace TestsApp.Models
         public DbSet<UserMigration> UserMigration { get; set; }
         public DbSet<TipoExamen> TipoExamen { get; set; }
         public DbSet<Pregunta> Pregunta { get; set; }
+        public DbSet<Documento> Documento { get; set; }
     }
 }

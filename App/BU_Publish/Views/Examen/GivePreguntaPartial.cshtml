@@ -1,0 +1,57 @@
+﻿@model TestsApp.Models.Pregunta
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.IdExamen)
+@{TestsApp.Models.UserProfile user = new TestsApp.Models.TestsAppBDEntities().UserProfile.First(r => r.UserName == User.Identity.Name);
+  int idExamenUsuario = Convert.ToInt32(Session["sIdExamenUsuario"]);
+  TestsApp.Models.ExamenUsuario exUsuario = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == idExamenUsuario);
+  //TestsApp.Models.ExamenUsuario exUsuario = Model.Examen.IdTipo == 2 ?
+  //    new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == fAsesoriaExUsua) :
+  //    new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.IdExamen && r.IdUsuario == user.UserId);
+  //TestsApp.Models.PreguntaUsuario pregUsuario = new TestsApp.Models.TestsAppBDEntities().PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == Model.Id && r.IdUsuario == user.UserId);
+  TestsApp.Models.PreguntaUsuario pregUsuario = new TestsApp.Models.TestsAppBDEntities().PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == Model.Id && r.IdExamenUsuario == idExamenUsuario);
+  }
+<div class="row-fluid">
+    <div class="span12">
+        Pregunta @Model.Orden de @Model.Examen.Pregunta.Count
+        <p class="lead">
+            @Html.DisplayFor(m => m.Texto)
+        </p>
+        <div class="row-fluid row-margin-bottom-regular">
+            <div class="span6">
+                <div id="RespuestasContainer">
+                    <ul>
+                        @Html.EditorFor(m => m.Respuesta)
+                    </ul>
+                </div>
+            </div>
+            @if (exUsuario.Estado == 2)
+            {
+                <div class="span2 rotate score">
+                    @pregUsuario.Puntaje
+                    
+                </div>
+            }
+        </div>
+        <div class="row-fluid center">
+            <div class="btn-group">
+                @if (Model.Orden > 1)
+                {
+                    <button type="button" id="btnPreviousQuestion" class="btn btn-small" onclick="PreviousQuestion()">Anterior</button>
+                }
+
+
+                @if (Model.Orden == Model.Examen.Pregunta.Count)
+                {
+                    <button type="button" id="btnFinish" class="btn btn-small green" onclick="FinishTest()">Terminar</button>
+                }
+
+                @if (Model.Orden < Model.Examen.Pregunta.Count)
+                {
+                    <button type="button" id="btnNextQuestion" class="btn btn-small medium-blue pull-right" onclick="NextQuestion()">Siguiente</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

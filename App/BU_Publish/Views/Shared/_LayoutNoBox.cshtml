@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/app")
+    <script src="@Url.Content("~/Content/javascripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/javascripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/javascripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    <nav id="primary" class="main-nav collapsible-nav">
+        <!-- Brand -->
+        <a id="sidebar-brand" href="../pages/dashboard.html">Exámenes
+        </a>
+        <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
+            <i class="icon-reorder"></i>
+        </button>
+
+        <ul class="nav-collapse collapse">
+
+            <!-- Profile -->
+            <li class="profile">
+                <a href="#profile-opts" class="accordion-toggle" data-toggle="collapse">
+                    <img class="avatar user3">
+                    <span class="text" id="profile-text">Jane Doe <b class="caret"></b>
+                    </span>
+                </a>
+
+                <ul id="profile-opts" class="collapse secondary">
+                    <li class="">
+                        <a href="#">Cambiar Contraseña
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#">Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Seguridad -->
+            <li class="">
+                <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
+                    <span class="icon">
+                        <i class="icon-group"></i>
+                    </span>
+                    <span class="text">Seguridad <b class="caret"></b></span>
+                </a>
+                <ul id="seguridad-list" class="collapse secondary">
+                    <li class="">
+                        <a href="pages/components/buttons.html">Usuarios</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Roles</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Exámenes -->
+            <li class="">
+                <a href="#examenes-list" class="accordion-toggle" data-toggle="collapse">
+                    <span class="icon">
+                        <i class="icon-list-ol"></i>
+                    </span>
+                    <span class="text">Exámenes <b class="caret"></b></span>
+                </a>
+                <ul id="examenes-list" class="collapse secondary">
+                    <li class="">
+                        <a href="pages/components/buttons.html">Mantenimiento</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Preguntas</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Respuestas</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Alertas</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Documentos -->
+            <li class="">
+                <a href="#documentos-list" class="accordion-toggle" data-toggle="collapse">
+                    <span class="icon">
+                        <i class="icon-file"></i>
+                    </span>
+                    <span class="text">Documentos <b class="caret"></b></span>
+                </a>
+                <ul id="documentos-list" class="collapse secondary">
+                    <li class="">
+                        <a href="pages/components/buttons.html">Manuales</a>
+                    </li>
+                    <li class="">
+                        <a href="pages/components/forms.html">Otros</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Reportes -->
+            <li class="">
+                <a href="#sample-pages" class="accordion-toggle" data-toggle="collapse">
+                    <span class="icon">
+                        <i class="icon-odata"></i>
+                    </span>
+                    <span class="text">Reportes
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="top-bar">
+        <a id="topbar-brand" class="brand" href="../dashboard.html">Elearning
+        </a>
+
+
+    </div>
+    <section id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box footer">
+                        <div class="copyright text-transparent center">
+                            <div>2013 &copy; Zuku Studios</div>
+                            <div>Created by r2d2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal dialog used for the image gallery -->
+    <div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3 class="modal-title"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="modal-image"></div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn modal-download light-blue inverse" target="_blank"><i class="icon-download"></i>Download</a>
+            <a class="btn modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i>Slideshow</a>
+            <a class="btn modal-prev medium-blue"><i class="icon-arrow-left icon-white"></i>Previous</a>
+            <a class="btn modal-next medium-blue">Next <i class="icon-arrow-right icon-white"></i></a>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/moo")
+    @Scripts.Render("~/bundles/meio")
+    @Scripts.Render("~/bundles/custom")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

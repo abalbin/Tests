@@ -1,0 +1,69 @@
+﻿li.span6:nth-child(2n+1), li.span12
+{
+    margin-left: 0 !important;
+}
+
+#loading-div
+{
+    position: absolute;
+    display: none;
+}
+
+.centered
+{
+    margin: 0 auto;
+}
+
+.center-div
+{
+    margin: 0 auto !important;
+}
+
+.row-margin-bottom-regular
+{
+    margin-bottom: 20px;
+}
+
+.rightAnswer
+{
+    color: green;
+}
+
+.wrongAnswer
+{
+    color: red;
+}
+
+.rotate
+{
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    /* Firefox */
+    /* IE */
+    /* Internet Explorer */
+    /* Opera */
+    /* Safari */
+}
+
+.score
+{
+    color: #FC4B42;
+    font-style: italic;
+    font-size: 22px;
+}
+
+.table-striped tbody tr.DTTT_selected td, .table-striped tbody tr.DTTT_selected th {
+background-color: #bde993;
+}
+
+.DTTT_selectable tbody tr {
+cursor:pointer;
+}
+
+.datepicker {
+    z-index: 1060 !important;
+}

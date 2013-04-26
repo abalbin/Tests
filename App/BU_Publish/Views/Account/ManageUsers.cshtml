@@ -1,0 +1,78 @@
+﻿@model IEnumerable<TestsApp.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<h2>Administración de Usuarios</h2>
+<p>
+    @Html.ActionLink("Crear nuevo usuario", "Register")
+</p>
+@*<p>
+    @Html.ActionLink("Carga Masiva", "RegisterMassive")
+</p>*@
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>Roles
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        string[] roles = Roles.GetRolesForUser(item.UserName);
+        string s = string.Empty;
+        foreach (string t in roles)
+        {
+            s += t + ", ";
+        }
+        if (s.Length > 0)
+        {
+            s = s.Substring(0, s.Length - 2);
+        }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @s
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |
+                @Ajax.ActionLink("Eliminar", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId = "modal-delete-user", OnSuccess = "showModalDeleteUser" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="modal-delete-user" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("DeleteUserPartial", new TestsApp.Models.UserProfile())
+</div>
+
+<script type="text/javascript">
+    function showModalDeleteUser() {
+        $("#modal-delete-user").modal('show');
+    }
+
+    function hideModalDeleteUser() {
+        $("#modal-delete-user").modal('hide');
+    }
+
+</script>

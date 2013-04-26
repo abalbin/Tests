@@ -8,9 +8,20 @@
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
-                <p>
-                    ¿Está seguro que desea publicar el examen <em>@Model.Titulo</em>? Si decide proceder, ya no podrá editar el examen y se enviará una alerta a todos los Aster de la solución <em>@(Model.Producto == null ? "" : Model.Producto.Linea.Nombre)</em>
-                </p>
+
+                @if (Model.IdTipo == 1)
+                {
+                    <p>
+                        ¿Está seguro que desea publicar el examen <em>@Model.Titulo</em>? Si decide proceder, ya no podrá editar el examen y se enviará una alerta a todos los Aster de la solución <em>@(Model.Producto == null ? "" : Model.Producto.Linea.Nombre)</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        ¿Está seguro que desea publicar la asesoría <em>@Model.Titulo</em>?
+                    </p>
+                }
+
             </div>
         </div>
     </div>
