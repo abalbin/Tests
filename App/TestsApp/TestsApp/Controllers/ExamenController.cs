@@ -500,10 +500,11 @@ namespace TestsApp.Controllers
             {
                 examen.FechaCreacion = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
                 examen.IdEstado = 1;
-
+                PuntajeAsesoria puntaje = db.PuntajeAsesoria.Find(idPuntaje);
                 if (examen.Id > 0)
                 {
-
+                    if (puntaje == null)
+                        puntaje = db.PuntajeAsesoria.FirstOrDefault(r => r.IdExamen == examen.Id);
                     Examen exOriginal = db.Examen.Find(examen.Id);
                     List<Pregunta> preguntasOriginal = exOriginal.Pregunta.ToList();
                     foreach (Pregunta p in preguntasOriginal)
@@ -518,8 +519,7 @@ namespace TestsApp.Controllers
                 db.Examen.Add(examen);
                 db.SaveChanges();
                 if (examen.IdTipo == 2)
-                {
-                    PuntajeAsesoria puntaje = db.PuntajeAsesoria.Find(idPuntaje);
+                {   
                     if (puntaje != null)
                         puntaje.IdExamen = examen.Id;
                     else
