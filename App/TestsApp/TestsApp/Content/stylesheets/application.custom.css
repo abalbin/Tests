@@ -56,14 +56,34 @@
     font-size: 22px;
 }
 
-.table-striped tbody tr.DTTT_selected td, .table-striped tbody tr.DTTT_selected th {
-background-color: #bde993;
+.table-striped tbody tr.DTTT_selected td, .table-striped tbody tr.DTTT_selected th
+{
+    background-color: #bde993;
 }
 
-.DTTT_selectable tbody tr {
-cursor:pointer;
+.DTTT_selectable tbody tr
+{
+    cursor: pointer;
 }
 
-.datepicker {
+.datepicker
+{
     z-index: 1060 !important;
+}
+
+ul.inline, ol.inline
+{
+    margin-left: 0;
+    list-style: none;
+}
+
+    ul.inline > li, ol.inline > li
+    {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+.masked-integer{
+    width: 50px !important;
 }

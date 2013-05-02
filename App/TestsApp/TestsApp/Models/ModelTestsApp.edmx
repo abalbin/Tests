@@ -14,6 +14,7 @@
           <EntitySet Name="Pregunta" EntityType="TestsAppBDModel.Store.Pregunta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PreguntaUsuario" EntityType="TestsAppBDModel.Store.PreguntaUsuario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Producto" EntityType="TestsAppBDModel.Store.Producto" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PuntajeAsesoria" EntityType="TestsAppBDModel.Store.PuntajeAsesoria" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Respuesta" EntityType="TestsAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RespuestaUsuario" EntityType="TestsAppBDModel.Store.RespuestaUsuario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoExamen" EntityType="TestsAppBDModel.Store.TipoExamen" store:Type="Tables" Schema="dbo" />
@@ -73,6 +74,10 @@
           <AssociationSet Name="FK_Producto_Linea" Association="TestsAppBDModel.Store.FK_Producto_Linea">
             <End Role="Linea" EntitySet="Linea" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntajeAsesoria_Examen" Association="TestsAppBDModel.Store.FK_PuntajeAsesoria_Examen">
+            <End Role="Examen" EntitySet="Examen" />
+            <End Role="PuntajeAsesoria" EntitySet="PuntajeAsesoria" />
           </AssociationSet>
           <AssociationSet Name="FK_Respuesta_Pregunta" Association="TestsAppBDModel.Store.FK_Respuesta_Pregunta">
             <End Role="Pregunta" EntitySet="Pregunta" />
@@ -167,6 +172,7 @@
           <Property Name="CantidadRespuesta" Type="int" />
           <Property Name="Puntaje" Type="decimal" />
           <Property Name="Orden" Type="int" />
+          <Property Name="Habilitada" Type="bit" />
         </EntityType>
         <EntityType Name="PreguntaUsuario">
           <Key>
@@ -185,6 +191,17 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="varchar" MaxLength="200" />
           <Property Name="IdLinea" Type="int" />
+        </EntityType>
+        <EntityType Name="PuntajeAsesoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="D" Type="decimal" Scale="2" />
+          <Property Name="A" Type="decimal" Scale="2" />
+          <Property Name="B" Type="decimal" Scale="2" />
+          <Property Name="S" Type="decimal" Scale="2" />
+          <Property Name="IdExamen" Type="int" />
         </EntityType>
         <EntityType Name="Respuesta">
           <Key>
@@ -418,6 +435,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PuntajeAsesoria_Examen">
+          <End Role="Examen" Type="TestsAppBDModel.Store.Examen" Multiplicity="0..1" />
+          <End Role="PuntajeAsesoria" Type="TestsAppBDModel.Store.PuntajeAsesoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Examen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PuntajeAsesoria">
+              <PropertyRef Name="IdExamen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Respuesta_Pregunta">
           <End Role="Pregunta" Type="TestsAppBDModel.Store.Pregunta" Multiplicity="0..1" />
           <End Role="Respuesta" Type="TestsAppBDModel.Store.Respuesta" Multiplicity="*" />
@@ -597,7 +626,12 @@
             <End Role="Pregunta" EntitySet="Pregunta" />
             <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
+          <EntitySet Name="PuntajeAsesoria" EntityType="TestsAppBDModel.PuntajeAsesoria" />
           <EntitySet Name="Documento" EntityType="TestsAppBDModel.Documento" />
+          <AssociationSet Name="FK_PuntajeAsesoria_Examen" Association="TestsAppBDModel.FK_PuntajeAsesoria_Examen">
+            <End Role="Examen" EntitySet="Examen" />
+            <End Role="PuntajeAsesoria" EntitySet="PuntajeAsesoria" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -626,6 +660,7 @@
           <Property Type="Int32" Name="IdTipo" />
           <NavigationProperty Name="TipoExamen" Relationship="TestsAppBDModel.FK_Examen_TipoExamen" FromRole="Examen" ToRole="TipoExamen" />
           <NavigationProperty Name="Pregunta" Relationship="TestsAppBDModel.FK_Pregunta_Examen" FromRole="Examen" ToRole="Pregunta" />
+          <NavigationProperty Name="PuntajeAsesoria" Relationship="TestsAppBDModel.FK_PuntajeAsesoria_Examen" FromRole="Examen" ToRole="PuntajeAsesoria" />
         </EntityType>
         <EntityType Name="ExamenUsuario">
           <Key>
@@ -950,6 +985,7 @@
           <NavigationProperty Name="TipoPregunta" Relationship="TestsAppBDModel.FK_Pregunta_TipoPregunta" FromRole="Pregunta" ToRole="TipoPregunta" />
           <NavigationProperty Name="PreguntaUsuario" Relationship="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" FromRole="Pregunta" ToRole="PreguntaUsuario" />
           <NavigationProperty Name="Respuesta" Relationship="TestsAppBDModel.FK_Respuesta_Pregunta" FromRole="Pregunta" ToRole="Respuesta" />
+          <Property Type="Boolean" Name="Habilitada" />
         </EntityType>
         <Association Name="FK_Pregunta_Examen">
           <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="0..1" />
@@ -999,6 +1035,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PuntajeAsesoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="D" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="A" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="B" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="S" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="IdExamen" />
+          <NavigationProperty Name="Examen" Relationship="TestsAppBDModel.FK_PuntajeAsesoria_Examen" FromRole="PuntajeAsesoria" ToRole="Examen" />
+        </EntityType>
         <EntityType Name="Documento">
           <Key>
             <PropertyRef Name="Id" />
@@ -1008,6 +1056,18 @@
           <Property Type="String" Name="Descripcion" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Ruta" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_PuntajeAsesoria_Examen">
+          <End Type="TestsAppBDModel.Examen" Role="Examen" Multiplicity="0..1" />
+          <End Type="TestsAppBDModel.PuntajeAsesoria" Role="PuntajeAsesoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Examen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PuntajeAsesoria">
+              <PropertyRef Name="IdExamen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1168,12 +1228,25 @@
           <EntitySetMapping Name="Pregunta">
             <EntityTypeMapping TypeName="TestsAppBDModel.Pregunta">
               <MappingFragment StoreEntitySet="Pregunta">
+                <ScalarProperty Name="Habilitada" ColumnName="Habilitada" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
                 <ScalarProperty Name="CantidadRespuesta" ColumnName="CantidadRespuesta" />
                 <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
                 <ScalarProperty Name="IdTipoPregunta" ColumnName="IdTipoPregunta" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PuntajeAsesoria">
+            <EntityTypeMapping TypeName="TestsAppBDModel.PuntajeAsesoria">
+              <MappingFragment StoreEntitySet="PuntajeAsesoria">
+                <ScalarProperty Name="IdExamen" ColumnName="IdExamen" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="D" ColumnName="D" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

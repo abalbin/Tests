@@ -10,7 +10,7 @@ namespace TestsApp.App_Code
     {
         public string ReturnTextDifferenceNow(DateTime dt)
         {
-            string texto = "Creado hace ";
+            string texto = "Modificado(a) hace ";
             int diferenciaDias = DaysBetween(dt, TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")));
             if (diferenciaDias == 0)
             {
@@ -18,13 +18,13 @@ namespace TestsApp.App_Code
                 if (diferenciaHoras == 0)
                 {
                     int diferenciaMinutos = MinutesBetween(dt, TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")));
-                    texto += string.Format("{0} minuto{1}", diferenciaMinutos.ToString(), diferenciaMinutos <= 1 ? string.Empty : "s");
+                    texto += string.Format("{0} minuto{1}", diferenciaMinutos.ToString(), diferenciaMinutos == 1 ? string.Empty : "s");
                 }
                 else
-                    texto += string.Format("{0} hora{1}", diferenciaHoras.ToString(), diferenciaHoras <= 1 ? string.Empty : "s");
+                    texto += string.Format("{0} hora{1}", diferenciaHoras.ToString(), diferenciaHoras == 1 ? string.Empty : "s");
             }
             else
-                texto += string.Format("{0} día{1}", diferenciaDias.ToString(), diferenciaDias <= 1 ? string.Empty : "s");
+                texto += string.Format("{0} día{1}", diferenciaDias.ToString(), diferenciaDias == 1 ? string.Empty : "s");
 
             return texto;
         }

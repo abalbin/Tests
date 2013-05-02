@@ -14,6 +14,7 @@
         @switch (Model.Pregunta.TipoPregunta.NombreControl)
         {
             case "Checkbox":
+            case "Asesoria":
             @Html.CheckBoxFor(m => m.Marcada, new { @class="chkRespuesta" })
             @Html.DisplayFor(m => m.Texto)
                 break;
@@ -32,6 +33,7 @@
         @switch (Model.Pregunta.TipoPregunta.NombreControl)
         {
             case "Checkbox":
+            case "Asesoria":
             <i class="@String.Format("icon-{0}", Model.Marcada ? "check" : "circle")"></i>
             @Html.DisplayFor(m => m.Texto)
                 if (Model.EsCorrecta == 1)

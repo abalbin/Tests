@@ -193,7 +193,7 @@ namespace TestsApp.Controllers
                     else
                         FechaInicioEjecucion = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
                 }
-                
+
                 //Hack para bindear---------------------
                 foreach (var item in examen.Pregunta)
                     item.Respuesta.ToList();
@@ -412,7 +412,7 @@ namespace TestsApp.Controllers
             client.Send(msg);
         }
 
-        public ActionResult Create(int id = 0)
+        public ActionResult Create(int id = 0, int ite = 0)
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             Session.Remove("ListaPreguntas");
@@ -455,8 +455,8 @@ namespace TestsApp.Controllers
             }
 
             ViewBag.ListaPreguntas = ListaPreguntas;
-            ex.IdTipo = id == 0 ? 1 : ex.IdTipo;
-            ex.Titulo = id == 0 ? db.TipoExamen.First(r => r.Id == 1).Nombre : ex.Titulo;
+            ex.IdTipo = id == 0 ? ite : ex.IdTipo;
+            ex.Titulo = id == 0 ? db.TipoExamen.First(r => r.Id == ite).Nombre : ex.Titulo;
             return View(ex);
         }
 
@@ -493,7 +493,7 @@ namespace TestsApp.Controllers
         // POST: /Examen/Create
 
         [HttpPost]
-        public ActionResult Create(Examen examen)
+        public ActionResult Create(Examen examen, int idPuntaje = 0)
         {
             examen.Pregunta = ListaPreguntas;
             if (ModelState.IsValid)
@@ -517,6 +517,40 @@ namespace TestsApp.Controllers
                 }
                 db.Examen.Add(examen);
                 db.SaveChanges();
+                if (examen.IdTipo == 2)
+                {
+                    PuntajeAsesoria puntaje = db.PuntajeAsesoria.Find(idPuntaje);
+                    if (puntaje != null)
+                        puntaje.IdExamen = examen.Id;
+                    else
+                    {
+                        puntaje = new PuntajeAsesoria() { D = 60, A = 70, B = 85, S = 100, IdExamen = examen.Id };
+                        db.PuntajeAsesoria.Add(puntaje);
+                    }
+                    foreach (Pregunta p in examen.Pregunta)
+                    {
+                        p.Puntaje = puntaje.S;
+                        foreach (Respuesta r in p.Respuesta)
+                        {
+                            switch(r.Texto)
+                            {
+                                case "D":
+                                    r.Puntaje = puntaje.D;
+                                    break;
+                                case "A":
+                                    r.Puntaje = puntaje.A;
+                                    break;
+                                case "B":
+                                    r.Puntaje = puntaje.B;
+                                    break;
+                                case "S":
+                                    r.Puntaje = puntaje.S;
+                                    break;
+                            }
+                        }
+                    }
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -531,7 +565,7 @@ namespace TestsApp.Controllers
             {
                 return HttpNotFound();
             }
-            ListaPreguntas.Remove(ListaPreguntas.First(r=>r.Orden == orden));
+            ListaPreguntas.Remove(ListaPreguntas.First(r => r.Orden == orden));
             return PartialView("PreguntaPartial", ListaPreguntas);
         }
 
@@ -567,7 +601,7 @@ namespace TestsApp.Controllers
                     }
                     else
                     {
-                        
+                        preg.IdTipoPregunta = 9;
                         preg.CantidadRespuesta = 1;
                         preg.Puntaje = 100;
                         preg.Respuesta.Add(new Respuesta() { Texto = "D", EsCorrecta = 0, Marcada = false, Puntaje = 60 });
@@ -683,6 +717,34 @@ namespace TestsApp.Controllers
             db.Examen.Remove(examen);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ConfigurarPuntajePrev(int idExamen = 0, int id = 0)
+        {
+            PuntajeAsesoria modelo;
+            if (id == 0 && idExamen != 0)
+                modelo = db.PuntajeAsesoria.FirstOrDefault(r => r.IdExamen == idExamen);
+            else
+                modelo = db.PuntajeAsesoria.Find(id);
+            if (modelo == null)
+                modelo = new PuntajeAsesoria() { D = 60, A = 70, B = 85, S = 100 };
+            ModelState.Clear();
+            return PartialView("ChangeScorePartial", modelo);
+        }
+
+        [HttpPost]
+        public ActionResult ConfigurarPuntaje(PuntajeAsesoria puntaje)
+        {
+            PuntajeAsesoria modelo = db.PuntajeAsesoria.FirstOrDefault(r => r.Id == puntaje.Id);
+            if (modelo == null)
+                db.PuntajeAsesoria.Add(puntaje);
+            else
+            {
+                db.Entry(modelo).State = EntityState.Detached;
+                db.Entry(puntaje).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return Json(puntaje, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

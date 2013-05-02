@@ -22,6 +22,7 @@ namespace TestsApp.Models
             this.FechaEjecucion = DateTime.Now;
             this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.Pregunta = new HashSet<Pregunta>();
+            this.PuntajeAsesoria = new HashSet<PuntajeAsesoria>();
         }
     
         public int Id { get; set; }
@@ -40,5 +41,6 @@ namespace TestsApp.Models
         public virtual Producto Producto { get; set; }
         public virtual TipoExamen TipoExamen { get; set; }
         public virtual ICollection<Pregunta> Pregunta { get; set; }
+        public virtual ICollection<PuntajeAsesoria> PuntajeAsesoria { get; set; }
     }
 }

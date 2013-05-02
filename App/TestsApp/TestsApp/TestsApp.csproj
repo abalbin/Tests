@@ -174,6 +174,7 @@
     <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
+    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
@@ -224,6 +225,9 @@
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producto.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PuntajeAsesoria.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Respuesta.cs">
@@ -685,6 +689,12 @@
     <Content Include="Views\Documento\Edit.cshtml" />
     <Content Include="Views\Documento\Delete.cshtml" />
     <Content Include="Views\Report\Examen.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
+    <Content Include="Views\Producto\Details.cshtml" />
+    <Content Include="Views\Producto\Create.cshtml" />
+    <Content Include="Views\Producto\Edit.cshtml" />
+    <Content Include="Views\Producto\Delete.cshtml" />
+    <Content Include="Views\Examen\ChangeScorePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

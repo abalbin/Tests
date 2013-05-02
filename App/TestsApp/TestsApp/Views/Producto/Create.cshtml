@@ -1,0 +1,51 @@
+﻿@model TestsApp.Models.Producto
+
+@{
+    ViewBag.Title = "Crear Producto";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row-fluid">
+        <div class="span6">
+            <fieldset>
+                <legend>Crear Producto</legend>
+
+                <div class="input">
+                    @Html.LabelFor(model => model.Nombre)
+                </div>
+                <div class="input">
+                    @Html.EditorFor(model => model.Nombre)
+                    @Html.ValidationMessageFor(model => model.Nombre)
+                </div>
+
+                <div class="input">
+                    @Html.LabelFor(model => model.IdLinea, "Linea")
+                </div>
+                <div class="input">
+                    @Html.DropDownList("IdLinea", null, string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select span1" },
+                                                           { "id", "ddlLinea"}
+                                                       })
+                    @Html.ValidationMessageFor(model => model.IdLinea)
+                </div>
+
+                <p>
+                    <input type="submit" value="Guardar" class="btn" />
+                </p>
+            </fieldset>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar a la Lista de Productos", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

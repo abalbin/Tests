@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="TestsAppBDModel.Examen" Width="1.5" PointX="5.25" PointY="9.25" />
         <EntityTypeShape EntityType="TestsAppBDModel.ExamenUsuario" Width="1.5" PointX="7.5" PointY="7" />
         <EntityTypeShape EntityType="TestsAppBDModel.Linea" Width="1.5" PointX="0.75" PointY="5.875" />
-        <EntityTypeShape EntityType="TestsAppBDModel.PreguntaUsuario" Width="1.5" PointX="9.75" PointY="9" />
+        <EntityTypeShape EntityType="TestsAppBDModel.PreguntaUsuario" Width="1.5" PointX="9.75" PointY="9.125" />
         <EntityTypeShape EntityType="TestsAppBDModel.Respuesta" Width="1.5" PointX="9.75" PointY="12.75" />
         <EntityTypeShape EntityType="TestsAppBDModel.RespuestaUsuario" Width="1.5" PointX="12" PointY="8.875" />
         <EntityTypeShape EntityType="TestsAppBDModel.TipoPregunta" Width="1.5" PointX="5.25" PointY="14.25" />
@@ -33,12 +33,14 @@
         <AssociationConnector Association="TestsAppBDModel.FK_PreguntaUsuario_ExamenUsuario" />
         <AssociationConnector Association="TestsAppBDModel.FK_RespuestaUsuario_ExamenUsuario" />
         <AssociationConnector Association="TestsAppBDModel.webpages_UsersInRoles" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Pregunta" Width="1.5" PointX="7.5" PointY="12.625" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Pregunta" Width="1.5" PointX="7.5" PointY="12.5" />
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_Examen" />
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_TipoPregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_Respuesta_Pregunta" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Documento" Width="1.5" PointX="8.1041224170961055" PointY="22.678626428674267" />
+        <EntityTypeShape EntityType="TestsAppBDModel.PuntajeAsesoria" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Documento" Width="1.5" PointX="5.75" PointY="3.75" />
+        <AssociationConnector Association="TestsAppBDModel.FK_PuntajeAsesoria_Examen" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

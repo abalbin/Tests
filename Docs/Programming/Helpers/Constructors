@@ -6,6 +6,7 @@
             this.FechaEjecucion = DateTime.Now;
             this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.Pregunta = new HashSet<Pregunta>();
+            this.PuntajeAsesoria = new HashSet<PuntajeAsesoria>();
         }
 
         [Key]

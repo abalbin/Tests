@@ -1,0 +1,56 @@
+﻿@model TestsApp.Models.PuntajeAsesoria
+
+@using (Html.BeginForm("ConfigurarPuntaje", "Examen", FormMethod.Post, new { name = "frmPuntaje", id = "frmPuntaje" }))
+{
+    @Html.HiddenFor(r => r.IdExamen, new { @id = "hdnIdExamenPuntaje" })
+    @Html.HiddenFor(r => r.Id, new { @id = "hdnIdExamenPuntajeAsesoria" })
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Cambiar Puntaje de Asesoría</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="input full-width">
+                    <div class="span6">
+                        <strong>D</strong>eficiente:
+                    </div>
+                    <div class="span6">
+                        @Html.TextBoxFor(m => m.D, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                    </div>
+                </div>
+                <div class="input full-width">
+                    <div class="span6">
+                        <strong>A</strong>ceptable:
+                    </div>
+                    <div class="span6">
+                        @Html.TextBoxFor(m => m.A, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                    </div>
+                </div>
+                <div class="input full-width">
+                    <div class="span6">
+                        <strong>B</strong>ueno:
+                    </div>
+                    <div class="span6">
+                        @Html.TextBoxFor(m => m.B, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                    </div>
+                </div>
+                <div class="input full-width">
+                    <div class="span6">
+                        <strong>S</strong>obresaliente:
+                    </div>
+                    <div class="span6">
+                        @Html.TextBoxFor(m => m.S, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-small">Cerrar</button>
+        <button type="button" id="GuardarPregunta" class="btn btn-small medium-blue" onclick="GuardarPuntajeAsesoria()">Guardar</button>
+    </div>
+}
+
+

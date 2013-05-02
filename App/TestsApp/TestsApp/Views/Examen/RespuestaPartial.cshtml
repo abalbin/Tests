@@ -12,7 +12,7 @@ else
     <ul>
         @foreach (var item in Model.Respuesta)
         {
-            
+
             switch (nombreControl)
             {
                 case "Checkbox":
@@ -23,16 +23,24 @@ else
             <li>
                 <textarea disabled>@item.Texto</textarea></li>
                     break;
+                case "Asesoria":
+            <li>
+                <i class="icon-circle"></i>@item.Texto</li>
+                    break;
+
             }
             i++;
         }
     </ul>
 }
 
-<div class="row-fluid">
-    <div class="input-append">
-        <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
-        <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
+@if (Model.IdTipoPregunta != 9)
+{ 
+    <div class="row-fluid">
+        <div class="input-append">
+            <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
+            <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
+        </div>
     </div>
-</div>
+}
 

@@ -5,12 +5,12 @@
     bool esGerente = false;
     Roles.GetRolesForUser().ToList().ForEach((string s) => { esGerente = s.Contains("Gerente"); });
 }
-<h2>@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías en Terreno" : "Exámenes Disponibles")</h2>
+<h2>@( esGerente && !Roles.IsUserInRole("Administrador") ? "Asesorías en Terreno" : Roles.IsUserInRole("Administrador") ? "Evaluaciones Disponibles" : "Exámenes Disponibles")</h2>
 @if (Roles.IsUserInRole("Administrador"))
 {
     <p>
-        @Html.ActionLink("Nuevo Examen", "Create")
-        @*<a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Nuevo Examen</a>*@
+        @*@Html.ActionLink("Nuevo Examen", "Create")*@
+        <a class="btn btn-mini medium-blue" href="#modal-elegirTipoExamen" data-toggle="modal">Crear Nueva Evaluación</a>
     </p>
 }
 <div class="row-fluid">
@@ -35,7 +35,7 @@
         else
         {
             <p>
-                No tiene ningún examen asignado.
+                No existen evaluaciones o no se le ha asignado ninguna. Gracias.
             </p>
         }
     </div>
@@ -60,7 +60,7 @@
     $(function () {
         $(".btn-dar-disabled").tooltip();
         $("#ddlTipoExamen").change(function () {
-            $("#lnkContinueCreate").attr("href", "Examen/Create/" + $("#ddlTipoExamen").val());
+            $("#lnkContinueCreate").attr("href", "Examen/Create?ite=" + $("#ddlTipoExamen").val());
             $("#lnkContinueCreate").removeClass("disabled");
         });
     });
