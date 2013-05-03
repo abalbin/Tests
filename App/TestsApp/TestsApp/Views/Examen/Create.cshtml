@@ -305,6 +305,26 @@
         return false;
     }
 
+    function eliminarRespuesta(indexRespuesta, link) {
+
+        var index = indexRespuesta;
+        var indexPregunta = $(link).data('id');
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteRespuesta", "Examen")',
+            data: { indexParent: indexPregunta, indexRespuesta: index  },
+            success: function (data) {
+                $("#RespuestasContainer" + indexPregunta).html(data);
+                $("#RespuestasContainer" + indexPregunta).find('input:checkbox').uniform();
+                return false;
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                return false;
+            }
+        });
+        return false;
+    }
+
     $(function () {
         $("#ddlLinea").change(
         function () {

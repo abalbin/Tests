@@ -519,7 +519,7 @@ namespace TestsApp.Controllers
                 db.Examen.Add(examen);
                 db.SaveChanges();
                 if (examen.IdTipo == 2)
-                {   
+                {
                     if (puntaje != null)
                         puntaje.IdExamen = examen.Id;
                     else
@@ -532,7 +532,7 @@ namespace TestsApp.Controllers
                         p.Puntaje = puntaje.S;
                         foreach (Respuesta r in p.Respuesta)
                         {
-                            switch(r.Texto)
+                            switch (r.Texto)
                             {
                                 case "D":
                                     r.Puntaje = puntaje.D;
@@ -566,7 +566,24 @@ namespace TestsApp.Controllers
                 return HttpNotFound();
             }
             ListaPreguntas.Remove(ListaPreguntas.First(r => r.Orden == orden));
+            for (int i = 1; i <= ListaPreguntas.Count; i++)
+                ListaPreguntas[i - 1].Orden = i;
             return PartialView("PreguntaPartial", ListaPreguntas);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteRespuesta(int indexParent, int indexRespuesta = -1)
+        {
+            if (indexRespuesta == -1)
+            {
+                return HttpNotFound();
+            }
+            Respuesta rptaEliminar = ListaPreguntas[indexParent].Respuesta.ToList()[indexRespuesta];
+            ListaPreguntas[indexParent].Respuesta.Remove(rptaEliminar);
+            
+            for (int i = 1; i <= ListaPreguntas[indexParent].Respuesta.Count; i++)
+                ListaPreguntas[indexParent].Respuesta.ToList()[i - 1].Orden = i;
+            return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);
         }
 
         [HttpPost]
@@ -648,6 +665,7 @@ namespace TestsApp.Controllers
             var tipoPreg = db.TipoPregunta.First(r => r.Id == idtipoPreg);
             Respuesta rpta = new Respuesta { Texto = texto };
             rpta.EsCorrecta = tipoPreg.NombreControl.Equals("Textarea") ? 1 : 0;
+            rpta.Orden = ListaPreguntas[indexParent].Respuesta.Count + 1;
             ListaPreguntas[indexParent].Respuesta.Add(rpta);
             ViewBag.ListaPreguntas = ListaPreguntas;
             return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);

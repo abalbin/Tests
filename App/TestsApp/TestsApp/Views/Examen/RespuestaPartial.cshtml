@@ -16,8 +16,8 @@ else
             switch (nombreControl)
             {
                 case "Checkbox":
-            <li>
-                <input type="checkbox" data-id="@Model.Id" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto</li>
+            <li class="respuesta">
+                <input type="checkbox" data-id="@Model.Id" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto <a data-id="@Model.Id" class="remove" onclick="eliminarRespuesta(@(i - 1), this)" title="Eliminar"><i class="icon-remove"></i></a></li>
                     break;
                 case "Textarea":
             <li>

@@ -87,3 +87,11 @@ ul.inline, ol.inline
 .masked-integer{
     width: 50px !important;
 }
+
+.remove {
+    visibility: hidden;
+}
+
+.respuesta:hover .remove {
+    visibility: visible;
+}
