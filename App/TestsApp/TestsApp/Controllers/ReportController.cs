@@ -38,7 +38,7 @@ namespace TestsApp.Controllers
 
         public ActionResult Examen()
         {
-            var q = db.Examen.Where(r => r.ExamenUsuario.Count > 0).ToList();
+            var q = db.Examen.Where(r => r.ExamenUsuario.Count > 0 && r.IdTipo == 1).ToList();
             return View(q.ToList());
         }
 

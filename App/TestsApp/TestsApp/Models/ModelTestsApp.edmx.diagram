@@ -7,12 +7,11 @@
       <Diagram DiagramId="c1e6cf1ba9e441b0944512ded4c7b9f9" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="TestsAppBDModel.Estado" Width="1.5" PointX="5.25" PointY="14.625" />
         <EntityTypeShape EntityType="TestsAppBDModel.Examen" Width="1.5" PointX="7.5" PointY="10.5" />
-        <EntityTypeShape EntityType="TestsAppBDModel.ExamenUsuario" Width="1.5" PointX="9.75" PointY="6.375" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Linea" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="TestsAppBDModel.ExamenUsuario" Width="1.5" PointX="9.75" PointY="8.25" />
         <EntityTypeShape EntityType="TestsAppBDModel.PreguntaUsuario" Width="1.5" PointX="15" PointY="7" />
         <EntityTypeShape EntityType="TestsAppBDModel.Respuesta" Width="1.5" PointX="15" PointY="11.25" />
         <EntityTypeShape EntityType="TestsAppBDModel.RespuestaUsuario" Width="1.5" PointX="17.25" PointY="8.75" />
-        <EntityTypeShape EntityType="TestsAppBDModel.TipoPregunta" Width="1.5" PointX="10.5" PointY="14.625" />
+        <EntityTypeShape EntityType="TestsAppBDModel.TipoPregunta" Width="1.5" PointX="10.5" PointY="5.625" />
         <AssociationConnector Association="TestsAppBDModel.FK_Examen_Estado" />
         <AssociationConnector Association="TestsAppBDModel.FK_ExamenUsuario_Examen" />
         <AssociationConnector Association="TestsAppBDModel.FK_RespuestaUsuario_Respuesta" />
@@ -21,10 +20,6 @@
         <AssociationConnector Association="TestsAppBDModel.FK_ExamenUsuario_UserProfile" />
         <AssociationConnector Association="TestsAppBDModel.FK_PreguntaUsuario_UserProfile" />
         <AssociationConnector Association="TestsAppBDModel.FK_RespuestaUsuario_UserProfile" />
-        <AssociationConnector Association="TestsAppBDModel.FK_UserProfile_Linea" />
-        <EntityTypeShape EntityType="TestsAppBDModel.Producto" Width="1.5" PointX="5.25" PointY="11.625" />
-        <AssociationConnector Association="TestsAppBDModel.FK_Examen_Producto" />
-        <AssociationConnector Association="TestsAppBDModel.FK_Producto_Linea" />
         <EntityTypeShape EntityType="TestsAppBDModel.UserMigration" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TestsAppBDModel.TipoExamen" Width="1.5" PointX="5.25" PointY="17" />
         <AssociationConnector Association="TestsAppBDModel.FK_Examen_TipoExamen" />
@@ -38,11 +33,16 @@
         <AssociationConnector Association="TestsAppBDModel.FK_Pregunta_TipoPregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_PreguntaUsuario_Pregunta" />
         <AssociationConnector Association="TestsAppBDModel.FK_Respuesta_Pregunta" />
-        <EntityTypeShape EntityType="TestsAppBDModel.PuntajeAsesoria" Width="1.5" PointX="9.75" PointY="11.375" />
+        <EntityTypeShape EntityType="TestsAppBDModel.PuntajeAsesoria" Width="1.5" PointX="9.75" PointY="15.5" />
         <EntityTypeShape EntityType="TestsAppBDModel.Documento" Width="1.5" PointX="0.75" PointY="7.125" />
         <AssociationConnector Association="TestsAppBDModel.FK_PuntajeAsesoria_Examen" />
         <EntityTypeShape EntityType="TestsAppBDModel.NombreTabla" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Linea" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="TestsAppBDModel.Producto" Width="1.5" PointX="5.25" PointY="11.625" />
+        <AssociationConnector Association="TestsAppBDModel.FK_Examen_Producto" />
+        <AssociationConnector Association="TestsAppBDModel.FK_UserProfile_Linea" />
         <AssociationConnector Association="TestsAppBDModel.DocumentoLinea" />
+        <AssociationConnector Association="TestsAppBDModel.ProductoLinea" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

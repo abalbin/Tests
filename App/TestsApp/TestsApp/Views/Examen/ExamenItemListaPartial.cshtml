@@ -13,7 +13,17 @@
         </h3>
         @if (Model.IdTipo != 2)
         {
-            string line = Model.Producto == null ? "" : Model.Producto.Linea.Nombre;
+            var lineas = Model.Producto.Linea.ToList();
+            string s = string.Empty;
+            foreach (TestsApp.Models.Linea l in lineas)
+            {
+                s += l.Nombre + ", ";
+            }
+            if (s.Length > 0)
+            {
+                s = s.Substring(0, s.Length - 2);
+            }
+            string line = s;
             string prod = Model.Producto == null ? "" : Model.Producto.Nombre;
             <p>@linea: @line</p>
             <p>Producto: @prod</p>

@@ -52,11 +52,14 @@ namespace TestsApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Producto producto)
+        public ActionResult Create(Producto producto, string[] IdLinea = null)
         {
             if (ModelState.IsValid)
             {
                 db.Producto.Add(producto);
+                if (IdLinea != null)
+                    foreach (string s in IdLinea)
+                        producto.Linea.Add(db.Linea.AsEnumerable().First(l => l.Id == Convert.ToInt32(s)));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,7 +78,13 @@ namespace TestsApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdLinea = new SelectList(db.Linea, "Id", "Nombre", producto.IdLinea);
+            List<string> listaLineas = new List<string>();
+            foreach (var s in producto.Linea)
+            {
+                string idLinea = s.Id.ToString();
+                listaLineas.Add(idLinea);
+            }
+            ViewBag.IdLinea = listaLineas.ToArray();
             return View(producto);
         }
 
@@ -84,11 +93,17 @@ namespace TestsApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Producto producto)
+        public ActionResult Edit(Producto producto, string[] IdLinea = null)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(producto).State = EntityState.Modified;
+                Producto aux = db.Producto.Find(producto.Id);
+                aux.Linea.Clear();
+                db.SaveChanges();
+                if (IdLinea != null)
+                    foreach (string s in IdLinea)
+                        aux.Linea.Add(db.Linea.AsEnumerable().First(l => l.Id == Convert.ToInt32(s)));
+                aux.Nombre = producto.Nombre;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

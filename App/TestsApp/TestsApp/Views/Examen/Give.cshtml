@@ -57,6 +57,16 @@
             }
             else
             {
+                var lineas = Model.Producto.Linea.ToList();
+                string s = string.Empty;
+                foreach (TestsApp.Models.Linea l in lineas)
+                {
+                    s += l.Nombre + ", ";
+                }
+                if (s.Length > 0)
+                {
+                    s = s.Substring(0, s.Length - 2);
+                }
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="input full-width">
@@ -65,7 +75,7 @@
                             </h1>
                         </div>
                         <div class="input full-width">
-                            <h4>@linea: @Model.Producto.Linea.Nombre
+                            <h4>@linea: @s
                             </h4>
                         </div>
                     </div>

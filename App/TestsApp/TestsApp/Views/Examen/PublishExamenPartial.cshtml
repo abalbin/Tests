@@ -11,8 +11,18 @@
 
                 @if (Model.IdTipo == 1)
                 {
+                    var lineas = Model.Producto.Linea.ToList();
+                    string s = string.Empty;
+                    foreach (TestsApp.Models.Linea l in lineas)
+                    {
+                        s += l.Nombre + ", ";
+                    }
+                    if (s.Length > 0)
+                    {
+                        s = s.Substring(0, s.Length - 2);
+                    }
                     <p>
-                        ¿Está seguro que desea publicar el examen <em>@Model.Titulo</em>? Si decide proceder, ya no podrá editar el examen y se enviará una alerta a todos los Aster de la solución <em>@(Model.Producto == null ? "" : Model.Producto.Linea.Nombre)</em>
+                        ¿Está seguro que desea publicar el examen <em>@Model.Titulo</em>? Si decide proceder, ya no podrá editar el examen y se enviará una alerta a todos los Aster de <em>@(Model.Producto == null ? "" : s)</em>
                     </p>
                 }
                 else

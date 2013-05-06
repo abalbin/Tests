@@ -61,23 +61,53 @@ namespace TestsApp.Controllers
                 // Verify that the user selected a file
                 if (file != null && file.ContentLength > 0)
                 {
-                    // extract only the fielname
-                    var fileName = Path.GetFileName(file.FileName);
-                    // store the file inside ~/App_Data/uploads folder
-                    var path = Path.Combine(Server.MapPath("~/Content/Documentos"), fileName);
-                    file.SaveAs(path);
-                    documento.Ruta = fileName;
+                    if (validarArchivo(Path.GetExtension(file.FileName)))
+                    {
+                        // extract only the fielname
+                        var fileName = Path.GetFileName(file.FileName);
+                        // store the file inside ~/App_Data/uploads folder
+                        var path = Path.Combine(Server.MapPath("~/Content/Documentos"), fileName);
+                        file.SaveAs(path);
+                        documento.Ruta = fileName;
+                        if (IdLinea != null)
+                            foreach (string s in IdLinea)
+                                documento.Linea.Add(db.Linea.AsEnumerable().First(l => l.Id == Convert.ToInt32(s)));
+
+                        db.Documento.Add(documento);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        ModelState.AddModelError("invalido", "El archivo seleccionado no es válido. Los archivos válidos son: pdf, doc, docx, xls, xlsx, jpeg, png.");
                 }
-                if (IdLinea != null)
-                    foreach (string s in IdLinea)
-                        documento.Linea.Add(db.Linea.AsEnumerable().First(l => l.Id == Convert.ToInt32(s)));
-
-                db.Documento.Add(documento);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                else
+                    ModelState.AddModelError("empty", "No ha seleccionado ningún archivo");
+                
             }
-
+            
             return View(documento);
+        }
+
+        private bool validarArchivo(string content)
+        {
+            switch (content)
+            {
+                case ".pdf":
+                    return true;
+                case ".doc":
+                case ".docx":
+                    return true;
+                case ".xls":
+                case ".xlsx":
+                    return true;
+                case ".jpeg":
+                case ".jpg":
+                    return true;
+                case ".png":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         //
@@ -90,6 +120,7 @@ namespace TestsApp.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(documento);
         }
 
@@ -139,8 +170,32 @@ namespace TestsApp.Controllers
             if (documento != null)
             {
                 var filename = documento.Ruta;
+                string[] cadena = filename.Split('.');
+                string ext = cadena[1];
+                string content = string.Empty;
+                switch (ext)
+                {
+                    case "pdf":
+                        content = "application/pdf";
+                        break;
+                    case "doc":
+                    case "docx":
+                        content = "application/word";
+                        break;
+                    case "xls":
+                    case "xlsx":
+                        content = "application/excel";
+                        break;
+                    case "jpeg":
+                    case "jpg":
+                        content = "image/jpeg";
+                        break;
+                    case "png":
+                        content = "image/png";
+                        break;
+                }
                 var path = Path.Combine(Server.MapPath("~/Content/Documentos"), filename);
-                return File(path, "application/pdf");
+                return File(path, content, filename);
             }
             return null;
         }

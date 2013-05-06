@@ -5,10 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestsApp.Filters;
 using TestsApp.Models;
 
 namespace TestsApp.Controllers
 {
+    [Authorize]
+    [InitializeSimpleMembership]
     public class TituloController : Controller
     {
         private TestsAppBDEntities db = new TestsAppBDEntities();

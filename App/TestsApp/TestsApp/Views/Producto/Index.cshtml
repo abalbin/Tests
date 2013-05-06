@@ -24,16 +24,25 @@
 
     @foreach (var item in Model)
     {
+        var lineas = item.Linea.ToList();
+        string s = string.Empty;
+        foreach (TestsApp.Models.Linea l in lineas)
+        {
+            s += l.Nombre + ", ";
+        }
+        if (s.Length > 0)
+        {
+            s = s.Substring(0, s.Length - 2);
+        }
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Linea.Nombre)
+                @s
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id })
             </td>
         </tr>
     }

@@ -391,7 +391,7 @@ namespace TestsApp.Controllers
             {
                 if (examen.IdTipo == 1)
                 {
-                    List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.IdLinea == examen.Producto.IdLinea).ToList();
+                    List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.Linea.Producto.Any(p => p.Id == examen.IdProducto)).ToList();
                     foreach (UserProfile u in usuariosSolucion)
                     {
                         ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0, IdPreguntaActual = 0 };
@@ -436,7 +436,7 @@ namespace TestsApp.Controllers
             {
                 Session.Remove("ListaPreguntas");
                 Examen modelo = new Examen() { IdTipo = ex.IdTipo, IdProducto = ex.IdProducto, FechaEjecucion = ex.FechaEjecucion, PuntajeMaximo = ex.PuntajeMaximo, TiempoMaximo = ex.TiempoMaximo, Titulo = ex.Titulo };
-                List<Pregunta> listaPreguntasTemp = ex.Pregunta.ToList();                
+                List<Pregunta> listaPreguntasTemp = ex.Pregunta.ToList();
                 for (int i = 0; i < listaPreguntasTemp.Count; i++)
                 {
                     Pregunta prg = new Pregunta()
@@ -519,7 +519,7 @@ namespace TestsApp.Controllers
 
         public ActionResult GetProductsByLine(int id)
         {
-            var result = db.Producto.Where(r => r.IdLinea == id);
+            var result = db.Producto.Where(r => r.Linea.Any(l => l.Id == id));
 
             //build JSON.  
             var modelResult = from m in result

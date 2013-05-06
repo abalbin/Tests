@@ -38,9 +38,9 @@ namespace TestsApp.Models
     
         public virtual Estado Estado { get; set; }
         public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
-        public virtual Producto Producto { get; set; }
         public virtual TipoExamen TipoExamen { get; set; }
         public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual ICollection<PuntajeAsesoria> PuntajeAsesoria { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace TestsApp.Models
         public Producto()
         {
             this.Examen = new HashSet<Examen>();
+            this.Linea = new HashSet<Linea>();
         }
     
         public int Id { get; set; }
@@ -24,6 +25,6 @@ namespace TestsApp.Models
         public Nullable<int> IdLinea { get; set; }
     
         public virtual ICollection<Examen> Examen { get; set; }
-        public virtual Linea Linea { get; set; }
+        public virtual ICollection<Linea> Linea { get; set; }
     }
 }

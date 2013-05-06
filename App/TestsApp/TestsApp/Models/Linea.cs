@@ -17,15 +17,15 @@ namespace TestsApp.Models
         public Linea()
         {
             this.UserProfile = new HashSet<UserProfile>();
-            this.Producto = new HashSet<Producto>();
             this.Documento = new HashSet<Documento>();
+            this.Producto = new HashSet<Producto>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
     
         public virtual ICollection<UserProfile> UserProfile { get; set; }
-        public virtual ICollection<Producto> Producto { get; set; }
         public virtual ICollection<Documento> Documento { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

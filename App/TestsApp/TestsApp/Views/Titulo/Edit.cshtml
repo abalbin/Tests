@@ -11,13 +11,13 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>NombreTabla</legend>
+        <legend>Datos</legend>
 
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Tabla)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NombreMostrar)
+            Título
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.NombreMostrar)

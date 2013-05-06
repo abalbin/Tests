@@ -26,11 +26,12 @@
                     @Html.LabelFor(model => model.IdLinea, linea)
                 </div>
                 <div class="input">
-                    @Html.DropDownList("IdLinea", null, string.Empty, new Dictionary<string, object>
+                    @Html.ListBox("IdLinea", new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
-                                                           { "class", "chzn-select span1" },
-                                                           { "id", "ddlLinea"}
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
                                                        })
                     @Html.ValidationMessageFor(model => model.IdLinea)
                 </div>

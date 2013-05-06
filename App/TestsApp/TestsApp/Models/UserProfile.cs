@@ -40,9 +40,9 @@ namespace TestsApp.Models
         public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
         public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
-        public virtual Linea Linea { get; set; }
         public virtual ICollection<ExamenUsuario> ExamenUsuario1 { get; set; }
         public virtual ICollection<ExamenUsuario> ExamenUsuario2 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
+        public virtual Linea Linea { get; set; }
     }
 }
