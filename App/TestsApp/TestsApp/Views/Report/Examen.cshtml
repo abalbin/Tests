@@ -5,28 +5,162 @@
 }
 
 <h2>Reportes de Exámenes</h2>
+@Scripts.Render("~/bundles/highstocks")
+@Scripts.Render("~/bundles/highchartsmodules")
 
-<table class="table table-striped data-table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#rptTodos">Reportes</a></li>
+    <li><a href="#rptGraficas">Gráficas</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="rptTodos">
+        <table class="table table-striped data-table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Titulo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.ActionLink("Puntaje por Aster", "ExportReportExamen", new { id = item.Id }) |
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Puntaje por Aster", "ExportReportExamen", new { id = item.Id }) |
             @Html.ActionLink("Respuesta por pregunta", "ExportReportExamenRptaPorPregunta", new { id = item.Id }) |
-            </td>
-        </tr>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="tab-pane" id="rptGraficas">
+        <div class="row-fluid">
+            <div class="span4">
+                Exámen:
+            @Html.DropDownList("IdExamen", new SelectList(new TestsApp.Models.TestsAppBDEntities().Examen.Where(r => r.IdTipo == 1), "Id", "Titulo"), string.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlExamen"}
+                                                       })
+            </div>
+        </div>
+        <div class="section-title"></div>
+        <div class="row-fluid">
+            <div id="examenContainer">
+                @Html.Partial("ReportGraficasExamenPartial", new List<TestsApp.Models.ExamenUsuario>());
+            </div>
+            <div id="chart" style="height: 300px; overflow: hidden;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+        $("#ddlExamen").change(
+        function () {
+            renderTableExamen(this);
+            //renderChartExamen(this);
+        });
+    });
+
+    var options = {
+        title: {},
+        scrollbar: {
+            enabled: true
+        },
+        subtitle: {},
+        chart: {
+            renderTo: 'chart',
+            type: 'column'
+        },
+        series: [{}],
+        xAxis: [{}],
+        yAxis: [{}],
+        legend: {
+            enabled: false
+        }
+    };
+
+    function renderTableExamen(selectList) {
+        var selectedId = $(selectList).val();
+        if (selectedId != null && selectedId != '') {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("DrawTableExamen", "Report")",
+                data: { id: selectedId },
+                success: function (data) {
+                    $("#examenContainer").html(data);
+                    $(".table-examen").dataTable({
+                        "oLanguage": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        "bJQueryUI": true,
+                        "sPaginationType": "full_numbers",
+                        "sDom": '<""l>t<"F"fp>'
+                    });
+                    renderChartExamen(selectList);
+                }
+            });
+        }
     }
 
-</table>
+    function renderChartExamen(selectList) {
+        var selectedId = $(selectList).val();
+        if (selectedId != null && selectedId != '') {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("DrawChartExamen", "Report")",
+                data: { id: selectedId },
+                success: function (data) {
+                    options.series = data.allSeries;
+                    options.xAxis = data.xAxis;
+                    options.yAxis = data.yAxis;
+                    options.title = data.title;
+                    options.subtitle = data.subtitle;
+                    var obj = function () { return this.point.name; }
+                    $.each(options.series, function () {
+                        this.dataLabels.formatter = obj;
+                    });
+                    var chart = new Highcharts.Chart(options);
+                },
+                dataType: "json",
+                traditional: true
+            });
+        }
+
+    }
+</script>
+

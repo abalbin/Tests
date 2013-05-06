@@ -38,8 +38,66 @@ namespace TestsApp.Controllers
 
         public ActionResult Examen()
         {
-            var q = db.Examen.Where(r=>r.ExamenUsuario.Count > 0).ToList();
+            var q = db.Examen.Where(r => r.ExamenUsuario.Count > 0).ToList();
             return View(q.ToList());
+        }
+
+        public ActionResult DrawTableExamen(int id = 0)
+        {
+            Examen ex = db.Examen.Find(id);
+            if (ex != null)
+            {
+                List<ExamenUsuario> lista = db.ExamenUsuario.Where(r => r.Examen.Id == id && r.Estado == 2).ToList();
+                return PartialView("ReportGraficasExamenPartial", lista.Count == 0 ? new List<ExamenUsuario>() : lista);
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult DrawTableAsesoria(int id = 0)
+        {
+            Examen ex = db.Examen.Find(id);
+            if (ex != null)
+            {
+                List<ExamenUsuario> lista = db.ExamenUsuario.Where(r => r.Examen.Id == id && r.Estado == 2).ToList();
+                return PartialView("ReportAsesoriaPartial", lista.Count == 0 ? new List<ExamenUsuario>() : lista);
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult DrawChartExamen(int id = 0)
+        {
+            var examen = db.Examen.Find(id);
+            ChartViewModel cvm = new ChartViewModel();
+            List<HighChartsSeries> allSeries = new List<HighChartsSeries>();
+            List<HighChartsPoint> allPoint = new List<HighChartsPoint>();
+            List<string> allCategories = new List<string>();
+
+            var listaExamenes = db.ExamenUsuario.Where(r => r.Examen.Id == id && r.Examen.IdTipo == 1 && r.Estado == 2).ToList();
+
+            for (int i = 0; i < listaExamenes.Count; i++)
+            {
+                var aster = db.UserProfile.AsEnumerable().First(r => r.UserId == listaExamenes[i].IdUsuario);
+                allCategories.Add(string.Format("{0}{1}", listaExamenes[i].UserProfile.FirstName.Substring(0, 1), listaExamenes[i].UserProfile.LastName.Substring(0, 1)));
+                allPoint.Add(new HighChartsPoint { x = i, y = Convert.ToDouble(listaExamenes[i].Puntaje.Value), name = string.Format("{0} {1}", aster.FirstName, aster.LastName) });
+            }
+
+            allSeries.Add(new HighChartsSeries
+            {
+                data = new List<HighChartsPoint>(allPoint),
+                dataLabels = new HighChartDataLabel()
+                {
+                    enabled = true
+                },
+                name = string.Format("{0}", examen.Titulo),
+                type = "column"
+            });
+
+            cvm.allSeries = allSeries;
+            cvm.xAxis = new HighChartAxis { categories = new List<string>(allCategories), title = new HighChartTitle() { text = "Aster" } };
+            cvm.yAxis = new HighChartAxis { title = new HighChartTitle() { text = "Puntaje" } };
+            cvm.title = new HighChartTitle() { text = string.Format("Examen {0}", examen.Titulo) };
+            //cvm.subtitle = new HighChartTitle() { text = string.Format("Asesoría tomada por {0} {1}", ejecutivo.FirstName, ejecutivo.LastName) };
+            return Json(cvm, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DrawChart(int idEjecutivo, int idAster)
@@ -407,6 +465,128 @@ namespace TestsApp.Controllers
                         var puntajeCell = ws.Cells[i, colPuntaje];
                         var currentPregunta = listaRespuestas[i - 3].Respuesta.Pregunta;
                         puntajeCell.Value = (listaRespuestas[i - 3].Respuesta.EsCorrecta == 1 ? currentPregunta.Puntaje / currentPregunta.CantidadRespuesta : 0);
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
+
+        public FileResult ExportReportGraficaExamen(int id = 0)
+        {
+            string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+            Examen examen = db.Examen.Find(id);
+            if (examen != null)
+            {
+                string filename = string.Format("Resumen_Examen_{0}_{1}.xlsx", examen.Titulo, DateTime.Now.ToString("dd-MM-yyyy"));
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    xlPackage.Workbook.Properties.Title = "Resumen de Examen";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(examen.Titulo);
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, 4);
+
+                    var Aster = ws.Cells[2, 2];
+                    var Puntaje = ws.Cells[2, 3];
+                    var Tiempo = ws.Cells[2, 4];
+                    var Fecha = ws.Cells[2, 5];
+
+                    SetRichText(Aster, "Aster");
+                    SetRichText(Puntaje, "Puntaje Obtenido");
+                    SetRichText(Tiempo, "Tiempo");
+                    SetRichText(Fecha, "Fecha");
+
+                    //Write data
+                    List<ExamenUsuario> listaExamenes = db.ExamenUsuario.Where(r => r.Examen.Id == id && r.Estado == 2).ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, 4, listaExamenes.Count);
+
+                    int colAster = 2;
+                    int colPuntaje = 3;
+                    int colTiempo = 4;
+                    int colFecha = 5;
+
+                    for (int i = 3; i < listaExamenes.Count + 3; i++)
+                    {
+                        // Aster
+                        var asterCell = ws.Cells[i, colAster];
+                        asterCell.Value = string.Format("{0} {1}", listaExamenes[i - 3].UserProfile.FirstName, listaExamenes[i - 3].UserProfile.LastName);
+                        // Puntaje
+                        var notaCell = ws.Cells[i, colPuntaje];
+                        notaCell.Value = listaExamenes[i - 3].Puntaje;
+                        // Tiempo
+                        var tiempoCell = ws.Cells[i, colTiempo];
+                        tiempoCell.Value = listaExamenes[i - 3].Tiempo.ToString();
+                        // Fecha
+                        var seRealizoCell = ws.Cells[i, colFecha];
+                        seRealizoCell.Value = listaExamenes[i - 3].FechaInicio == null ? "" : listaExamenes[i - 3].FechaInicio.Value.ToString("dd/MM/yyyy HH:mm");
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
+
+        public FileResult ExportReportAsesoriaEvolutivo(int id = 0)
+        {
+            string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+            ExamenUsuario examen = db.ExamenUsuario.Find(id);
+            if (examen != null)
+            {
+                string aster = string.Format("{0} {1}", examen.UserProfile2.FirstName, examen.UserProfile2.LastName);
+                List<ExamenUsuario> listaAsesorias = db.ExamenUsuario.Where(r => r.Examen.Id == examen.Examen.Id && r.UserProfile2.UserId == examen.UserProfile2.UserId).ToList();
+                string filename = string.Format("Asesoría_Evolutivo_{0}_{1}.xlsx", aster, DateTime.Now.ToString("dd-MM-yyyy"));
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    int nFechas = listaAsesorias.Count;
+                    xlPackage.Workbook.Properties.Title = "Evolutivo de Asesoría";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(aster);
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, nFechas + 1);
+
+                    var Pregunta = ws.Cells[2, 2];
+
+                    SetRichText(Pregunta, "Pregunta");
+                    for (int i = 0; i < nFechas; i++)
+                        SetRichText(ws.Cells[2, 3 + i], listaAsesorias[i].FechaInicio.ToString());
+
+
+                    //Write data
+                    List<Pregunta> listaPreguntas = db.Pregunta.Where(r => r.Examen.Id == examen.Examen.Id).ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, nFechas + 1, listaPreguntas.Count);
+
+                    int colPregunta = 2;
+
+                    for (int i = 3; i < listaPreguntas.Count + 3; i++)
+                    {
+                        // Pregunta
+                        var preguntaCell = ws.Cells[i, colPregunta];
+                        preguntaCell.Value = listaPreguntas[i - 3].Texto;
+                        // Puntajes
+                        for (int j = 0; j < nFechas; j++)
+                        {
+                            var calificacion = listaAsesorias[j].RespuestaUsuario.Where(r => r.Respuesta.Pregunta.Id == listaPreguntas[i - 3].Id && r.Marcada).First();
+                            ws.Cells[i, 3 + j].Value = calificacion.Respuesta.Texto;
+                        }
                     }
                     //--------------
 

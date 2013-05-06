@@ -36,7 +36,7 @@
                 }
                 if (TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")).Date < Model.FechaEjecucion.Value.Date && Model.IdEstado == 3)
                 {
-                    @Ajax.ActionLink("Cambiar Fecha", "ChangeDate", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-changeDate-examen", OnSuccess = "showModalChangeDate" }, new { @class = "btn btn-mini light-blue inverse" })
+            @Ajax.ActionLink("Cambiar Fecha", "ChangeDate", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-changeDate-examen", OnSuccess = "showModalChangeDate" }, new { @class = "btn btn-mini light-blue inverse" })
                 }
             }
             if (Model.IdEstado == 3)
@@ -82,7 +82,10 @@
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             }
         }
-        @Html.ActionLink("Clonar", "Clone", new { id = Model.Id }, new { @class = "btn btn-mini green" })
+        @if (User.IsInRole("Administrador"))
+        {
+            @Html.ActionLink("Clonar", "Clone", new { id = Model.Id }, new { @class = "btn btn-mini green" })
+        }
     </div>
 </div>
 

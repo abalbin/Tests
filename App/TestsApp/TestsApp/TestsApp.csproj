@@ -705,6 +705,8 @@
     <Content Include="Views\Titulo\Edit.cshtml" />
     <Content Include="Views\Titulo\Delete.cshtml" />
     <Content Include="Views\Examen\ChangeDateExamenPartial.cshtml" />
+    <Content Include="Views\Report\ReportGraficasExamenPartial.cshtml" />
+    <Content Include="Views\Report\ReportAsesoriaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

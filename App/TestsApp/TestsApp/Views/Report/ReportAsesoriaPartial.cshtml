@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TestsApp.Models.ExamenUsuario>
+@{
+    string aster = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Aster").NombreMostrar;
+}
+
+<table class="table table-striped" id="rptAsesoriaTerreno">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ejecutivo
+            </th>
+            <th>@aster
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntaje)
+            </th>
+            <th>Fecha
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        string fecha = item.FechaInicio.Value.ToShortDateString();
+        string onClick = string.Format("showChart({0}, {1})", item.IdEjecutivo, item.IdAster);
+        <tr>
+            <td>@item.Id</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile1.FirstName) @Html.DisplayFor(modelItem => item.UserProfile1.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile2.FirstName) @Html.DisplayFor(modelItem => item.UserProfile2.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Puntaje)
+            </td>
+            <td>
+                @fecha
+            </td>
+            <td>
+                <input type="button" class="btn btn-mini historial" value="Ver Historial" onclick="@onClick" />
+                @Html.ActionLink("Ver Evolutivo", "ExportReportAsesoriaEvolutivo", new { id = item.Id }, new { @class = "btn btn-mini historial" })
+            </td>
+        </tr>
+    }
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Buscar Ejecutivo</th>
+            <th>Buscar Aster</th>
+            <th>Buscar Puntaje</th>
+            <th>Buscar Fecha</th>
+            <th></th>
+        </tr>
+    </tfoot>
+
+</table>

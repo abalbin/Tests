@@ -23823,7 +23823,7 @@ ul.breadcrumbs
 .chzn-container .chzn-results
 {
     margin: 0 4px 4px 0;
-    max-height: 240px;
+    max-height: 120px;
     padding: 0 0 0 4px;
     position: relative;
     overflow-x: hidden;
