@@ -41,7 +41,7 @@
 
                 <ul id="profile-opts" class="collapse secondary">
                     <li class="">
-                        <a href="#">Cambiar Contraseña
+                        <a href="@Url.Action("ChangePass", "Account")">Cambiar Contraseña
                         </a>
                     </li>
                     <li class="">
@@ -54,6 +54,7 @@
             </li>
             @if (Roles.IsUserInRole("Administrador"))
             {
+                string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
                 <!-- Administración -->
                 <li class="">
                     <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
@@ -70,7 +71,10 @@
                             @Html.ActionLink("Roles", "Index", "Rol")
                         </li>
                         <li class="">
-                            @Html.ActionLink("Líneas", "Index", "Linea")
+                            @Html.ActionLink(linea, "Index", "Linea")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Productos", "Index", "Producto")
                         </li>
                     </ul>
                 </li>

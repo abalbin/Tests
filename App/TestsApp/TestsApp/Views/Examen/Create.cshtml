@@ -1,6 +1,7 @@
 ﻿@model TestsApp.Models.Examen
 
 @{
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
     ViewBag.Title = "Create";
     TestsApp.Models.PuntajeAsesoria puntaje = new TestsApp.Models.TestsAppBDEntities().PuntajeAsesoria.FirstOrDefault(r => r.IdExamen == Model.Id);
     if (puntaje == null)
@@ -18,7 +19,7 @@
     <strong>Nota:</strong> Para agregar, editar, eliminar preguntas debes hacer click en la figura: <i class="icon-cog icon-large"></i>al extremo derecho de cada pregunta.
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Examen", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(r => r.IdTipo, new { @id = "hdnIdTipoExamen" });
@@ -54,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="span6">
-                                <label data-type="editable" data-for="#ddlLinea">Línea</label>
+                                <label data-type="editable" data-for="#ddlLinea">@linea</label>
                                 @Html.DropDownList("IdLinea", new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
@@ -312,7 +313,7 @@
         $.ajax({
             type: 'POST',
             url: '@Url.Action("DeleteRespuesta", "Examen")',
-            data: { indexParent: indexPregunta, indexRespuesta: index  },
+            data: { indexParent: indexPregunta, indexRespuesta: index },
             success: function (data) {
                 $("#RespuestasContainer" + indexPregunta).html(data);
                 $("#RespuestasContainer" + indexPregunta).find('input:checkbox').uniform();

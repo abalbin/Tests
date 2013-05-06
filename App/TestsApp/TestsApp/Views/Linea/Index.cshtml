@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<TestsApp.Models.Linea>
 
 @{
-    ViewBag.Title = "Línea";
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+    ViewBag.Title = linea;
 }
 
-<h2>Línea</h2>
+<h2>@linea</h2>
 
 <p>
     @Html.ActionLink("Agregar", "Create")

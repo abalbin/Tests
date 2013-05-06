@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Editar Producto";
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
 }
 
 @using (Html.BeginForm()) {
@@ -22,7 +23,7 @@
                 </div>
 
                 <div class="input">
-                    @Html.LabelFor(model => model.IdLinea, "Linea")
+                    @Html.LabelFor(model => model.IdLinea, linea)
                 </div>
                 <div class="input">
                     @Html.DropDownList("IdLinea", null, string.Empty, new Dictionary<string, object>

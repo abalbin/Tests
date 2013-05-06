@@ -1,6 +1,8 @@
 ﻿@model TestsApp.Models.Examen
 @{DateTime fechaActual = DateTime.Now;
-  TestsApp.App_Code.Helper helperObj = new TestsApp.App_Code.Helper();}
+  TestsApp.App_Code.Helper helperObj = new TestsApp.App_Code.Helper();
+  string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+}
 <div class="article">
     <div class="post-info">
         @helperObj.ReturnTextDifferenceNow(Model.FechaCreacion)
@@ -11,8 +13,10 @@
         </h3>
         @if (Model.IdTipo != 2)
         {
-            <p>Línea: @Model.Producto.Linea.Nombre</p>
-            <p>Producto: @Model.Producto.Nombre</p>
+            string line = Model.Producto == null ? "" : Model.Producto.Linea.Nombre;
+            string prod = Model.Producto == null ? "" : Model.Producto.Nombre;
+            <p>@linea: @line</p>
+            <p>Producto: @prod</p>
             <p>
                 Fecha de ejecución programada: @Model.FechaEjecucion.Value.Day de @Model.FechaEjecucion.Value.ToString("MMMM") del @Model.FechaEjecucion.Value.Year
             </p>
@@ -29,6 +33,10 @@
                 {
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             @Ajax.ActionLink("Publicar", "Publish", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-publicar-examen", OnSuccess = "showModalPublish" }, new { @class = "btn btn-mini dark-blue" })
+                }
+                if (TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")).Date < Model.FechaEjecucion.Value.Date && Model.IdEstado == 3)
+                {
+                    @Ajax.ActionLink("Cambiar Fecha", "ChangeDate", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "modal-changeDate-examen", OnSuccess = "showModalChangeDate" }, new { @class = "btn btn-mini light-blue inverse" })
                 }
             }
             if (Model.IdEstado == 3)
@@ -74,6 +82,7 @@
             @Html.ActionLink("Editar", "Create", new { id = Model.Id }, new { @class = "btn btn-mini light-blue inverse" })
             }
         }
+        @Html.ActionLink("Clonar", "Clone", new { id = Model.Id }, new { @class = "btn btn-mini green" })
     </div>
 </div>
 

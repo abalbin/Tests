@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Give";
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
 }
 
 @Scripts.Render("~/bundles/countdown")
@@ -33,7 +34,7 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <label data-type="editable" data-for="#ddlAster">Línea:</label>
+                                <label data-type="editable" data-for="#ddlAster">@linea:</label>
                                 @Html.DropDownList("IdLinea", new SelectList(listaLineas, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
@@ -64,7 +65,7 @@
                             </h1>
                         </div>
                         <div class="input full-width">
-                            <h4>Línea: @Model.Producto.Linea.Nombre
+                            <h4>@linea: @Model.Producto.Linea.Nombre
                             </h4>
                         </div>
                     </div>
@@ -90,10 +91,14 @@
                 </div>
                 @using (Html.BeginForm("Give", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
                 {
+                    int idExUsua = Convert.ToInt32(Session["sIdExamenUsuario"]);
+                    TestsApp.Models.ExamenUsuario exUsua = new TestsApp.Models.TestsAppBDEntities().ExamenUsuario.Find(idExUsua);
+                    int idPregActual = exUsua == null ? 0 : exUsua.IdPreguntaActual.Value;
+                    
                     @Html.HiddenFor(m => m.TiempoTranscurrido, new { id = "hdn-TiempoTranscurrido" })
                     <input type="hidden" id="IdAster" name="IdAster" />
                     <div id="PreguntasContainer">
-                        @Html.Partial("GivePreguntaPartial", Model.Pregunta.ElementAt(0))
+                        @Html.Partial("GivePreguntaPartial", idPregActual == 0 ? Model.Pregunta.ElementAt(0) : Model.Pregunta.First(r => r.Id == idPregActual))
                     </div>
                     <input type="submit" value="Terminar" class="hidden btn-terminar-examen-hidden" />
                 }

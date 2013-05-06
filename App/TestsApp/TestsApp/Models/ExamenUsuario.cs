@@ -30,6 +30,7 @@ namespace TestsApp.Models
         public Nullable<System.DateTime> FechaInicio { get; set; }
         public Nullable<int> IdEjecutivo { get; set; }
         public Nullable<int> IdAster { get; set; }
+        public Nullable<int> IdPreguntaActual { get; set; }
     
         public virtual Examen Examen { get; set; }
         public virtual UserProfile UserProfile { get; set; }

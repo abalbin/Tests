@@ -1,0 +1,29 @@
+﻿@model TestsApp.Models.NombreTabla
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>NombreTabla</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Tabla)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tabla)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreMostrar)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreMostrar)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

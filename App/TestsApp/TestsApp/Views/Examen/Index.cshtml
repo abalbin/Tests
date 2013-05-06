@@ -52,9 +52,17 @@
     @Html.Partial("PublishExamenPartial", new TestsApp.Models.Examen())
 </div>
 
+<div id="modal-changeDate-examen" class="modal hide fade" tabindex="-1" data-width="450" aria-hidden="true">
+    @Html.Partial("ChangeDateExamenPartial", new TestsApp.Models.Examen())
+</div>
+
 <script type="text/javascript">
     function showModalPublish() {
         $("#modal-publicar-examen").modal('show');
+    }
+
+    function showModalChangeDate() {
+        $("#modal-changeDate-examen").modal('show');
     }
 
     $(function () {

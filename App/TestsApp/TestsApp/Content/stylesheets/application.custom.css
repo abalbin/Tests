@@ -95,3 +95,7 @@ ul.inline, ol.inline
 .respuesta:hover .remove {
     visibility: visible;
 }
+
+.validation-summary-errors{
+    color: red;
+}

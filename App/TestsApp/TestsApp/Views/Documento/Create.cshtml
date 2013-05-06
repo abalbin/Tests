@@ -36,6 +36,18 @@
             <input type="file" id="file" name="file" />
         </div>
 
+        <div class="editor-label">
+            Roles:
+        </div>
+        <div class="editor-field">
+            @Html.ListBox("IdLinea", new SelectList(new TestsApp.Models.TestsAppBDEntities().Linea, "Id", "Nombre"), new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
+                                                       })
+        </div>
         <p>
             <input type="submit" value="Guardar" name="file" />
         </p>

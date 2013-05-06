@@ -293,6 +293,7 @@ namespace TestsApp.Controllers
 
         public FileResult ExportReportExamen(int id = 0)
         {
+            string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
@@ -314,7 +315,7 @@ namespace TestsApp.Controllers
 
                     SetRichText(SeRealizo, "Se realizó");
                     SetRichText(Nombre, "Nombre");
-                    SetRichText(Linea, "Línea");
+                    SetRichText(Linea, linea);
                     SetRichText(Nota, "Nota");
 
                     //Write data

@@ -156,6 +156,8 @@ namespace TestsApp.Controllers
             }
             else
                 pregUsuario.Puntaje = puntajePregunta;
+            ExamenUsuario exUsua = db.ExamenUsuario.Find(idExamenUsuario);
+            exUsua.IdPreguntaActual = pregUsuario.IdPregunta;
             db.SaveChanges();
         }
 
@@ -175,13 +177,14 @@ namespace TestsApp.Controllers
                 if (exUsua == null && examen.IdTipo == 2)
                 {
                     if (db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1) != null)
-                        exUsua = db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1);
+                        exUsua = db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1 && r.IdExamen == examen.Id);
                     else
                     {
                         exUsua = new ExamenUsuario();
                         exUsua.IdEjecutivo = user.UserId;
                         exUsua.Estado = 0;
                         exUsua.IdExamen = examen.Id;
+                        exUsua.IdPreguntaActual = 0;
                         db.ExamenUsuario.Add(exUsua);
                         db.SaveChanges();
                     }
@@ -199,16 +202,11 @@ namespace TestsApp.Controllers
                     item.Respuesta.ToList();
                 //--------------------------------------
                 //Para visualizar las marcadas (en caso existan) de la primera respuesta
-                Pregunta primera = examen.Pregunta.ElementAt(0);
-                //if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == primera.Id && r.IdUsuario == idUsuario) != null)
+                //Pregunta primera = examen.Pregunta.ElementAt(0);
+                Pregunta primera = exUsua.IdPreguntaActual == 0 ? examen.Pregunta.ElementAt(0) : examen.Pregunta.First(r => r.Id == exUsua.IdPreguntaActual);
                 if (db.PreguntaUsuario.FirstOrDefault(r => r.IdPregunta == primera.Id && r.IdExamenUsuario == exUsua.Id) != null)
-                {
                     foreach (var rpta in primera.Respuesta)
-                    {
-                        //rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdUsuario == idUsuario).Marcada;
                         rpta.Marcada = db.RespuestaUsuario.First(r => r.IdRespuesta == rpta.Id && r.IdExamenUsuario == exUsua.Id).Marcada;
-                    }
-                }
                 //--------------------------------------------------------------------
                 //Actualizar Estado de ExamenUsuario:
 
@@ -354,8 +352,27 @@ namespace TestsApp.Controllers
             return PartialView("AsignarAsterPopUpPartial", ListaExamenUsuarioAsignar);
         }
 
-        //
-        // GET: /Examen/Create
+        public ActionResult ChangeDate(int id = 0)
+        {
+            Examen ex = db.Examen.Find(id);
+            if (ex != null)
+                return PartialView("ChangeDateExamenPartial", ex);
+            else
+                return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeDate(Examen examen)
+        {
+            Examen ex = db.Examen.Find(examen.Id);
+            if (ex != null)
+            {
+                db.Entry(examen).State = EntityState.Detached;
+                ex.FechaEjecucion = examen.FechaEjecucion;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Publish(int id = 0)
         {
@@ -377,7 +394,7 @@ namespace TestsApp.Controllers
                     List<UserProfile> usuariosSolucion = db.UserProfile.Where(r => r.IdLinea == examen.Producto.IdLinea).ToList();
                     foreach (UserProfile u in usuariosSolucion)
                     {
-                        ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0 };
+                        ExamenUsuario nuevoExamenUsuario = new ExamenUsuario() { IdExamen = examen.Id, IdUsuario = u.UserId, Estado = 0, IdPreguntaActual = 0 };
                         db.ExamenUsuario.Add(nuevoExamenUsuario);
                     }
                     //enviarAlertaPublicacion(usuariosSolucion, examen);
@@ -410,6 +427,46 @@ namespace TestsApp.Controllers
                 Credentials = new NetworkCredential("unimed.learning@gmail.com", "learningapp")
             };
             client.Send(msg);
+        }
+
+        public ActionResult Clone(int id = 0)
+        {
+            Examen ex = db.Examen.Find(id);
+            if (ex != null)
+            {
+                Session.Remove("ListaPreguntas");
+                Examen modelo = new Examen() { IdTipo = ex.IdTipo, IdProducto = ex.IdProducto, FechaEjecucion = ex.FechaEjecucion, PuntajeMaximo = ex.PuntajeMaximo, TiempoMaximo = ex.TiempoMaximo, Titulo = ex.Titulo };
+                List<Pregunta> listaPreguntasTemp = ex.Pregunta.ToList();                
+                for (int i = 0; i < listaPreguntasTemp.Count; i++)
+                {
+                    Pregunta prg = new Pregunta()
+                    {
+                        IdTipoPregunta = listaPreguntasTemp[i].IdTipoPregunta,
+                        Orden = listaPreguntasTemp[i].Orden,
+                        Puntaje = listaPreguntasTemp[i].Puntaje,
+                        Texto = listaPreguntasTemp[i].Texto,
+                        CantidadRespuesta = listaPreguntasTemp[i].CantidadRespuesta
+                    };
+
+                    List<Respuesta> listaRespuestasTemp = listaPreguntasTemp[i].Respuesta.ToList();
+                    for (int j = 0; j < listaRespuestasTemp.Count; j++)
+                    {
+                        Respuesta rpta = new Respuesta()
+                        {
+                            EsCorrecta = listaRespuestasTemp[j].EsCorrecta,
+                            Orden = listaRespuestasTemp[j].Orden,
+                            Marcada = listaRespuestasTemp[j].Marcada,
+                            Puntaje = listaRespuestasTemp[j].Puntaje,
+                            Texto = listaRespuestasTemp[j].Texto
+                        };
+                        prg.Respuesta.Add(rpta);
+                    }
+                    ListaPreguntas.Add(prg);
+                }
+                modelo.Pregunta = ListaPreguntas;
+                return View("Create", modelo);
+            }
+            return HttpNotFound();
         }
 
         public ActionResult Create(int id = 0, int ite = 0)
@@ -578,9 +635,10 @@ namespace TestsApp.Controllers
             {
                 return HttpNotFound();
             }
+            indexParent = indexParent - 1;
             Respuesta rptaEliminar = ListaPreguntas[indexParent].Respuesta.ToList()[indexRespuesta];
             ListaPreguntas[indexParent].Respuesta.Remove(rptaEliminar);
-            
+
             for (int i = 1; i <= ListaPreguntas[indexParent].Respuesta.Count; i++)
                 ListaPreguntas[indexParent].Respuesta.ToList()[i - 1].Orden = i;
             return PartialView("RespuestaPartial", ListaPreguntas[indexParent]);
@@ -661,6 +719,7 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult CreateRespuesta(string texto, int indexParent, IEnumerable<int> respuestas)
         {
+            indexParent = indexParent - 1;
             int idtipoPreg = ListaPreguntas[indexParent].IdTipoPregunta.Value;
             var tipoPreg = db.TipoPregunta.First(r => r.Id == idtipoPreg);
             Respuesta rpta = new Respuesta { Texto = texto };
@@ -674,6 +733,7 @@ namespace TestsApp.Controllers
         [HttpPost]
         public ActionResult ChangeStateRespuesta(int indexRespuesta, int indexPregunta, bool ischecked)
         {
+            indexPregunta = indexPregunta - 1;
             if (ischecked)
                 ListaPreguntas[indexPregunta].Respuesta.ToList()[indexRespuesta].EsCorrecta = 1;
             else

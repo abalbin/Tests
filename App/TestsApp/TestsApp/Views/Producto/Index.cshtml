@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Productos";
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
 }
 
 <h2>Productos</h2>
@@ -15,7 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
-            <th>Línea
+            <th>@linea
             </th>
             <th></th>
         </tr>

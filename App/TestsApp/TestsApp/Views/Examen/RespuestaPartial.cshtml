@@ -17,7 +17,7 @@ else
             {
                 case "Checkbox":
             <li class="respuesta">
-                <input type="checkbox" data-id="@Model.Id" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto <a data-id="@Model.Id" class="remove" onclick="eliminarRespuesta(@(i - 1), this)" title="Eliminar"><i class="icon-remove"></i></a></li>
+                <input type="checkbox" data-id="@Model.Orden" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto <a data-id="@Model.Orden" class="remove" onclick="eliminarRespuesta(@(i-1), this)" title="Eliminar"><i class="icon-remove"></i></a></li>
                     break;
                 case "Textarea":
             <li>
@@ -38,8 +38,8 @@ else
 { 
     <div class="row-fluid">
         <div class="input-append">
-            <input type="text" id="@("txtRespuesta" + Model.Id)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
-            <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Id)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
+            <input type="text" id="@("txtRespuesta" + Model.Orden)" placeholder="Texto de la Respuesta" class="span6" @(disableSave ? "disabled" : string.Empty) />
+            <button type="button" id="GuardarPregunta" class="btn" onclick="GuardarRespuesta_Click(@Model.Orden)" @(disableSave ? "disabled" : string.Empty)>Guardar</button>
         </div>
     </div>
 }

@@ -1,11 +1,12 @@
 ﻿@model TestsApp.Models.Linea
 
 @{
+    string linea = new TestsApp.Models.TestsAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
     ViewBag.Title = "Delete";
 }
 <h3>¿Estás seguro que deseas eliminar este registro?</h3>
 <fieldset>
-    <legend>Linea</legend>
+    <legend>@linea</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Nombre):

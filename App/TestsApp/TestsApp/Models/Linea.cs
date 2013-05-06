@@ -18,6 +18,7 @@ namespace TestsApp.Models
         {
             this.UserProfile = new HashSet<UserProfile>();
             this.Producto = new HashSet<Producto>();
+            this.Documento = new HashSet<Documento>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,6 @@ namespace TestsApp.Models
     
         public virtual ICollection<UserProfile> UserProfile { get; set; }
         public virtual ICollection<Producto> Producto { get; set; }
+        public virtual ICollection<Documento> Documento { get; set; }
     }
 }

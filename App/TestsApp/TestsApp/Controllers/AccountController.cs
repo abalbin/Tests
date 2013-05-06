@@ -158,6 +158,12 @@ namespace TestsApp.Controllers
         }
 
         [Authorize]
+        public ActionResult ChangePass()
+        {            
+            return View();
+        }
+
+        [Authorize]
         public ActionResult Edit(int id)
         {
             UserProfile user = db.UserProfile.Find(id);
@@ -320,6 +326,7 @@ namespace TestsApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Manage(LocalPasswordModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -342,40 +349,16 @@ namespace TestsApp.Controllers
 
                     if (changePasswordSucceeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                        ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña es inválida");
                     }
                 }
             }
-            else
-            {
-                // User does not have a local password so remove any validation errors caused by a missing
-                // OldPassword field
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    catch (Exception e)
-                    {
-                        ModelState.AddModelError("", e);
-                    }
-                }
-            }
-
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("ChangePass", model);
         }
 
         //

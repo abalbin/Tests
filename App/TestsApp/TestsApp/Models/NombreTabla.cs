@@ -12,18 +12,10 @@ namespace TestsApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Documento
+    public partial class NombreTabla
     {
-        public Documento()
-        {
-            this.Linea = new HashSet<Linea>();
-        }
-    
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public string Ruta { get; set; }
-    
-        public virtual ICollection<Linea> Linea { get; set; }
+        public string Tabla { get; set; }
+        public string NombreMostrar { get; set; }
     }
 }

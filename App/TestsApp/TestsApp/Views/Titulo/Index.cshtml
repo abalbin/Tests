@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TestsApp.Models.NombreTabla>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Configurar Títulos</h2>
+
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                Título
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreMostrar)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id })                
+            </td>
+        </tr>
+    }
+
+</table>

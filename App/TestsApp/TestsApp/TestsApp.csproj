@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\TipoPreguntaController.cs" />
+    <Compile Include="Controllers\TituloController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -217,6 +218,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelTestsApp.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NombreTabla.cs">
+      <DependentUpon>ModelTestsApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pregunta.cs">
       <DependentUpon>ModelTestsApp.tt</DependentUpon>
@@ -632,7 +636,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\ChangePass.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
@@ -695,6 +699,12 @@
     <Content Include="Views\Producto\Edit.cshtml" />
     <Content Include="Views\Producto\Delete.cshtml" />
     <Content Include="Views\Examen\ChangeScorePartial.cshtml" />
+    <Content Include="Views\Titulo\Index.cshtml" />
+    <Content Include="Views\Titulo\Details.cshtml" />
+    <Content Include="Views\Titulo\Create.cshtml" />
+    <Content Include="Views\Titulo\Edit.cshtml" />
+    <Content Include="Views\Titulo\Delete.cshtml" />
+    <Content Include="Views\Examen\ChangeDateExamenPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

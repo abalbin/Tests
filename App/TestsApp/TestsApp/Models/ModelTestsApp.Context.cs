@@ -41,5 +41,6 @@ namespace TestsApp.Models
         public DbSet<Pregunta> Pregunta { get; set; }
         public DbSet<PuntajeAsesoria> PuntajeAsesoria { get; set; }
         public DbSet<Documento> Documento { get; set; }
+        public DbSet<NombreTabla> NombreTabla { get; set; }
     }
 }

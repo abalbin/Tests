@@ -21,6 +21,11 @@ namespace TestsApp.Controllers
 
         public ActionResult Index()
         {
+            if (!User.IsInRole("Administrador"))
+            {
+                UserProfile usuario = db.UserProfile.Where(r => r.UserName == User.Identity.Name).First();
+                return View(db.Documento.Where(r => r.Linea.Any(l => l.Id == usuario.IdLinea)).ToList());
+            }
             return View(db.Documento.ToList());
         }
 
@@ -49,7 +54,7 @@ namespace TestsApp.Controllers
         // POST: /Documento/Create
 
         [HttpPost]
-        public ActionResult Create(Documento documento, HttpPostedFileBase file)
+        public ActionResult Create(Documento documento, HttpPostedFileBase file, string[] IdLinea = null)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +68,10 @@ namespace TestsApp.Controllers
                     file.SaveAs(path);
                     documento.Ruta = fileName;
                 }
+                if (IdLinea != null)
+                    foreach (string s in IdLinea)
+                        documento.Linea.Add(db.Linea.AsEnumerable().First(l => l.Id == Convert.ToInt32(s)));
+
                 db.Documento.Add(documento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
