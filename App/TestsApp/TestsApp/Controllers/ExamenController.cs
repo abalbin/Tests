@@ -38,9 +38,9 @@ namespace TestsApp.Controllers
             else
             {
                 if (esGerente)
-                    examenes = db.Examen.Where(e => e.IdTipo == 2).ToList();
+                    examenes = db.Examen.Where(e => e.IdTipo == 2 && e.IdEstado == 3).ToList();
                 else
-                    examenes = db.ExamenUsuario.Where(e => e.IdUsuario == us.UserId && e.Examen.IdTipo == 1).Select(e => e.Examen).ToList();
+                    examenes = db.ExamenUsuario.Where(e => e.IdUsuario == us.UserId && e.Examen.IdTipo == 1 && e.Examen.IdEstado == 3).Select(e => e.Examen).ToList();
             }
             return View(examenes);
         }
