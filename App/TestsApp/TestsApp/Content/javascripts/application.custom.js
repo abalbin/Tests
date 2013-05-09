@@ -16,6 +16,11 @@ $(function () {
     $(":radio").uniform();
     $(":checkbox").uniform();
     $("input[type='checkbox'], input[type='radio']").uniform();
+    if ($(".datepickerAsesoria").length) {
+        $('.datepickerAsesoria').datepicker().on('changeDate', function (ev) {
+            alert(ev.date);
+        });
+    }
     if ($(".datepicker").length) {
         $('.datepicker').datepicker();
     }

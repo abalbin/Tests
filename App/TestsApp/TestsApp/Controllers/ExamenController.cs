@@ -232,7 +232,7 @@ namespace TestsApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Give(Pregunta pregunta, TimeSpan TiempoTranscurrido, int IdAster = 0)
+        public ActionResult Give(Pregunta pregunta, TimeSpan TiempoTranscurrido, int IdAster = 0, string FechaAsesoria = "")
         {
             Pregunta current = db.Pregunta.FirstOrDefault(r => r.Id == pregunta.Id);
             UserProfile user = db.UserProfile.First(r => r.UserName == User.Identity.Name);
@@ -257,10 +257,25 @@ namespace TestsApp.Controllers
                     exUsuario.Tiempo = TiempoTranscurrido;
                     exUsuario.Estado = 2;
                     if (examenHelp.IdTipo == 2)
+                    {
                         exUsuario.IdAster = IdAster;
-                    db.SaveChanges();
-                    //return RedirectToAction("Result", new { idExamen = exUsuario.IdExamen, idUsuario = exUsuario.IdUsuario });
-                    return RedirectToAction("Result", new { IdExamenUsuario = idExamenUsuario });
+                        if (FechaAsesoria != "")
+                        {
+                            string[] dates = FechaAsesoria.Split('/');
+                            DateTime dtFechaAsesoria = new DateTime(Convert.ToInt32(dates[2]), Convert.ToInt32(dates[1]), Convert.ToInt32(dates[0]));
+                            exUsuario.FechaInicio = dtFechaAsesoria;
+                        }
+                    }
+                    try
+                    {
+                        db.SaveChanges();
+                        //return RedirectToAction("Result", new { idExamen = exUsuario.IdExamen, idUsuario = exUsuario.IdUsuario });
+                        return RedirectToAction("Result", new { IdExamenUsuario = idExamenUsuario });
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Give", new { id = examenHelp.Id });
+                    }
                 }
                 else
                     return HttpNotFound();

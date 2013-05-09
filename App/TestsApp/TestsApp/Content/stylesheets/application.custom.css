@@ -1,101 +1,290 @@
 ﻿li.span6:nth-child(2n+1), li.span12
 {
-    margin-left: 0 !important;
+	margin-left: 0 !important;
 }
 
 #loading-div
 {
-    position: absolute;
-    display: none;
+	position: absolute;
+	display: none;
 }
 
 .centered
 {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .center-div
 {
-    margin: 0 auto !important;
+	margin: 0 auto !important;
 }
 
 .row-margin-bottom-regular
 {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .rightAnswer
 {
-    color: green;
+	color: green;
 }
 
 .wrongAnswer
 {
-    color: red;
+	color: red;
 }
 
 .rotate
 {
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-    -moz-transform: rotate(-10deg);
-    -ms-transform: rotate(-10deg);
-    -o-transform: rotate(-10deg);
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
-    /* Firefox */
-    /* IE */
-    /* Internet Explorer */
-    /* Opera */
-    /* Safari */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	-moz-transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg);
+	-o-transform: rotate(-10deg);
+	-webkit-transform: rotate(-10deg);
+	transform: rotate(-10deg);
+	/* Firefox */
+	/* IE */
+	/* Internet Explorer */
+	/* Opera */
+	/* Safari */
 }
 
 .score
 {
-    color: #FC4B42;
-    font-style: italic;
-    font-size: 22px;
+	color: #FC4B42;
+	font-style: italic;
+	font-size: 22px;
 }
 
 .table-striped tbody tr.DTTT_selected td, .table-striped tbody tr.DTTT_selected th
 {
-    background-color: #bde993;
+	background-color: #bde993;
 }
 
 .DTTT_selectable tbody tr
 {
-    cursor: pointer;
+	cursor: pointer;
 }
 
-.datepicker
+.datepickerAsesoria
 {
-    z-index: 1060 !important;
+	z-index: 1060 !important;
 }
 
 ul.inline, ol.inline
 {
-    margin-left: 0;
-    list-style: none;
+	margin-left: 0;
+	list-style: none;
 }
 
-    ul.inline > li, ol.inline > li
-    {
-        display: inline-block;
-        padding-right: 5px;
-        padding-left: 5px;
-    }
+	ul.inline > li, ol.inline > li
+	{
+		display: inline-block;
+		padding-right: 5px;
+		padding-left: 5px;
+	}
 
 .masked-integer{
-    width: 50px !important;
+	width: 50px !important;
 }
 
 .remove {
-    visibility: hidden;
+	visibility: hidden;
 }
 
 .respuesta:hover .remove {
-    visibility: visible;
+	visibility: visible;
 }
 
 .validation-summary-errors{
-    color: red;
+	color: red;
 }
+
+.datepickerAsesoria
+{
+	top: 0;
+	left: 0;
+	padding: 4px;
+	margin-top: 1px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	/*.dow { border-top: 1px solid #ddd !important; }*/
+}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria:before
+	{
+		content: '';
+		display: inline-block;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-bottom: 7px solid #ccc;
+		border-bottom-color: rgba(0, 0, 0, 0.2);
+		position: absolute;
+		top: -7px;
+		left: 6px;
+	}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria:after
+	{
+		content: '';
+		display: inline-block;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-bottom: 6px solid #ffffff;
+		position: absolute;
+		top: -6px;
+		left: 7px;
+	}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria > div
+	{
+		display: none;
+	}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria table
+	{
+		width: 100%;
+		margin: 0;
+	}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria td, .datepickerAsesoria th
+	{
+		text-align: center;
+		width: 20px;
+		height: 20px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+	}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria td.day:hover
+		{
+			background: #eeeeee;
+			cursor: pointer;
+		}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria td.old, .datepickerAsesoria td.new
+		{
+			color: #999999;
+		}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria td.active, .datepickerAsesoria td.active:hover
+		{
+			background-color: #006dcc;
+			background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+			background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+			background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+			background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+			background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+			background-image: linear-gradient(top, #0088cc, #0044cc);
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+			border-color: #0044cc #0044cc #002a80;
+			border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+			filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+			color: #fff;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		}
+
+			/* line 8, datepicker.css.scss */
+			.datepickerAsesoria td.active:hover, .datepickerAsesoria td.active:hover:hover, .datepickerAsesoria td.active:active, .datepickerAsesoria td.active:hover:active, .datepickerAsesoria td.active.active, .datepickerAsesoria td.active:hover.active, .datepickerAsesoria td.active.disabled, .datepickerAsesoria td.active:hover.disabled, .datepickerAsesoria td.active[disabled], .datepickerAsesoria td.active:hover[disabled]
+			{
+				background-color: #0044cc;
+			}
+
+				/* line 8, datepicker.css.scss */
+				.datepickerAsesoria td.active:active, .datepickerAsesoria td.active:hover:active, .datepickerAsesoria td.active.active, .datepickerAsesoria td.active:hover.active
+				{
+					background-color: #003399 \9;
+				}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria td span
+		{
+			display: block;
+			width: 47px;
+			height: 54px;
+			line-height: 54px;
+			float: left;
+			margin: 2px;
+			cursor: pointer;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+
+			/* line 8, datepicker.css.scss */
+			.datepickerAsesoria td span:hover
+			{
+				background: #eeeeee;
+			}
+
+			/* line 8, datepicker.css.scss */
+			.datepickerAsesoria td span.active
+			{
+				background-color: #006dcc;
+				background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+				background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+				background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+				background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+				background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+				background-image: linear-gradient(top, #0088cc, #0044cc);
+				background-repeat: repeat-x;
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+				border-color: #0044cc #0044cc #002a80;
+				border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+				filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+				color: #fff;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			}
+
+				/* line 8, datepicker.css.scss */
+				.datepickerAsesoria td span.active:hover, .datepickerAsesoria td span.active:active, .datepickerAsesoria td span.active.active, .datepickerAsesoria td span.active.disabled, .datepickerAsesoria td span.active[disabled]
+				{
+					background-color: #0044cc;
+				}
+
+				/* line 8, datepicker.css.scss */
+				.datepickerAsesoria td span.active:active, .datepickerAsesoria td span.active.active
+				{
+					background-color: #003399 \9;
+				}
+
+			/* line 8, datepicker.css.scss */
+			.datepickerAsesoria td span.old
+			{
+				color: #999999;
+			}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria th.switch
+		{
+			width: 145px;
+		}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria th.next, .datepickerAsesoria th.prev
+		{
+			font-size: 19.5px;
+		}
+
+	/* line 8, datepicker.css.scss */
+	.datepickerAsesoria thead tr:first-child th
+	{
+		cursor: pointer;
+	}
+
+		/* line 8, datepicker.css.scss */
+		.datepickerAsesoria thead tr:first-child th:hover
+		{
+			background: #eeeeee;
+		}

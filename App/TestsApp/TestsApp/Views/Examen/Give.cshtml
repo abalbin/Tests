@@ -26,7 +26,7 @@
                 List<TestsApp.Models.UserProfile> listaAster = new List<TestsApp.Models.UserProfile>();
                 List<TestsApp.Models.Linea> listaLineas = new TestsApp.Models.TestsAppBDEntities().Linea.ToList();
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span12">
                         <div class="input full-width">
                             <h1>
                                 @Model.Titulo
@@ -34,25 +34,40 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <label data-type="editable" data-for="#ddlAster">@linea:</label>
-                                @Html.DropDownList("IdLinea", new SelectList(listaLineas, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <label data-type="editable" data-for="#ddlAster">@linea:</label>
+                                        @Html.DropDownList("IdLinea", new SelectList(listaLineas, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },
                                                            { "id", "ddlLinea"}
                                                        })
-                            </div>
-                            <div class="span6">
-                                <label data-type="editable" data-for="#ddlAster">Aster:</label>
-                                @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}", u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                    </div>
+                                    <div class="span6">
+                                        <label data-type="editable" data-for="#ddlAster">Aster:</label>
+                                        @Html.DropDownList("IdAster", new SelectList(from u in listaAster select new { Id = u.UserId, Nombre = string.Format("{0} {1}", u.FirstName, u.LastName) }, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },
                                                            { "id", "ddlAster"}
                                                        })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <label class="control-label" for="txtFechaEjecucion">
+                                    Fecha de Asesoría:
+                                </label>
+                                @Html.ValidationMessageFor(model => model.FechaEjecucion)
+                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
+                                    @Html.TextBox("txtFechaAsesoria", DateTime.Now.ToString("dd/MM/yyyy"), "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaAsesoria" })
+                                    <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             }
             else
@@ -106,6 +121,7 @@
                     int idPregActual = exUsua == null ? 0 : exUsua.IdPreguntaActual.Value;
                     
                     @Html.HiddenFor(m => m.TiempoTranscurrido, new { id = "hdn-TiempoTranscurrido" })
+                    @Html.Hidden("FechaAsesoria", "", new { id = "hdnFechaAsesoria" })
                     <input type="hidden" id="IdAster" name="IdAster" />
                     <div id="PreguntasContainer">
                         @Html.Partial("GivePreguntaPartial", idPregActual == 0 ? Model.Pregunta.ElementAt(0) : Model.Pregunta.First(r => r.Id == idPregActual))
@@ -153,6 +169,7 @@
         });
     }
     function FinishTest() {
+        $("#hdnFechaAsesoria").val($("#txtFechaAsesoria").val());
         $('.btn-terminar-examen-hidden').click();
     }
     function startingAjax() {
@@ -186,6 +203,10 @@
     }
 
     $(function () {
+        $("#txtFechaAsesoria").change(
+        function (event) {
+            alert($(this).val());
+        });
         $("#ddlLinea").change(
         function () {
             loadAster(this);
