@@ -556,6 +556,8 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Examen\GivePreguntaPartial.cshtml" />
     <Content Include="Views\Examen\ElegirTipoExamenPopUpPartial.cshtml" />
+    <None Include="Properties\PublishProfiles\learning-unimed - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\learning-unimed - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\SiscomeFTP.pubxml" />
     <Content Include="Views\Report\AsesoriaTerreno.cshtml" />
