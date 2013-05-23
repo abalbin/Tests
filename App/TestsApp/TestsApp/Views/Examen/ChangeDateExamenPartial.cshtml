@@ -12,8 +12,8 @@
                     Fecha de ejecución:
                 </label>
                 @Html.ValidationMessageFor(model => model.FechaEjecucion)
-                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                    @Html.TextBoxFor(model => model.FechaEjecucion, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaEjecucion" })
+                <div class="input-append date datepicker" data-date="@Model.FechaEjecucion.Value.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                    @Html.TextBoxFor(model => model.FechaEjecucion, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaEjecucion", @readonly="" })
                     <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                 </div>
             </div>

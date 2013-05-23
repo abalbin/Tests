@@ -17,7 +17,7 @@
                         <strong>D</strong>eficiente:
                     </div>
                     <div class="span6">
-                        @Html.TextBoxFor(m => m.D, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                        @Html.TextBoxFor(m => m.D, new Dictionary<string, object> { { "class", "masked-decimal" }, { "data-meiomask", "reverse.decimal-us" }, { "data-meiomask-options", "{maxLength: 8, precision: 4}" } })
                     </div>
                 </div>
                 <div class="input full-width">
@@ -25,7 +25,7 @@
                         <strong>A</strong>ceptable:
                     </div>
                     <div class="span6">
-                        @Html.TextBoxFor(m => m.A, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                        @Html.TextBoxFor(m => m.A, new Dictionary<string, object> { { "class", "masked-decimal" }, { "data-meiomask", "reverse.decimal-us" }, { "data-meiomask-options", "{maxLength: 8, precision: 4}" } })
                     </div>
                 </div>
                 <div class="input full-width">
@@ -33,7 +33,7 @@
                         <strong>B</strong>ueno:
                     </div>
                     <div class="span6">
-                        @Html.TextBoxFor(m => m.B, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                        @Html.TextBoxFor(m => m.B, new Dictionary<string, object> { { "class", "masked-decimal" }, { "data-meiomask", "reverse.decimal-us" }, { "data-meiomask-options", "{maxLength: 8, precision: 4}" } })
                     </div>
                 </div>
                 <div class="input full-width">
@@ -41,7 +41,7 @@
                         <strong>S</strong>obresaliente:
                     </div>
                     <div class="span6">
-                        @Html.TextBoxFor(m => m.S, new Dictionary<string, object> { { "class", "masked-integer" }, { "data-meiomask", "reverse.integer" }, { "data-meiomask-options", "{maxLength: 3}" } })
+                        @Html.TextBoxFor(m => m.S, new Dictionary<string, object> { { "class", "masked-decimal" }, { "data-meiomask", "reverse.decimal-us" }, { "data-meiomask-options", "{maxLength: 8, precision: 4}" } })
                     </div>
                 </div>
             </div>

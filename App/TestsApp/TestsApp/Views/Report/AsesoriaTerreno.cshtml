@@ -26,14 +26,14 @@
             <div class="span12">
                 <div class="row-fluid">
                     <div class="span6">
-                        <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                            @Html.TextBox("txtDesde", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde" })
+                        <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                            @Html.TextBox("txtDesde", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly="" })
                             <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                         </div>
                     </div>
                     <div class="span6">
-                        <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                            @Html.TextBox("txtHasta", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoHasta" })
+                        <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                            @Html.TextBox("txtHasta", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoHasta", @readonly="" })
                             <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                         </div>
                     </div>

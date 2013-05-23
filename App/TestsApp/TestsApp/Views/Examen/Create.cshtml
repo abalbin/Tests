@@ -49,8 +49,8 @@
                                     Fecha de ejecución:
                                 </label>
                                 @Html.ValidationMessageFor(model => model.FechaEjecucion)
-                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                                    @Html.TextBoxFor(model => model.FechaEjecucion, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaEjecucion" })
+                                <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                                    @Html.TextBoxFor(model => model.FechaEjecucion, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaEjecucion", @readonly="" })
                                     <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                                 </div>
                             </div>
@@ -232,7 +232,7 @@
             success: function (data) {
                 $("#modal-puntajeAsesoria").html(data);
                 $("#modal-puntajeAsesoria").modal('show');
-                $$('[class=masked-integer]').each(function (input) {
+                $$('[class=masked-decimal]').each(function (input) {
                     input.meiomask(input.get('data-meiomask'), JSON.decode(input.get('data-meiomask-options')));
                 });
                 return false;

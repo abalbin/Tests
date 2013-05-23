@@ -17,12 +17,12 @@ namespace TestsApp.Models
     {
         public UserProfile()
         {
-            this.ExamenUsuario = new HashSet<ExamenUsuario>();
-            this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
             this.RespuestaUsuario = new HashSet<RespuestaUsuario>();
+            this.webpages_Roles = new HashSet<webpages_Roles>();
+            this.ExamenUsuario = new HashSet<ExamenUsuario>();
             this.ExamenUsuario1 = new HashSet<ExamenUsuario>();
             this.ExamenUsuario2 = new HashSet<ExamenUsuario>();
-            this.webpages_Roles = new HashSet<webpages_Roles>();
+            this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
         }
 
         [Key]
@@ -37,12 +37,12 @@ namespace TestsApp.Models
         public string Mail { get; set; }
         public Nullable<int> IdLinea { get; set; }
     
-        public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
-        public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
-        public virtual ICollection<ExamenUsuario> ExamenUsuario1 { get; set; }
-        public virtual ICollection<ExamenUsuario> ExamenUsuario2 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario1 { get; set; }
+        public virtual ICollection<ExamenUsuario> ExamenUsuario2 { get; set; }
+        public virtual ICollection<PreguntaUsuario> PreguntaUsuario { get; set; }
     }
 }

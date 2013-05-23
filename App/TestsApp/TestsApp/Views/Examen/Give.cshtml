@@ -60,8 +60,8 @@
                                     Fecha de Asesoría:
                                 </label>
                                 @Html.ValidationMessageFor(model => model.FechaEjecucion)
-                                <div class="input-append date datepicker" data-date="@DateTime.Now" data-date-format="dd/mm/yyyy">
-                                    @Html.TextBox("txtFechaAsesoria", DateTime.Now.ToString("dd/MM/yyyy"), "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaAsesoria" })
+                                <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                                    @Html.TextBox("txtFechaAsesoria", DateTime.Now.ToString("dd/MM/yyyy"), "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtFechaAsesoria", @readonly=""})
                                     <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
                                 </div>
                             </div>

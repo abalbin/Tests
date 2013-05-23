@@ -21,8 +21,8 @@ namespace TestsApp.Models
         public bool Marcada { get; set; }
         public Nullable<int> IdExamenUsuario { get; set; }
     
-        public virtual Respuesta Respuesta { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual ExamenUsuario ExamenUsuario { get; set; }
+        public virtual Respuesta Respuesta { get; set; }
     }
 }

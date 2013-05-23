@@ -21,7 +21,7 @@
     </thead>
     @foreach (var item in Model)
     {
-        string fecha = item.FechaInicio.Value.ToShortDateString();
+        string fecha = item.FechaInicio.Value.ToString("dd/MM/yyyy");
         string onClick = string.Format("showChart({0}, {1})", item.IdEjecutivo, item.IdAster);
         <tr>
             <td>@item.Id</td>

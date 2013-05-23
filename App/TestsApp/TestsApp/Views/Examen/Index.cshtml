@@ -63,6 +63,13 @@
 
     function showModalChangeDate() {
         $("#modal-changeDate-examen").modal('show');
+        if ($("#modal-changeDate-examen").find(".datepicker").length) {
+            $("#modal-changeDate-examen").find('.datepicker').datepicker();
+        }
+    }
+
+    function showModalChangeDateComplete() {
+        
     }
 
     $(function () {

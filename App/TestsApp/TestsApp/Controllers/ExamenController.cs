@@ -176,7 +176,7 @@ namespace TestsApp.Controllers
                 ExamenUsuario exUsua = db.ExamenUsuario.FirstOrDefault(r => r.IdExamen == examen.Id && r.IdUsuario == user.UserId);
                 if (exUsua == null && examen.IdTipo == 2)
                 {
-                    if (db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1) != null)
+                    if (db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1 &&r.IdExamen == examen.Id) != null)
                         exUsua = db.ExamenUsuario.FirstOrDefault(r => r.IdEjecutivo == user.UserId && r.Estado == 1 && r.IdExamen == examen.Id);
                     else
                     {
