@@ -2,7 +2,9 @@
 @{bool disableSave = false;}
 @if (Model.Respuesta.Count() == 0)
 { 
-    <div class="span12">No has agregado ninguna respuesta</div>      
+    <div class="row-fluid">
+        <div class="span12">No has agregado ninguna respuesta</div>
+    </div>  
 }
 else
 {
@@ -17,7 +19,7 @@ else
             {
                 case "Checkbox":
             <li class="respuesta">
-                <input type="checkbox" data-id="@Model.Orden" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto <a data-id="@Model.Orden" class="remove" onclick="eliminarRespuesta(@(i-1), this)" title="Eliminar"><i class="icon-remove"></i></a></li>
+                <input type="checkbox" data-id="@Model.Orden" onchange="ChkRespuesta_Click(@(i - 1),this)" @(item.EsCorrecta == 1 ? "checked" : string.Empty) />@item.Texto <a data-id="@Model.Orden" class="remove" onclick="eliminarRespuesta(@(i - 1), this)" title="Eliminar"><i class="icon-remove"></i></a></li>
                     break;
                 case "Textarea":
             <li>
